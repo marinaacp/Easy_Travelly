@@ -1,5 +1,7 @@
 class Trip < ApplicationRecord
   belongs_to :user
-  belongs_to :flight
-  belongs_to :hotel
+  has_one :flight
+  has_one :hotel
+
+  validates :start_date, :end_date, :location, :budget, presence: true
 end
