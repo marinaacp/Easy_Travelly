@@ -1,5 +1,4 @@
-class TripsController < ApplicationController
-
+class BookingsController < ApplicationController
   def new
   end
 
@@ -20,5 +19,4 @@ class TripsController < ApplicationController
 
   def destroy
   end
-  
 end
