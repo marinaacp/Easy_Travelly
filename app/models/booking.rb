@@ -1,5 +1,5 @@
 class Booking < ApplicationRecord
   belongs_to :trip
-  belongs_to :hotel
-  belongs_to :flight
+  has_one :hotel
+  has_one :flight
 end
