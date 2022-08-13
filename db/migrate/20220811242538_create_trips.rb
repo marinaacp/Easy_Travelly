@@ -9,7 +9,6 @@ class CreateTrips < ActiveRecord::Migration[6.1]
       t.float :budget
       t.integer :pflight
       t.integer :photel
-      t.references :user, null: false, foreign_key: true
 
       t.timestamps
     end
