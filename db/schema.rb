@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 2022_08_12_003922) do
 
   create_table "trips", force: :cascade do |t|
     t.string "location"
+    t.string "destination"
     t.date "start_date"
     t.date "end_date"
     t.integer "travellers"
