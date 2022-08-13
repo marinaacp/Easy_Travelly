@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 2022_08_12_003922) do
     t.date "end_date"
     t.integer "travellers"
     t.float "budget"
-    t.integer "ptravel"
+    t.integer "pflight"
     t.integer "photel"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false

@@ -6,7 +6,7 @@ class CreateTrips < ActiveRecord::Migration[6.1]
       t.date :end_date
       t.integer :travellers
       t.float :budget
-      t.integer :ptravel
+      t.integer :pflight
       t.integer :photel
       t.references :user, null: false, foreign_key: true
 
