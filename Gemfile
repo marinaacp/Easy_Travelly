@@ -68,3 +68,6 @@ gem "geocoder"
 
 # To manage environment variables
 gem 'dotenv-rails', groups: [:development, :test]
+
+# A cryptographic hash function generator (X-signature for the API)
+gem 'digest'

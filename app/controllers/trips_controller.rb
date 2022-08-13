@@ -1,6 +1,8 @@
 class TripsController < ApplicationController
+  include Apitude
 
   def new
+    list_hotels('2022-12-15', '2022-12-16')
   end
 
   def create
@@ -20,5 +22,5 @@ class TripsController < ApplicationController
 
   def destroy
   end
-  
+
 end
