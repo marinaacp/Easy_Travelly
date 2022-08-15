@@ -1,0 +1,7 @@
+<% @hotels.each do |hotel| %>
+  <div class="card">
+    <h3><%= hotel['name'] %></h3>
+    <p><%= hotel['categoryName'] %></p>
+    <p><%= hotel['minRate'] %> <%= hotel['currency']  %></p>
+  </div>
+<% end %>

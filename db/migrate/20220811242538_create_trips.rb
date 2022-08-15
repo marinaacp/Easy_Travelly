@@ -7,8 +7,8 @@ class CreateTrips < ActiveRecord::Migration[6.1]
       t.date :end_date
       t.integer :travellers
       t.float :budget
-      t.integer :pflight
-      t.integer :photel
+      t.integer :pflight, default: 30
+      t.integer :photel, default: 40
 
       t.timestamps
     end

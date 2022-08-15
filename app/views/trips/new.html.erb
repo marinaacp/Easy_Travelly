@@ -1,0 +1,16 @@
+<div class="container my-4">
+  <h1>Create a trip</h1>
+  <hr>
+  <%= simple_form_for @trip do |f|
+  %>
+    <%= f.input :name, label:'Trip name' %>
+    <%= f.input :location, label:'From', placeholder: 'New York' %>
+    <%= f.input :destination, label:'To', placeholder: 'London' %>
+    <%= f.input :start_date %>
+    <%= f.input :end_date %>
+    <%= f.input :travellers, label: 'Number of travellers' %>
+    <%= f.input :budget, label:'Max budget' %>
+    <%= f.submit "Send", class: "btn btn-primary" %>
+  <% end %>
+
+</div>

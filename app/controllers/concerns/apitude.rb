@@ -4,7 +4,7 @@ require "net/http"
 require 'digest'
 
 module Apitude
-  def list_hotels(check_in, check_out)
+  def list_hotels(check_in, check_out, travellers, maxRate)
     url = URI("https://api.test.hotelbeds.com/hotel-api/1.0/hotels")
 
     https = Net::HTTP.new(url.host, url.port)
@@ -26,22 +26,20 @@ module Apitude
       'occupancies': [
         {
           "rooms": 1,
-          "adults": 2,
+          "adults": travellers,
           "children": 0
         }
       ],
       "destination": {
         "code": "LON"
+      },
+      "filter": {
+          "maxRate": maxRate
       }
     })
 
     response = https.request(request)
     response = JSON.parse(response.read_body)
-    puts '-------------------'
-    puts response['hotels']['hotels'].count
-    response['hotels']['hotels'].each do |hotel|
-      puts hotel['name']
-    end
-    puts '-------------------'
+    return response['hotels']['hotels'][0..10]
   end
 end

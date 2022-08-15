@@ -1,0 +1,11 @@
+<div class="container">
+  <h1><%= @trip.name %></h1>
+  <hr>
+  <% @trip.hotels.each do |hotel| %>
+    <div class="card p-2 my-2">
+      <h3><%= hotel.name %></h3>
+      <p><%= hotel.category %></p>
+      <p><%= hotel.price %> <%= hotel.currency %></p>
+    </div>
+  <% end %>
+</div>
