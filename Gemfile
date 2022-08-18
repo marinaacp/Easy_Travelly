@@ -64,7 +64,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Geocoding gem
-gem "geocoder"
+# gem "geocoder"
 
 # To manage environment variables
 gem 'dotenv-rails', groups: [:development, :test]

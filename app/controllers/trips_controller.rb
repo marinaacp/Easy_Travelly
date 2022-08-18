@@ -8,11 +8,8 @@ class TripsController < ApplicationController
   def create
     @trip = Trip.new(trip_params)
     @trip.user = current_user
-    if @trip.save
-      @hotels = list_hotels(@trip.start_date.to_s,
-                            @trip.end_date.to_s,
-                            @trip.travellers,
-                            @trip.budget * @trip.photel / 100)
+    if @trip.valid? && hotels(@trip)
+      @hotels = hotels(@trip)
       @hotels.each do |hotel|
         Hotel.create(
           trip: @trip,
@@ -26,6 +23,14 @@ class TripsController < ApplicationController
         )
       end
 
+      3.times do
+        Flight.create(
+          departure: @trip.location,
+          price: @trip.budget * @trip.pflight / 100 * [0.8, 0.7, 0.5].sample,
+          trip: @trip
+        )
+      end
+
       @booking = Booking.create(
         trip: @trip,
         hotel: @trip.hotels[0],
@@ -35,9 +40,9 @@ class TripsController < ApplicationController
           trip: @trip
         )
       )
-
       redirect_to @trip
     else
+      alert = 'No result found'
       render :new
     end
   end
@@ -49,6 +54,7 @@ class TripsController < ApplicationController
   end
 
   def index
+    @trips = Trip.where(user: current_user)
   end
 
   def show
@@ -61,6 +67,10 @@ class TripsController < ApplicationController
   private
 
   def trip_params
-    params.require(:trip).permit(:name, :location, :destination, :start_date, :end_date, :travellers, :budget)
+    params.require(:trip).permit(:name, :location, :destination, :start_date, :end_date, :adults, :rooms, :children, :budget)
+  end
+
+  def hotels(trip)
+    list_hotels(trip)
   end
 end

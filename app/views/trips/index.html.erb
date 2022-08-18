@@ -1,7 +1,8 @@
-<% @hotels.each do |hotel| %>
-  <div class="card">
-    <h3><%= hotel['name'] %></h3>
-    <p><%= hotel['categoryName'] %></p>
-    <p><%= hotel['minRate'] %> <%= hotel['currency']  %></p>
+<% @trips.each do |trip| %>
+  <div class="card m-3">
+    <h3><%= trip.name %></h3>
+    <p>Destination: <%= trip.destination %> </p>
+    <p>Hotel: <%= trip.booking.hotel.name %></p>
+    <%= link_to 'Edit', edit_booking_path(trip.booking), class: 'btn btn-primary'  %>
   </div>
 <% end %>
