@@ -42,7 +42,8 @@ class TripsController < ApplicationController
       )
       redirect_to @trip
     else
-      alert = 'No result found'
+      flash[:alert] = 'No result found'
+      @trip.budget_error
       render :new
     end
   end
