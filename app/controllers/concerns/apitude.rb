@@ -38,15 +38,18 @@ module Apitude
     })
 
     response = https.request(request)
-    response = JSON.parse(response.read_body)['hotels']['hotels']
 
-    if response.nil?
+    response = JSON.parse(response.read_body)
+
+    if response['error']
+      flash[:alert] = response['error']['message']
       return nil
-    else
-      return response[0..10] if response.count >= 10
-
-      return response
     end
+
+    response = response['hotels']['hotels']
+    return response[0..10] if response.count >= 10
+
+    return response
   end
 
   def countries_and_destinations
