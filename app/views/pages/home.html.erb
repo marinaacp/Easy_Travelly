@@ -27,3 +27,26 @@
     <p>Divirta-se sem preucupação</p>
   </div>
 </div>
+
+<h4 class="text-center mt-5 mb-3 titling">Destaque em:</h4>
+<div id="carouselExampleIndicators" class="carousel slide carousel-fade w-25 mx-auto carousel-home" data-bs-ride="true" data-aos="fade-left">
+  <div class="carousel-inner">
+    <div class="carousel-item active" data-bs-interval="5000">
+      <%= image_tag 'logo_ny_times.png', class:"d-block mx-auto carousel-item-home", alt:'logo1'  %>
+    </div>
+    <div class="carousel-item" data-bs-interval="5000">
+      <%= image_tag 'logo_folha.png', class:"d-block mx-auto carousel-item-home", alt:'logo2'  %>
+    </div>
+    <div class="carousel-item" data-bs-interval="5000">
+      <%= image_tag 'logo_correio.png', class:"d-block mx-auto carousel-item-home", alt:'logo3'  %>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
