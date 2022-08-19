@@ -1,15 +1,21 @@
-<% @trips.each do |trip| %>
-  <div class="card p-3 m-3 w-25 mx-auto">
-    <h3><%= trip.name %></h3>
-    <p>Destination: <%= trip.destination %> </p>
-    <p>From: <%= trip.location %> </p>
-    <p>Hotel: <%= trip.booking.hotel.name %></p>
-    <div class="d-flex">
-      <%= link_to 'Edit', edit_booking_path(trip.booking), class: 'btn btn-outline-primary w-50 mx-4'  %>
-      <%= link_to 'Delete', trip_path(trip),
-                            method: :delete,
-                            data: { confirm: "Are you sure?" },
-                            class: 'btn btn-outline-danger w-50 mx-4'  %>
-    </div>
-  </div>
-<% end %>
+<div class="container">
+  <% if @trips.empty? %>
+    <p>No trips yet</p>
+  <% else %>
+    <% @trips.each do |trip| %>
+      <div class="card p-3 m-3 w-25 mx-auto">
+        <h3><%= trip.name %></h3>
+        <p>Destination: <%= trip.destination %> </p>
+        <p>From: <%= trip.location %> </p>
+        <p>Hotel: <%= trip.booking.hotel.name %></p>
+        <div class="d-flex">
+          <%= link_to 'Edit', edit_booking_path(trip.booking), class: 'btn btn-outline-primary w-50 mx-4'  %>
+          <%= link_to 'Delete', trip_path(trip),
+                                method: :delete,
+                                data: { confirm: "Are you sure?" },
+                                class: 'btn btn-outline-danger w-50 mx-4'  %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
