@@ -1,4 +1,5 @@
 <h1> Easy Travelly </h1>
+<img src="/app/assets/images/favicon-32x32.png"
 
 An app designed to optimize your travelling plans, sticking to your <em>budget</em>!
 <br>
