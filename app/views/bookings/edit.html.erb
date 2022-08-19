@@ -1,0 +1,40 @@
+<div class="container my-5">
+  <h3> Edit <em><%= @booking.trip.name %></em></h3>
+  <hr>
+  <%= form_with url: @booking, method: :put do |form| %>
+  <div class="cards-hotels my-3">
+    <% @booking.trip.hotels.each do |hotel| %>
+        <% if @booking.hotel.id == hotel.id %>
+          <input type="radio" class="btn-check" name="hotels" id="hotel-<%= hotel.id %>" autocomplete="off" value="<%= hotel.id %>" checked>
+        <% else %>
+          <input type="radio" class="btn-check" name="hotels" id="hotel-<%= hotel.id %>" autocomplete="off" value="<%= hotel.id %>">
+        <% end %>
+        <label class="btn btn-outline-info" for="hotel-<%= hotel.id %>">
+            <%= hotel.name %>
+            <br>
+            <%= hotel.category %>
+            <br>
+            <%= hotel.price %> <%= hotel.currency  %>
+        </label>
+    <% end %>
+  </div>
+  <hr>
+  <div class="cards-hotels my-3">
+    <% @booking.trip.flights.each do |flight| %>
+        <% if @booking.flight.id == flight.id %>
+          <input type="radio" class="btn-check" name="flights" id="flight-<%= flight.id %>" autocomplete="off" value="<%= flight.id %>" checked >
+        <% else %>
+          <input type="radio" class="btn-check" name="flights" id="flight-<%= flight.id %>" autocomplete="off" value="<%= flight.id %>">
+        <% end %>
+        <label class="btn btn-outline-secondary" for="flight-<%= flight.id %>">
+            Flight #<%= flight.id %>
+            <br>
+            <%= flight.price %> $$
+        </label>
+    <% end %>
+  </div>
+  <input type="submit", value="Next", class="btn btn-outline-success">
+
+  <% end %>
+
+</div>
