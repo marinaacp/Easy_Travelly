@@ -10,12 +10,6 @@
   position: relative;
 }
 
-.card-horizontal .btn {
-  position: absolute;
-  bottom: 0px;
-  right: 0px;
-}
-
 .card-horizontal-blue {
   overflow: hidden;
   margin: 40px;
@@ -52,7 +46,6 @@
   margin: 20px;
   text-align: center;
 }
-
 
 @media(max-width: 1300px) {
   .card-horizontal-blue {

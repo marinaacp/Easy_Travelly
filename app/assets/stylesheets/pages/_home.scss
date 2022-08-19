@@ -14,16 +14,10 @@
 }
 
 .container-carousel-home {
-  height: 45vh;
+  height: 30vh;
   width: 40vw;
-  display: grid;
-  grid-template-columns: 1fr;
+  margin: 0 auto;
 }
-
-// .container-carousel-home h3{
-//   position: static;
-//   top: 0;
-// }
 
 @media(max-width: 768px) {
   .container-carousel-home{
