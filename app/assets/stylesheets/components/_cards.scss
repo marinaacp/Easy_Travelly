@@ -7,11 +7,18 @@
   margin: 20px;
   padding: 20px;
   position: center;
+  position: relative;
+}
+
+.card-horizontal .btn {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
 }
 
 .card-horizontal-blue {
   overflow: hidden;
-  margin: 20px;
+  margin: 40px;
   padding: 30px;
   position: center;
   background-color: $aqua-blue;

@@ -1,6 +1,6 @@
 <div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.5)), url(/assets/banner.jpg);">
   <div class="container">
-    <h1><strong>EasyTravelly:</strong> Viagem sem dor de cabeça!</h1>
+    <h1><strong>EasyTravelly:</strong> travel without worries!</h1>
     <br>
     <%= link_to 'Sign up!',new_user_registration_path , class:'btn btn-flat btn-primary' %>
   </div>
@@ -9,44 +9,47 @@
 <div class="d-flex justify-content-center">
   <div class="card-horizontal">
     <%= image_tag "woman_in_paris.jpg" %>
-    <p>Descomplique-se e se diverta no processo de montar uma viagem, organizando e juntando tudo em um local.</p>
+    <p>Uncomplicate and have fun in the process of putting together a trip and organizing it. Having all in one place.</p>
+    <%= link_to 'Start now!', user_session_path , class:'btn btn-flat btn-primary' %>
   </div>
 </div>
 
 <div class="card-horizontal-blue justify-content-center">
   <div>
     <%= image_tag "all_in_one_place.jpg", class: "image-with-description" %>
-    <p>Tudo em um único lugar</p>
+    <p>All in one place</p>
   </div>
   <div>
     <%= image_tag "budget.jpg", class: "image-with-description" %>
-    <p>Controle seu orçamento</p>
+    <p>Stick to your budget</p>
   </div>
   <div>
     <%= image_tag "friends_trip.jpg", class: "image-with-description" %>
-    <p>Divirta-se sem preucupação</p>
+    <p>Have fun without worry</p>
   </div>
 </div>
 
-<h4 class="text-center mt-5 mb-3 titling">Destaque em:</h4>
-<div id="carouselExampleIndicators" class="carousel slide carousel-fade w-25 mx-auto carousel-home" data-bs-ride="true" data-aos="fade-left">
-  <div class="carousel-inner">
-    <div class="carousel-item active" data-bs-interval="5000">
-      <%= image_tag 'logo_ny_times.png', class:"d-block mx-auto carousel-item-home", alt:'logo1'  %>
+<div class="container-carousel-home">
+  <h3 class="text-center mt-5 mb-3 titling">Destaque em:</h3>
+  <div id="carouselExampleIndicators" class="carousel slide carousel-fade w-25 mx-auto carousel-home" data-bs-ride="true" data-aos="fade-left">
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-bs-interval="5000">
+        <%= image_tag 'logo_ny_times.png', class:"d-block mx-auto carousel-item-home", alt:'logo1'  %>
+      </div>
+      <div class="carousel-item" data-bs-interval="5000">
+        <%= image_tag 'logo_folha.png', class:"d-block mx-auto carousel-item-home", alt:'logo2'  %>
+      </div>
+      <div class="carousel-item" data-bs-interval="5000">
+        <%= image_tag 'logo_correio.png', class:"d-block mx-auto carousel-item-home", alt:'logo3'  %>
+      </div>
     </div>
-    <div class="carousel-item" data-bs-interval="5000">
-      <%= image_tag 'logo_folha.png', class:"d-block mx-auto carousel-item-home", alt:'logo2'  %>
-    </div>
-    <div class="carousel-item" data-bs-interval="5000">
-      <%= image_tag 'logo_correio.png', class:"d-block mx-auto carousel-item-home", alt:'logo3'  %>
-    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
   </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
 </div>
