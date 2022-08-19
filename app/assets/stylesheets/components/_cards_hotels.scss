@@ -1,0 +1,17 @@
+.cards-hotels {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 16px;
+}
+
+@media(max-width: 992px) {
+  .cards-hotels {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media(max-width: 768px) {
+  .cards-hotels {
+    grid-template-columns: 1fr;
+  }
+}

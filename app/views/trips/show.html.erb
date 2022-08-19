@@ -1,0 +1,16 @@
+<div class="container">
+  <h1><%= @trip.name %></h1>
+  <hr>
+  <h2>Booking</h2>
+  <div class="card p-4 my-2">
+    <p>Hotel: <%= @trip.booking.hotel.name  %> | <%= @trip.booking.hotel.price.round(1) %> <%= @trip.booking.hotel.currency %></p>
+    <p>Flight #<%= @trip.booking.flight.id %>: <%= @trip.booking.flight.price.round(1)  %></p>
+    <hr>
+    <p>Budget : <%= @trip.budget.round(1) %></p>
+    <p>Budget left : <%= (@trip.budget - @trip.booking.flight.price - @trip.booking.hotel.price).round(1)  %> </p>
+  </div>
+
+  <%= link_to 'Edit', edit_booking_path(@trip.booking), class: 'btn btn-primary'  %>
+  <hr>
+
+</div>
