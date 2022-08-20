@@ -8,6 +8,9 @@
     <hr>
     <p>Budget : <%= @trip.budget.round(1) %></p>
     <p>Budget left : <%= (@trip.budget - @trip.booking.flight.price - @trip.booking.hotel.price).round(1)  %> </p>
+    <% @flights.each do |f| %>
+      <li><%= f.id %></li>
+    <% end %>
   </div>
 
   <%= link_to 'Edit', edit_booking_path(@trip.booking), class: 'btn btn-primary'  %>

@@ -4,7 +4,7 @@
   <%= simple_form_for @trip do |f|
   %>
     <%= f.input :name, label:'Trip name' %>
-    <%= f.input :location, label:'From', placeholder: 'New York' %>
+    <%= f.input :location, label:'From', placeholder: 'London', collection: ['LON','MAD','PAR']  %>
     <%= f.input :destination, label:'To', placeholder: 'London', collection: ['LON','MAD','PAR'] %>
     <%= f.input :start_date %>
     <%= f.input :end_date %>

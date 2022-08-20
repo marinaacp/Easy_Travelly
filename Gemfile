@@ -24,6 +24,9 @@ gem 'redis', '~> 4.0'
 # Gem to manage users authorization
 gem 'pundit'
 
+# Gem for flight API
+gem "duffel_api", "~> 0.3.0"
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
