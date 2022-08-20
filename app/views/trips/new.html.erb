@@ -5,7 +5,12 @@
   %>
     <%= f.input :name, label:'Trip name' %>
     <%= f.input :location, label:'From', placeholder: 'New York' %>
-    <%= f.input :destination, label:'To', placeholder: 'London', collection: ['LON','MAD','PAR'] %>
+    <%= f.input :destination, label:'To',
+                placeholder: 'London',
+                # input_html: { data}
+                collection: { 'Londres' => 'LON',
+                              'Madri' => 'MAD',
+                              'Paris' => 'PAR'} %>
     <%= f.input :start_date %>
     <%= f.input :end_date %>
     <%= f.input :adults, label: 'Number of adults', input_html: { min: '1'} %>
