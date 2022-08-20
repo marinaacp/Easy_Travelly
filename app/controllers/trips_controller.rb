@@ -1,8 +1,10 @@
 class TripsController < ApplicationController
+  before_action :set_trip, only: %i[show destroy]
   include Apitude
 
   def new
     @trip = Trip.new
+    authorize @trip
   end
 
   def create
@@ -48,6 +50,8 @@ class TripsController < ApplicationController
     else
       render :new
     end
+
+    authorize @trip
   end
 
   def edit
@@ -57,15 +61,14 @@ class TripsController < ApplicationController
   end
 
   def index
-    @trips = Trip.where(user: current_user)
+    #@trips = Trip.where(user: current_user)
+    @trips = policy_scope(Trip)
   end
 
   def show
-    @trip = Trip.find(params[:id])
   end
 
   def destroy
-    @trip = Trip.find(params[:id])
     @trip.destroy
 
     redirect_to trips_path
@@ -79,5 +82,10 @@ class TripsController < ApplicationController
 
   def hotels(trip)
     list_hotels(trip)
+  end
+
+  def set_trip
+    @trip = Trip.find(params[:id])
+    authorize @trip
   end
 end
