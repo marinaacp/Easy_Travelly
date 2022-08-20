@@ -2,12 +2,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 100px;
+  height: 80px;
   padding: 0px 50px;
-  color: $white;
+  color: $middle-gray;
+  background-color: white;
   position: absolute;
   bottom: 0;
   width: 100%;
+  margin-top: 100px;
 }
 
 .footer-links {
@@ -16,7 +18,7 @@
 }
 
 .footer-links a {
-  color: $white;
+  color: $pink;
   text-decoration: none;
   font-size: 24px;
   padding: 0px 10px;
@@ -27,7 +29,16 @@
 }
 
 .footer .fa-plane {
-  color: white;
+  color: $aqua-blue;
+}
+
+.footer span {
+  font-size: 10px;
+}
+
+.text-small {
+  font-size: 6px;
+  font-style: italic;
 }
 
 

@@ -2,13 +2,46 @@
   position: absolute;
   bottom: 0px;
   right: 0px;
-  background-color: $aqua-blue;
-  color: black;
-  border: $aqua-blue;
+  background-color: $pink;
+  color: $gray;
+  border: 1px solid $pink;
+
+  &:hover {
+    background-color: transparent;
+    color: $pink;
+    border: 1px solid $pink;
+  }
 }
 
-.banner-home .btn {
+.btn-blue {
   background-color: $aqua-blue;
   color: black;
-  border: $aqua-blue;
+
+  &:hover {
+    background-color: transparent;
+    color: $dark-aqua;
+    border: 1px solid $aqua-blue;
+  }
+}
+
+.btn-pink {
+  background-color: $pink;
+  color: black;
+
+  &:hover {
+    background-color: transparent;
+    color: $light-purple;
+    border: 1px solid $pink;
+  }
+}
+
+.btn-red {
+  background-color: $midle-red;
+  color: black;
+
+  &:hover {
+    background-color: transparent;
+    color: $dark-red;
+    border: 1px solid $midle-red;
+  }
 }

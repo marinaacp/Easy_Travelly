@@ -1,22 +1,21 @@
 .card-horizontal {
   overflow: hidden;
-  height: 40vh;
+  height: 50vh;
   width: 85vw;
   display: flex;
   align-items: center;
   margin: 20px;
-  padding: 20px;
+  padding: 10px;
   position: center;
   position: relative;
 }
 
-.card-horizontal-blue {
+.card-horizontal-infos {
   overflow: hidden;
   margin: 40px;
-  padding: 30px;
+  padding: 30px 30px 0 30px;
   position: center;
-  background-color: $aqua-blue;
-  border-radius: 10px;
+  color: $middle-gray;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
@@ -29,7 +28,7 @@
   width: 25vw;
   object-fit: cover;
   border-radius: 10px;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   margin-bottom: 10px;
   vertical-align: bottom;
 }
@@ -39,30 +38,31 @@
   height: 30vh;
   object-fit: cover;
   border-radius: 10px;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .card-horizontal p {
-  margin: 20px;
+  margin: 2rem;
   text-align: center;
 }
 
 @media(max-width: 1300px) {
-  .card-horizontal-blue {
+  .card-horizontal-infos {
     grid-template-columns: 1fr 1fr 1fr;
   }
 }
 
 @media(max-width: 992px) {
-  .card-horizontal-blue {
+  .card-horizontal-infos {
     grid-template-columns: 1fr 1fr 1fr;
   }
 }
 
 @media(max-width: 768px) {
-  .card-horizontal-blue {
+  .card-horizontal-infos {
     grid-template-columns: 1fr;
   }
+
   .image-with-description {
     width: 60vw;
   }

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container my-3">
   <% if @trips.empty? %>
     <p>No trips yet</p>
   <% else %>
@@ -9,11 +9,11 @@
         <p>From: <%= trip.location %> </p>
         <p>Hotel: <%= trip.booking.hotel.name %></p>
         <div class="d-flex">
-          <%= link_to 'Edit', edit_booking_path(trip.booking), class: 'btn btn-outline-primary w-50 mx-4'  %>
+          <%= link_to 'Edit', edit_booking_path(trip.booking), class: 'btn btn-blue w-50 mx-4'  %>
           <%= link_to 'Delete', trip_path(trip),
                                 method: :delete,
                                 data: { confirm: "Are you sure?" },
-                                class: 'btn btn-outline-danger w-50 mx-4'  %>
+                                class: 'btn btn-red w-50 mx-4'  %>
         </div>
       </div>
     <% end %>
