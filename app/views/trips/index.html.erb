@@ -1,19 +1,29 @@
-<div class="container my-3">
+<div class="container my-3 trips-cards">
   <% if @trips.empty? %>
     <p>No trips yet</p>
   <% else %>
     <% @trips.each do |trip| %>
-      <div class="card p-3 m-3 w-25 mx-auto">
-        <h3><%= trip.name %></h3>
-        <p>Destination: <%= trip.destination %> </p>
-        <p>From: <%= trip.location %> </p>
-        <p>Hotel: <%= trip.booking.hotel.name %></p>
-        <div class="d-flex">
-          <%= link_to 'Edit', edit_booking_path(trip.booking), class: 'btn btn-blue w-50 mx-4'  %>
-          <%= link_to 'Delete', trip_path(trip),
+      <div class="card text-bg-light mb-3">
+        <div class="card-header d-flex">
+          <div class="flex-grow-1"><%= trip.name %></div>
+          <%= link_to edit_booking_path(trip.booking), class:'mx-1' do %>
+            <i class="fa-solid fa-square-pen btn-outline-blue"></i>
+          <% end %>
+          <%= link_to trip_path(trip),
                                 method: :delete,
-                                data: { confirm: "Are you sure?" },
-                                class: 'btn btn-red w-50 mx-4'  %>
+                                data: { confirm: "Are you sure?" } do %>
+            <i class="fa-solid fa-trash btn-outline-pink"></i>
+          <% end %>
+        </div>
+        <% destination = Trip::DESTINATIONS[trip.destination.to_sym]  %>
+        <img src="https://source.unsplash.com/300x200/?<%= destination %>" class="card-img-top" alt="Trip image">
+        <div class="card-body">
+          <p>Destination: <%= trip.destination %> </p>
+          <p>From: <%= trip.location %> </p>
+          <p>Hotel: <%= trip.booking.hotel.name %></p>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">Budget: <%= trip.budget %></small>
         </div>
       </div>
     <% end %>

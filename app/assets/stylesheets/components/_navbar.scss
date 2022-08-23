@@ -32,3 +32,11 @@
     opacity: 0.9;
   }
 }
+
+.dropdown-menu {
+  z-index: 10000;
+}
+
+.dropdown-item {
+  z-index: 100000;
+}

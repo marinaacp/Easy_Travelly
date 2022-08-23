@@ -1,16 +1,28 @@
 <div class="container my-3">
   <h1><%= @trip.name %></h1>
   <hr>
-  <h2>Booking</h2>
-  <div class="card p-4 my-2">
-    <p>Hotel: <%= @trip.booking.hotel.name  %> | <%= @trip.booking.hotel.price.round(1) %> <%= @trip.booking.hotel.currency %></p>
-    <p>Flight #<%= @trip.booking.flight.id %>: <%= @trip.booking.flight.price.round(1)  %></p>
-    <hr>
-    <p>Budget : <%= @trip.budget.round(1) %></p>
-    <p>Budget left : <%= (@trip.budget - @trip.booking.flight.price - @trip.booking.hotel.price).round(1)  %> </p>
+  <div class="card w-50">
+    <div class="card-header d-flex">
+      <div class="flex-grow-1"><%= @trip.name %></div>
+        <%= link_to edit_booking_path(@trip.booking), class:'mx-1' do %>
+          <i class="fa-solid fa-square-pen btn-outline-blue"></i>
+        <% end %>
+        <%= link_to trip_path(@trip),
+                              method: :delete,
+                              data: { confirm: "Are you sure?" } do %>
+          <i class="fa-solid fa-trash btn-outline-pink"></i>
+        <% end %>
+    </div>
+    <% destination = Trip::DESTINATIONS[@trip.destination.to_sym]  %>
+    <img src="https://source.unsplash.com/300x200/?<%= destination %>" alt="Trip image">
+    <div class="card-body">
+      <p>Hotel: <%= @trip.booking.hotel.name  %> | <%= @trip.booking.hotel.price.round(1) %> <%= @trip.booking.hotel.currency %></p>
+      <p>Flight #<%= @trip.booking.flight.id %>: <%= @trip.booking.flight.price.round(1)  %></p>
+      <hr>
+      <p>Budget : <%= @trip.budget.round(1) %></p>
+      <p>Budget left : <%= (@trip.budget - @trip.booking.flight.price - @trip.booking.hotel.price).round(1)  %> </p>
+    </div>
   </div>
-
-  <%= link_to 'Edit', edit_booking_path(@trip.booking), class: 'btn btn-primary'  %>
   <hr>
 
 </div>
