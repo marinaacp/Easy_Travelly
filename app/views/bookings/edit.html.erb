@@ -29,7 +29,9 @@
         <label class="btn btn-outline-secondary" for="flight-<%= flight.id %>">
             Flight #<%= flight.id %>
             <br>
-            <%= flight.price %> $$
+            <%= flight.reservation_number %>
+            <%= flight.airport_departure_departure %>
+            <%= flight.airport_departure_arrival %>
         </label>
     <% end %>
   </div>
