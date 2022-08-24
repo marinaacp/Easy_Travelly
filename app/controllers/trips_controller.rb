@@ -28,22 +28,26 @@ class TripsController < ApplicationController
       end
 
       @flights = flights(@trip)
-
-      Flight.create(
-        trip: @trip,
-        reservation_number: "123456",
-        # ida
-        departure_departure: @trip.start_date,
-        airport_departure_departure: "nosso",
-        departure_arrivel: @trip.end_date,
-        airport_departure_arrival: "nosso 2",
-        # volta
-        return_departure: @trip.start_date,
-        airport_return_departure: "nosso 3",
-        return_arrivel: @trip.end_date,
-        airport_return_arrival: "nosso 4"
-      )
-
+      @flights.each do |flight|
+        Flight.create(
+          trip: @trip,
+          reservation_number: flight.id,
+          price: flight.total_amount,
+          currency: flight.tax_currency,
+          # ida
+          departure_airline: flight.slices[0]["segments"][0]["operating_carrier"]["name"],
+          departure_departure: flight.slices[0]["origin"]["name"],
+          airport_departure_departure: flight.slices[0]['segments'][0]['origin']['name'],
+          departure_arrival: flight.slices[0]["destination"]["name"],
+          airport_departure_arrival: flight.slices[0]['segments'][0]["destination"]["name"],
+          # volta
+          return_airline: flight.slices[0]["segments"][0]["operating_carrier"]["name"],
+          return_departure: flight.slices[1]["origin"]["name"],
+          airport_return_departure: flight.slices[1]['segments'][0]["origin"]["name"],
+          return_arrival: flight.slices[1]["destination"]["name"],
+          airport_return_arrival: flight.slices[1]['segments'][0]["destination"]["name"]
+        )
+      end
 
       @booking = Booking.create(
         trip: @trip,
@@ -85,11 +89,19 @@ class TripsController < ApplicationController
   private
 
   def trip_params
-    params.require(:trip).permit(:name, :location, :destination, :start_date, :end_date, :adults, :rooms, :children, :budget)
+    params.require(:trip).permit(
+      :name, :location, :destination, :start_date, :end_date,
+      :adults, :rooms, :children, :budget
+    )
   end
 
   def flight_params
-    params.require(:trip).permit(:reservation_number, :departure_departure, :airport_departure_departure, :departure_arrivel, :airport_departure_arrival, :return_departure, :airport_return_departure, :return_arrivel, :airport_return_arrival, :price, :currency)
+    params.require(:trip).permit(
+      :reservation_number, :departure_departure, :airport_departure_departure,
+      :departure_arrival, :airport_departure_arrival, :departure_airline,
+      :return_departure, :airport_return_departure, :return_arrival,
+      :airport_return_arrival, :return_airline, :price, :currency
+    )
   end
 
   def hotels(trip)

@@ -25,38 +25,25 @@ module Duffel
                     age: 28,
                   }],
       cabin_class: "business",
-      max_connections: 0,
+      max_connections: 0
     })
     # puts "Created offer request: #{offer_request.id}"
     offers = client.offers.all(params: { offer_request_id: offer_request.id })
 
-    puts "Got #{offers.count} offers"
+    # puts "Got #{offers.count} offers"
 
-    selected_offer = offers.first
+    selected_offers = offers.first(5)
 
-    puts "Selected offer #{selected_offer.id} to book"
+    # puts "Selected offer #{selected_offer.id} to book"
 
-    priced_offer = client.offers.get(selected_offer.id,
-                                    params: { return_available_services: true })
+    priced_offers = []
 
-    puts "The final price for offer #{priced_offer.id} is #{priced_offer.total_amount} " \
-        "#{priced_offer.total_currency}"
+    selected_offers.each do |selected_offer|
+      priced_offer = client.offers.get(selected_offer.id, params: { return_available_services: true })
+      priced_offers << priced_offer
+    end
 
-    raise
+    # puts "The final price for offer #{priced_offer.id} is #{priced_offer.total_amount} " \ "#{priced_offer.total_currency}"
 
-    return_offer = {
-      # ida
-      reservation_number: offer_request.id,
-      departure_departure: offer_request.slices[0]["origin"]["name"],
-      airport_departure_departure: offer_request.slices[0]["origin"]["airports"][0]["name"],
-      departure_arrivel: offer_request.slices[0]["destination"]["name"],
-      airport_departure_arrival: offer_request.slices[0]["destination"]["airports"][0]["name"],
-      # volta
-      return_departure: offer_request.slices[1]["origin"]["name"],
-      airport_return_departure: offer_request.slices[1]["origin"]["airports"][0]["name"],
-      return_arrivel: offer_request.slices[1]["destination"]["name"],
-      airport_return_arrival: offer_request.slices[1]["destination"]["airports"][0]["name"]
-    }
-    return return_offer
   end
 end

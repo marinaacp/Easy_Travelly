@@ -5,13 +5,15 @@ class CreateFlights < ActiveRecord::Migration[6.1]
       # ida
       t.date :departure_departure
       t.string :airport_departure_departure
-      t.date :departure_arrivel
+      t.date :departure_arrival
       t.string :airport_departure_arrival
+      t.string :departure_airline
       # volta
       t.date :return_departure
       t.string :airport_return_departure
-      t.date :return_arrivel
+      t.date :return_arrival
       t.string :airport_return_arrival
+      t.string :return_airline
 
       t.float :price
       t.string :currency
