@@ -7,12 +7,12 @@
         <div class="card-header d-flex">
           <div class="flex-grow-1 text-info"><%= @trip.name %></div>
             <%= link_to edit_booking_path(@trip.booking), class:'mx-1' do %>
-              <i class="fa-solid fa-square-pen btn-outline-blue"></i>
+              <i class="fa-solid fa-square-pen btn-outline-blue fs-4"></i>
             <% end %>
             <%= link_to trip_path(@trip),
                                   method: :delete,
                                   data: { confirm: "Are you sure?" } do %>
-              <i class="fa-solid fa-trash btn-outline-pink"></i>
+              <i class="fa-solid fa-trash btn-outline-pink fs-4"></i>
             <% end %>
         </div>
         <div class="card-body">
