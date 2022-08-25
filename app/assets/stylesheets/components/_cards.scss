@@ -56,13 +56,6 @@
   vertical-align: bottom;
 }
 
-.trips-cards {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 16px;
-  overflow: visible !important;
-}
-
 @media(max-width: 1300px) {
   .card-horizontal-infos {
     grid-template-columns: 1fr 1fr 1fr;
