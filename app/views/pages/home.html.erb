@@ -1,2 +1,92 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="banner banner-home" style="background-image: linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.5)), url(/assets/banner.jpg);">
+  <div class="container" data-aos="fade-down-right">
+    <h1><span class="letter">E</span>asyTravelly</h1>
+    <p>Travel without worries</p>
+    <br>
+    <%= link_to 'Sign up!',new_user_registration_path , class:'btn btn-blue' %>
+  </div>
+</div>
+
+<div class="d-flex justify-content-center" data-aos="fade-up">
+  <div class="card-horizontal">
+    <%= image_tag "woman_in_paris.jpg" %>
+    <p>Effortless travel planning, have fun in the process of putting together a trip. <br> Have all in one place: hotel, flights and activities!</p>
+    <%= link_to 'Start now!', user_session_path , class:'btn btn-primary' %>
+  </div>
+</div>
+
+<div class="container-fluid bg-light py-2">
+  <div class="card-horizontal-infos justify-content-center" data-aos="fade-down">
+    <div data-aos="fade-up">
+      <%= image_tag "card-home-1.jpg", class: "image-with-description" %>
+      <p>All in one place</p>
+    </div>
+    <div data-aos="fade-up">
+      <%= image_tag "budget.jpg", class: "image-with-description" %>
+      <p>Stick to your budget</p>
+    </div>
+    <div data-aos="fade-up">
+      <%= image_tag "friends_trip.jpg", class: "image-with-description" %>
+      <p>Have fun without worrying</p>
+    </div>
+  </div>
+</div>
+
+<div class="container-carousel-home" data-aos="fade-right">
+  <h3 class="text-center mt-5 mb-3 titling">Featured on:</h3>
+  <div id="carouselExampleIndicators" class="carousel slide carousel-fade w-25 mx-auto carousel-home" data-bs-ride="true" data-aos="fade-left">
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-bs-interval="5000">
+        <%= image_tag 'logo_ny_times.png', class:"d-block mx-auto carousel-item-home", alt:'logo1'  %>
+      </div>
+      <div class="carousel-item" data-bs-interval="5000">
+        <%= image_tag 'logo_folha.png', class:"d-block mx-auto carousel-item-home", alt:'logo2'  %>
+      </div>
+      <div class="carousel-item" data-bs-interval="5000">
+        <%= image_tag 'logo_correio.png', class:"d-block mx-auto carousel-item-home", alt:'logo3'  %>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</div>
+
+<div class="container my-3 testimonials" data-aos="fade-left">
+  <hr>
+    <div class='row'>
+      <div class="col-xs-12">
+        <h3 class="text-center">Customers <i class="fa-solid fa-heart"></i> EasyTravelly</h3>
+      </div>
+      <div class="col-xs-12">
+        <hr>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4 block-head">
+        <div class="blockquote">
+          <p class="quote">Our family is so happy looking forward to planning our next trip trough this app!</p>
+          <p class="quote-name">Jasmine Chandice - NY</p>
+        </div>
+      </div>
+      <div class="col-sm-4 block-head">
+        <div class="blockquote">
+          <p class="quote">The best trip planner on the market, helped me a ton.</p>
+          <p class="quote-name">Adam Cuppert - London</p>
+        </div>
+      </div>
+      <div class="col-sm-4 block-head">
+        <div class="blockquote">
+          <p class="quote">Cannot imagine how my life was before using EasyTravelly.</p>
+          <p class="quote-name">Claire Dussel - Sao Paulo</p>
+        </div>
+      </div>
+    </div>
+
+
+</div>

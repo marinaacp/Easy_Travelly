@@ -5,9 +5,24 @@
 
 // External libraries
 @import "bootstrap/scss/bootstrap";
-@import "font-awesome-sprockets";
 @import "font-awesome";
+@import "flatpickr/dist/themes/airbnb";
 
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
+
+// Custom style
+body {
+  min-height: 100vh;
+  margin: 0;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::after {
+  content: '';
+  display: block;
+  height: 80px;
+  /* Set same as footer's height */
+}
