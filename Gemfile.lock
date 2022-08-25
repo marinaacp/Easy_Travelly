@@ -157,6 +157,8 @@ GEM
     public_suffix (4.0.7)
     puma (5.6.4)
       nio4r (~> 2.0)
+    pundit (2.2.0)
+      activesupport (>= 3.0.0)
     racc (1.6.0)
     rack (2.2.4)
     rack-proxy (0.7.2)
@@ -282,6 +284,8 @@ DEPENDENCIES
   pry-byebug
   pry-rails
   puma (~> 5.0)
+  pundit
+  rack-mini-profiler (~> 2.0)
   rails (~> 6.1.6, >= 6.1.6.1)
   redis (~> 4.0)
   sass-rails (>= 6)
@@ -298,4 +302,4 @@ RUBY VERSION
    ruby 3.0.3p157
 
 BUNDLED WITH
-   2.3.5
+   2.3.18
