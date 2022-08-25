@@ -40,6 +40,7 @@ module Apitude
     response = https.request(request)
 
     response = JSON.parse(response.read_body)
+    raise
 
     if response['error']
       flash[:alert] = response['error']['message']

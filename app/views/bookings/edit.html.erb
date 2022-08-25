@@ -29,7 +29,9 @@
           <label class="btn btn-outline-secondary" for="flight-<%= flight.id %>">
               Flight #<%= flight.id %>
               <br>
-              <%= flight.price %> $$
+              <%= flight.price %> EUR
+              From <%= flight.departure_departure %> to <%= flight.departure_arrival %>
+              With <%= flight.departure_airline %>
           </label>
       <% end %>
     </div>
@@ -38,6 +40,4 @@
     <input type="submit", value="Next", class="btn btn-blue">
 
   <% end %>
-
-
 </div>
