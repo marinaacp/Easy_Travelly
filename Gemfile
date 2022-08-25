@@ -24,6 +24,9 @@ gem 'redis', '~> 4.0'
 # Gem to manage users authorization
 gem 'pundit'
 
+# gem for currencies
+gem 'money', '~> 6.16.0'
+
 # Gem for flight API
 gem "duffel_api", "~> 0.3.0"
 

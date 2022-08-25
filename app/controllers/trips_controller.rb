@@ -2,10 +2,67 @@ class TripsController < ApplicationController
   before_action :set_trip, only: %i[show destroy]
   include Apitude
   include Duffel
+  include Currency
 
   def new
     @trip = Trip.new
     authorize @trip
+  end
+
+  def create_hotels
+    @hotels = hotels(@trip)
+    @hotels.each do |hotel|
+      Hotel.create(
+        trip: @trip,
+        name: hotel['name'],
+        category: hotel['categoryName'],
+        zone_name: hotel['zoneName'],
+        price: hotel['minRate'],
+        currency: hotel['currency'],
+        check_in: @trip.start_date,
+        check_out: @trip.end_date
+      )
+    end
+  end
+
+  def create_flights
+    @flights = flights(@trip)
+    @flights.each do |flight|
+      Flight.create(
+        trip: @trip,
+        reservation_number: flight.id,
+        price: flight.total_amount,
+        currency: flight.tax_currency,
+        # ida
+        departure_airline: flight.slices[0]["segments"][0]["operating_carrier"]["name"],
+        departure_departure: flight.slices[0]["origin"]["name"],
+        airport_departure_departure: flight.slices[0]['segments'][0]['origin']['name'],
+        departure_arrival: flight.slices[0]["destination"]["name"],
+        airport_departure_arrival: flight.slices[0]['segments'][0]["destination"]["name"],
+        # volta
+        return_airline: flight.slices[1]["segments"][0]["operating_carrier"]["name"],
+        return_departure: flight.slices[1]["origin"]["name"],
+        airport_return_departure: flight.slices[1]['segments'][0]["origin"]["name"],
+        return_arrival: flight.slices[1]["destination"]["name"],
+        airport_return_arrival: flight.slices[1]['segments'][0]["destination"]["name"]
+      )
+    end
+  end
+
+  def create_bookings
+    @booking = Booking.create(
+      trip: @trip,
+      hotel: @trip.hotels[0],
+      flight: Flight.last
+    )
+  end
+
+  def currency_usd
+    # Money.ca_dollar(100).exchange_to("USD")  # => Money.from_cents(80, "USD")
+    if Booking.hotel[:currency] == 'EUR'
+      Money.euro(Booking.hotel[:price]).exchange_to("USD")
+      Booking.hotel[:currency] = "USD"
+    end
   end
 
   def create
@@ -13,47 +70,9 @@ class TripsController < ApplicationController
     @trip.user = current_user
     if @trip.valid? && hotels(@trip) && search_flights(@trip)
       @trip.save
-      @hotels = hotels(@trip)
-      @hotels.each do |hotel|
-        Hotel.create(
-          trip: @trip,
-          name: hotel['name'],
-          category: hotel['categoryName'],
-          zone_name: hotel['zoneName'],
-          price: hotel['minRate'],
-          currency: hotel['currency'],
-          check_in: @trip.start_date,
-          check_out: @trip.end_date
-        )
-      end
-
-      @flights = flights(@trip)
-      @flights.each do |flight|
-        Flight.create(
-          trip: @trip,
-          reservation_number: flight.id,
-          price: flight.total_amount,
-          currency: flight.tax_currency,
-          # ida
-          departure_airline: flight.slices[0]["segments"][0]["operating_carrier"]["name"],
-          departure_departure: flight.slices[0]["origin"]["name"],
-          airport_departure_departure: flight.slices[0]['segments'][0]['origin']['name'],
-          departure_arrival: flight.slices[0]["destination"]["name"],
-          airport_departure_arrival: flight.slices[0]['segments'][0]["destination"]["name"],
-          # volta
-          return_airline: flight.slices[0]["segments"][0]["operating_carrier"]["name"],
-          return_departure: flight.slices[1]["origin"]["name"],
-          airport_return_departure: flight.slices[1]['segments'][0]["origin"]["name"],
-          return_arrival: flight.slices[1]["destination"]["name"],
-          airport_return_arrival: flight.slices[1]['segments'][0]["destination"]["name"]
-        )
-      end
-
-      @booking = Booking.create(
-        trip: @trip,
-        hotel: @trip.hotels[0],
-        flight: Flight.last
-      )
+      create_hotels
+      create_flights
+      create_bookings
       redirect_to @trip
     elsif @trip.valid?
       # flash[:alert] = 'No result found'
@@ -62,7 +81,6 @@ class TripsController < ApplicationController
     else
       render :new
     end
-
     authorize @trip
   end
 
@@ -82,7 +100,6 @@ class TripsController < ApplicationController
 
   def destroy
     @trip.destroy
-
     redirect_to trips_path
   end
 
