@@ -10,11 +10,11 @@
             <input type="radio" class="btn-check" name="hotels" id="hotel-<%= hotel.id %>" autocomplete="off" value="<%= hotel.id %>">
           <% end %>
           <label class="btn btn-outline-info" for="hotel-<%= hotel.id %>">
-              <%= hotel.name %>
+              <strong><%= hotel.name %></strong>
               <br>
               <%= hotel.category %>
               <br>
-              <%= hotel.price %> <%= hotel.currency  %>
+              <%= hotel.price %> <i class="fa-solid fa-euro-sign"></i>
           </label>
       <% end %>
     </div>
@@ -27,9 +27,11 @@
             <input type="radio" class="btn-check" name="flights" id="flight-<%= flight.id %>" autocomplete="off" value="<%= flight.id %>">
           <% end %>
           <label class="btn btn-outline-secondary" for="flight-<%= flight.id %>">
-              Flight #<%= flight.id %>
+              <strong>Flight #<%= flight.id %></strong>
               <br>
-              <%= flight.price %> $$
+              <%= flight.departure_airline %>
+              <br>
+              <%= flight.price %> <i class="fa-solid fa-euro-sign"></i>
           </label>
       <% end %>
     </div>
@@ -38,6 +40,4 @@
     <input type="submit", value="Next", class="btn btn-blue">
 
   <% end %>
-
-
 </div>

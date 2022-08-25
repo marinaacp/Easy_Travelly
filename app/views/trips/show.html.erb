@@ -18,6 +18,9 @@
         <div class="card-body">
           <p><i class="fa-solid fa-hotel fs-3"></i> <%= @trip.booking.hotel.name  %> </p>
           <p> <i class="fa-solid fa-plane-departure fs-3"></i> N#<%= @trip.booking.flight.id %> </p>
+          <p> <i class="fa-solid fa-person fs-3"></i> <%= @trip.adults %> adult(s)</p>
+          <hr>
+          <p><i class="fa-solid fa-calendar-day fs-3"></i> <%= @trip.start_date %><i class="fa-solid fa-arrow-right"></i> <%= @trip.end_date  %> </p>
         </div>
       </div>
     </div>
@@ -37,19 +40,25 @@
     <tbody>
       <tr>
         <td>Total Budget</td>
-        <td> <strong><%= @trip.budget.round(1) %> <i class="fa-solid fa-dollar-sign"></i></strong></td>
+        <td> <strong><%= @trip.budget.round(2) %> <i class="fa-solid fa-euro-sign"></i></strong></td>
       </tr>
       <tr>
         <td>Hotel</td>
-        <td><%= @trip.booking.hotel.price %> <i class="fa-solid fa-dollar-sign"></i></td>
+        <td><%= @trip.booking.hotel.price.round(2) %> <i class="fa-solid fa-euro-sign"></i></i></td>
       </tr>
       <tr class="border-bottom border-dark">
         <td>Flight</td>
-        <td><%= @trip.booking.flight.price.round(1) %> <i class="fa-solid fa-dollar-sign"></i></td>
+        <td><%= @trip.booking.flight.price.round(2) %> <i class="fa-solid fa-euro-sign"></i></i></td>
       </tr>
       <tr>
         <td>Budget left</td>
-        <td class="text-primary"><%= (@trip.budget - @trip.booking.flight.price - @trip.booking.hotel.price).round(1)  %> <i class="fa-solid fa-dollar-sign"></i></td>
+        <% budget_left = (@trip.budget - @trip.booking.flight.price - @trip.booking.hotel.price).round(2) %>
+        <% days_left = (@trip.end_date - @trip.start_date).to_i %>
+        <td><%= budget_left %> <i class="fa-solid fa-euro-sign"></i></td>
+      </tr>
+      <tr>
+        <td>Budget left (per/day)</td>
+        <td class="text-warning"><%= (budget_left/days_left).round(2) %> <i class="fa-solid fa-euro-sign"></i></td>
       </tr>
     </tbody>
     </table>
@@ -57,6 +66,4 @@
     <%= link_to "Back", :back, class:'btn btn-pink' %>
     </div>
   </div>
-
-
 </div>

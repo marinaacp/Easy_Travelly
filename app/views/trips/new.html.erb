@@ -6,7 +6,11 @@
       <%= simple_form_for @trip do |f|
       %>
         <%= f.input :name, label:'Trip name' %>
-        <%= f.input :location, label:'From', placeholder: 'New York' %>
+        <%= f.input :location, label:'From',
+                    placeholder: 'Madri',
+                    collection: { 'Londres' => 'LON',
+                                  'Madri' => 'MAD',
+                                  'Paris' => 'PAR'} %>
         <%= f.input :destination, label:'To',
                     placeholder: 'London',
                     # input_html: { data}

@@ -55,8 +55,19 @@ ActiveRecord::Schema.define(version: 2022_08_19_112528) do
   end
 
   create_table "flights", force: :cascade do |t|
-    t.date "departure"
+    t.string "reservation_number"
+    t.date "departure_departure"
+    t.string "airport_departure_departure"
+    t.date "departure_arrival"
+    t.string "airport_departure_arrival"
+    t.string "departure_airline"
+    t.date "return_departure"
+    t.string "airport_return_departure"
+    t.date "return_arrival"
+    t.string "airport_return_arrival"
+    t.string "return_airline"
     t.float "price"
+    t.string "currency"
     t.bigint "trip_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

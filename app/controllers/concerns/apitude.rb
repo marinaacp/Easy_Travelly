@@ -47,7 +47,7 @@ module Apitude
     end
 
     response = response['hotels']['hotels']
-    return response[0..10] if response.count >= 10
+    return response[0..7] if response.count >= 8
 
     return response
   end
