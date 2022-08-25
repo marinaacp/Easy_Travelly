@@ -9,7 +9,6 @@ class TripsController < ApplicationController
   end
 
   def create_hotels
-    @hotels = hotels(@trip)
     @hotels.each do |hotel|
       Hotel.create(
         trip: @trip,
@@ -25,7 +24,6 @@ class TripsController < ApplicationController
   end
 
   def create_flights
-    @flights = flights(@trip)
     @flights.each do |flight|
       Flight.create(
         trip: @trip,
@@ -52,7 +50,7 @@ class TripsController < ApplicationController
     @booking = Booking.create(
       trip: @trip,
       hotel: @trip.hotels[0],
-      flight: Flight.last
+      flight: @trip.flights[0]
     )
   end
 
@@ -67,7 +65,9 @@ class TripsController < ApplicationController
   def create
     @trip = Trip.new(trip_params)
     @trip.user = current_user
-    if @trip.valid? && search_flights(@trip) && hotels(@trip)
+    @hotels = hotels(@trip)
+    @flights = search_flights(@trip)
+    if @trip.valid? && @hotels && @flights
       @trip.save
       create_hotels
       create_flights

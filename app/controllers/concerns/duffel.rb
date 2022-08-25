@@ -96,7 +96,7 @@ module Duffel
 
     # puts "Got #{offers.count} offers"
 
-    selected_offers = offers.first(5)
+    selected_offers = offers.first(8)
 
     # puts "Selected offer #{selected_offer.id} to book"
 
