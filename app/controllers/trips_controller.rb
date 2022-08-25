@@ -2,7 +2,6 @@ class TripsController < ApplicationController
   before_action :set_trip, only: %i[show destroy]
   include Apitude
   include Duffel
-  include Currency
 
   def new
     @trip = Trip.new
@@ -57,18 +56,18 @@ class TripsController < ApplicationController
     )
   end
 
-  def currency_usd
-    # Money.ca_dollar(100).exchange_to("USD")  # => Money.from_cents(80, "USD")
-    if Booking.hotel[:currency] == 'EUR'
-      Money.euro(Booking.hotel[:price]).exchange_to("USD")
-      Booking.hotel[:currency] = "USD"
-    end
-  end
+  # def currency_usd
+  #   # Money.ca_dollar(100).exchange_to("USD")  # => Money.from_cents(80, "USD")
+  #   if Booking.hotel[:currency] == 'EUR'
+  #     Money.euro(Booking.hotel[:price]).exchange_to("USD")
+  #     Booking.hotel[:currency] = "USD"
+  #   end
+  # end
 
   def create
     @trip = Trip.new(trip_params)
     @trip.user = current_user
-    if @trip.valid? && hotels(@trip) && search_flights(@trip)
+    if @trip.valid? && search_flights(@trip) && hotels(@trip)
       @trip.save
       create_hotels
       create_flights

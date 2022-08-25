@@ -8,7 +8,7 @@
     <%= f.input :destination, label:'To', placeholder: 'London', collection: ['LON','MAD','PAR'] %>
     <%= f.input :start_date %>
     <%= f.input :end_date %>
-    <%= f.input :adults, label: 'Number of adults', input_html: { min: '1'} %>
+    <%= f.input :adults, label: 'Number of adults', input_html: { min: '1', max: '3'} %>
     <%= f.input :children, label: 'Number of children', input_html: { min: '1'} %>
     <%= f.input :rooms, label: 'Number of rooms', input_html: { min: '1'} %>
     <%= f.input :budget, label:'Max budget' %>
