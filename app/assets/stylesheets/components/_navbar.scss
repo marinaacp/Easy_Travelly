@@ -1,6 +1,6 @@
 .navbar-lewagon {
   justify-content: space-between;
-  background: white;
+  background: $light-gray;
   position: sticky;
 }
 
@@ -10,4 +10,33 @@
 
 .navbar-lewagon .navbar-brand img {
   width: 32px;
+}
+
+.brand-name {
+  font-family: $headers-font;
+}
+
+.navbar-brand {
+  color: $aqua-blue;
+
+  &:hover {
+    opacity: 0.9;
+    color: $aqua-blue;
+  }
+}
+
+.brand-name-final {
+  color: $pink;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.dropdown-menu {
+  z-index: 10000;
+}
+
+.dropdown-item {
+  z-index: 100000;
 }

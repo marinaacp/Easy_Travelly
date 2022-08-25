@@ -1,6 +1,5 @@
 // Specific CSS for your home-page
 .carousel-item-home {
-  width: 15vw;
   margin: auto;
   width: 100%;
   height: auto;
@@ -9,18 +8,17 @@
 }
 
 .carousel-home {
-  margin: 40px;
   justify-content: center;
 }
 
 .container-carousel-home {
   height: 30vh;
   width: 40vw;
-  margin: 0 auto;
+  margin: 2rem auto;
 }
 
 @media(max-width: 768px) {
-  .container-carousel-home{
+  .container-carousel-home {
     width: 70vw;
   }
 }

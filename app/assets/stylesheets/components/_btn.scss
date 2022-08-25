@@ -1,14 +1,55 @@
-.card-horizontal .btn {
-  position: absolute;
-  bottom: 0px;
-  right: 0px;
+.btn-blue {
   background-color: $aqua-blue;
   color: black;
-  border: $aqua-blue;
+
+  &:hover {
+    background-color: transparent;
+    color: $dark-aqua;
+    border: 1px solid $aqua-blue;
+  }
 }
 
-.banner-home .btn {
-  background-color: $aqua-blue;
+.btn-pink {
+  background-color: $pink;
   color: black;
-  border: $aqua-blue;
+
+  &:hover {
+    background-color: transparent;
+    color: $light-purple;
+    border: 1px solid $pink;
+  }
+}
+
+.btn-outline-pink {
+  color: $pink;
+  text-decoration: none;
+
+  &:hover {
+    color: $light-purple;
+  }
+}
+
+.btn-outline-blue {
+  color: $aqua-blue;
+  text-decoration: none;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.btn-red {
+  background-color: $midle-red;
+  color: black;
+
+  &:hover {
+    background-color: transparent;
+    color: $dark-red;
+    border: 1px solid $midle-red;
+  }
+}
+
+.btn-none {
+  text-decoration: none;
+  color: $body-color;
 }

@@ -6,7 +6,7 @@ class Trip < ApplicationRecord
   has_many :hotels, dependent: :destroy
   has_many :flights, dependent: :destroy
 
-  validates :start_date, :destination, :end_date, :adults, :children, :rooms, :budget, presence: true
+  validates :start_date, :location, :destination, :end_date, :adults, :children, :rooms, :budget, presence: true
 
   validate :end_date_after_start_date
 
@@ -21,4 +21,11 @@ class Trip < ApplicationRecord
 
     errors.add(:end_date, "must be after the start date") if end_date < start_date
   end
+
+  DESTINATIONS = {
+    MAD: 'Madri',
+    PAR: 'Paris',
+    LON: 'London'
+  }
+
 end
