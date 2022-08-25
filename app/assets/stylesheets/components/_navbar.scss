@@ -2,6 +2,7 @@
   justify-content: space-between;
   background: $light-gray;
   position: sticky;
+  z-index: 999;
 }
 
 .navbar-lewagon .navbar-collapse {
@@ -31,12 +32,4 @@
   &:hover {
     opacity: 0.9;
   }
-}
-
-.dropdown-menu {
-  z-index: 10000;
-}
-
-.dropdown-item {
-  z-index: 100000;
 }
