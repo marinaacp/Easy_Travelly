@@ -3,8 +3,7 @@
     <div class="col-12 col-sm-4 bg-light p-4">
       <h1>Create a trip</h1>
       <hr>
-      <%= simple_form_for @trip do |f|
-      %>
+      <%= simple_form_for @trip do |f| %>
         <%= f.input :name, label:'Trip name' %>
         <%= f.input :location, label:'From',
                     placeholder: 'Madri',
@@ -21,7 +20,6 @@
                                   'Rio de Janeiro' => 'RIO'} %>
         <%= f.input :destination, label:'To',
                     placeholder: 'London',
-                    # input_html: { data}
                     collection: { 'Londres' => 'LON',
                                   'Madri' => 'MAD',
                                   'Barcelona' => 'BCN',

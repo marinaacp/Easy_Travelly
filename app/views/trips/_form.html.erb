@@ -1,0 +1,6 @@
+<%= simple_form_for trip, data: {action: 'submit->edit-trip#edit', edit_trip_target: 'form' }, html: { class:'d-none'} do |f| %>
+  <div class="d-flex align-self-center align-items-end justify-content-center" >
+    <%= f.input :name, label_html: { class: 'd-none' } %>
+    <%= f.submit "Update name", class: "btn btn-blue mb-3" %>
+  </div>
+<% end %>
