@@ -43,6 +43,7 @@
         <%= f.input :children, label: 'Number of children', input_html: { min: '1'} %>
         <%= f.input :rooms, label: 'Number of rooms', input_html: { min: '1'} %>
         <%= f.input :budget, label:'Max budget' %>
+        <%= f.input :budgetCurrency, collection: Trip::CURRENCY %>
         <%= f.submit "Send", class: "btn btn-blue" %>
       <% end %>
     </div>

@@ -1,6 +1,13 @@
 class Trip < ApplicationRecord
   include Apitude
 
+  CURRENCY = %w[EUR USD].freeze
+  DESTINATIONS = {
+    MAD: 'Madri',
+    PAR: 'Paris',
+    LON: 'London'
+  }
+
   belongs_to :user
   has_one :booking, dependent: :destroy
   has_many :hotels, dependent: :destroy
@@ -21,11 +28,4 @@ class Trip < ApplicationRecord
 
     errors.add(:end_date, "must be after the start date") if end_date < start_date
   end
-
-  DESTINATIONS = {
-    MAD: 'Madri',
-    PAR: 'Paris',
-    LON: 'London'
-  }
-
 end

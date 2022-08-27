@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_19_112528) do
+ActiveRecord::Schema.define(version: 2022_08_27_150213) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,10 @@ ActiveRecord::Schema.define(version: 2022_08_19_112528) do
     t.string "currency"
     t.string "category"
     t.string "zone_name"
+    t.float "rate"
+    t.integer "reviewCount"
+    t.float "latitude"
+    t.float "longitude"
     t.index ["trip_id"], name: "index_hotels_on_trip_id"
   end
 
@@ -103,6 +107,9 @@ ActiveRecord::Schema.define(version: 2022_08_19_112528) do
     t.string "name"
     t.integer "rooms"
     t.integer "children"
+    t.float "budgetHotel"
+    t.float "budgetFlight"
+    t.string "budgetCurrency"
     t.index ["user_id"], name: "index_trips_on_user_id"
   end
 

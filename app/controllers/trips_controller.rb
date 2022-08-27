@@ -17,6 +17,10 @@ class TripsController < ApplicationController
         zone_name: hotel['zoneName'],
         price: hotel['minRate'],
         currency: hotel['currency'],
+        rate: hotel['reviews'][0]['rate'],
+        reviewCount: hotel['reviews'][0]['reviewCount'],
+        latitude: hotel['latitude'],
+        longitude: hotel['longitude'],
         check_in: @trip.start_date,
         check_out: @trip.end_date
       )
@@ -72,6 +76,9 @@ class TripsController < ApplicationController
       create_hotels
       create_flights
       create_bookings
+      @trip.budgetHotel = @trip.rooms * @trip.booking.hotel.price
+      @trip.budgetFlight = @trip.booking.flight.price
+      @trip.save
       redirect_to @trip
     elsif @trip.valid?
       # flash[:alert] = 'No result found'

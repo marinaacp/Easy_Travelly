@@ -16,7 +16,7 @@
             <% end %>
         </div>
         <div class="card-body">
-          <p><i class="fa-solid fa-hotel fs-3"></i> <%= @trip.booking.hotel.name  %> </p>
+          <p><i class="fa-solid fa-hotel fs-3"></i> <%= @trip.booking.hotel.name %> Rating :<%= @trip.booking.hotel.rate %> </p>
           <p> <i class="fa-solid fa-plane-departure fs-3"></i> N#<%= @trip.booking.flight.id %> </p>
           <p> <i class="fa-solid fa-person fs-3"></i> <%= @trip.adults %> adult(s)</p>
           <hr>
@@ -44,15 +44,15 @@
       </tr>
       <tr>
         <td>Hotel</td>
-        <td><%= @trip.booking.hotel.price.round(2) %> <i class="fa-solid fa-euro-sign"></i></i></td>
+        <td><%= @trip.budgetHotel.round(2) %> <i class="fa-solid fa-euro-sign"></i></i></td>
       </tr>
       <tr class="border-bottom border-dark">
         <td>Flight</td>
-        <td><%= @trip.booking.flight.price.round(2) %> <i class="fa-solid fa-euro-sign"></i></i></td>
+        <td><%= @trip.budgetFlight.round(2) %> <i class="fa-solid fa-euro-sign"></i></i></td>
       </tr>
       <tr>
         <td>Budget left</td>
-        <% budget_left = (@trip.budget - @trip.booking.flight.price - @trip.booking.hotel.price).round(2) %>
+        <% budget_left = (@trip.budget - @trip.budgetFlight - @trip.budgetHotel).round(2) %>
         <% days_left = (@trip.end_date - @trip.start_date).to_i %>
         <td><%= budget_left %> <i class="fa-solid fa-euro-sign"></i></td>
       </tr>
