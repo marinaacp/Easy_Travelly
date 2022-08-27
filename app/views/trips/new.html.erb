@@ -1,50 +1,66 @@
-<div class="container my-4">
-  <div class="row justify-content-center">
-    <div class="col-12 col-sm-4 bg-light p-4">
-      <h1>Create a trip</h1>
-      <hr>
-      <%= simple_form_for @trip do |f|
-      %>
-        <%= f.input :name, label:'Trip name' %>
-        <%= f.input :location, label:'From',
-                    placeholder: 'Madri',
-                    collection: { 'Londres' => 'LON',
-                                  'Madri' => 'MAD',
-                                  'Barcelona' => 'BCN',
-                                  'Paris' => 'PAR',
-                                  'Berlin' => 'BER',
-                                  'New York' => 'NYC',
-                                  'Lisbon' => 'LIS',
-                                  'Milan' => 'MIL',
-                                  'Rome' => 'ROM',
-                                  'São Paulo' => 'SAO',
-                                  'Rio de Janeiro' => 'RIO'} %>
-        <%= f.input :destination, label:'To',
-                    placeholder: 'London',
-                    # input_html: { data}
-                    collection: { 'Londres' => 'LON',
-                                  'Madri' => 'MAD',
-                                  'Barcelona' => 'BCN',
-                                  'Paris' => 'PAR',
-                                  'Berlin' => 'BER',
-                                  'New York' => 'NYC',
-                                  'Lisbon' => 'LIS',
-                                  'Milan' => 'MIL',
-                                  'Rome' => 'ROM',
-                                  'São Paulo' => 'SAO',
-                                  'Rio de Janeiro' => 'RIO'} %>
-        <%= f.input :start_date, as: :string,
-                                required: true,
-                                input_html: {class: "datepicker"} %>
-        <%= f.input :end_date, as: :string,
-                                required: true,
-                                input_html: {class: "datepicker"} %>
-        <%= f.input :adults, label: 'Number of adults', input_html: { min: '1'} %>
-        <%= f.input :children, label: 'Number of children', input_html: { min: '1'} %>
-        <%= f.input :rooms, label: 'Number of rooms', input_html: { min: '1'} %>
-        <%= f.input :budget, label:'Max budget' %>
-        <%= f.submit "Send", class: "btn btn-blue" %>
-      <% end %>
+ <div data-controller="loading">
+  <div class="container my-4" data-loading-target= "form">
+    <div class="row justify-content-center">
+      <div class="col-12 col-sm-4 bg-light p-4 ">
+        <h1>Create a trip</h1>
+        <hr>
+        <%= simple_form_for @trip, data: {
+                        insert_in_list_target: "form",
+                        action: "submit->loading#loader"
+                      } do |f| %>
+          <%= f.input :name, label:'Trip name' %>
+          <%= f.input :location, label:'From',
+                      placeholder: 'Madri',
+                      collection: { 'Londres' => 'LON',
+                                    'Madri' => 'MAD',
+                                    'Barcelona' => 'BCN',
+                                    'Paris' => 'PAR',
+                                    'Berlin' => 'BER',
+                                    'New York' => 'NYC',
+                                    'Lisbon' => 'LIS',
+                                    'Milan' => 'MIL',
+                                    'Rome' => 'ROM',
+                                    'São Paulo' => 'SAO',
+                                    'Rio de Janeiro' => 'RIO'} %>
+          <%= f.input :destination, label:'To',
+                      placeholder: 'London',
+                      # input_html: { data}
+                      collection: { 'Londres' => 'LON',
+                                    'Madri' => 'MAD',
+                                    'Barcelona' => 'BCN',
+                                    'Paris' => 'PAR',
+                                    'Berlin' => 'BER',
+                                    'New York' => 'NYC',
+                                    'Lisbon' => 'LIS',
+                                    'Milan' => 'MIL',
+                                    'Rome' => 'ROM',
+                                    'São Paulo' => 'SAO',
+                                    'Rio de Janeiro' => 'RIO'} %>
+          <%= f.input :start_date, as: :string,
+                                  required: true,
+                                  input_html: {class: "datepicker"} %>
+          <%= f.input :end_date, as: :string,
+                                  required: true,
+                                  input_html: {class: "datepicker"} %>
+          <%= f.input :adults, label: 'Number of adults', input_html: { min: '1'} %>
+          <%= f.input :children, label: 'Number of children', input_html: { min: '1'} %>
+          <%= f.input :rooms, label: 'Number of rooms', input_html: { min: '1'} %>
+          <%= f.input :budget, label:'Max budget' %>
+          <%= f.submit "Send", class: "btn btn-blue" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="loading-box d-none" data-loading-target="circles">
+    <div class="loading-circles">
+      <div class="loading-circle"></div>
+      <div class="loading-circle"></div>
+      <div class="loading-circle"></div>
+    </div>
+    <br>
+    <div class="loading-text">
+      <p>We are looking for your perfect trip...</p>
     </div>
   </div>
 </div>
