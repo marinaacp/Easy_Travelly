@@ -46,7 +46,7 @@ class TripsController < ApplicationController
         departure_arrival: flight.slices[0]["segments"][0]["destination"]['city_name'], # cidade de chegada
         airport_departure_arrival: flight.slices[0]['segments'][0]['destination']['name'], # aeroporto da cidade de chegada
         terminal_departure_arrival: flight.slices[0]["segments"][0]["destination_terminal"], # terminal do aeroporto de chegada
-        # volta
+        # volta. Basta mudar de slice
         return_start_time: flight.slices[1]["segments"][0]['departing_at'], # hora inicio da viagem
         return_end_time: flight.slices[1]["segments"][0]['arriving_at'], # hora fim da viagem
         return_class: flight.slices[1]["segments"][0]['passengers'][0]['cabin_class'], # classe da viagem ("first", "business", "premium_economy", or "economy")
@@ -86,12 +86,10 @@ class TripsController < ApplicationController
     @trip.user = current_user
     @hotels = hotels(@trip)
     @flights = search_flights(@trip)
-    # raise
     if @trip.valid? && @hotels && @flights
       @trip.save
       create_hotels
       create_flights
-      raise
       create_bookings
       redirect_to @trip
     elsif @trip.valid?
