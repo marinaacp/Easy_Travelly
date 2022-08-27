@@ -27,21 +27,40 @@ class TripsController < ApplicationController
     @flights.each do |flight|
       Flight.create(
         trip: @trip,
-        reservation_number: flight.id,
-        price: flight.total_amount,
-        currency: flight.tax_currency,
+        reservation_number: flight.id, # numero da reserva
+        price: flight.total_amount, # valor total com .tax_amount
+        currency: flight.total_currency, # moeda do valor total (tax_amount tem sua própria currency. Em geral é a mesma)
+        emissions: flight.total_emissions_kg, # total emissão ida e volta
         # ida
-        departure_airline: flight.slices[0]["segments"][0]["operating_carrier"]["name"],
-        departure_departure: flight.slices[0]["origin"]["name"],
-        airport_departure_departure: flight.slices[0]['segments'][0]['origin']['name'],
-        departure_arrival: flight.slices[0]["destination"]["name"],
-        airport_departure_arrival: flight.slices[0]['segments'][0]["destination"]["name"],
+        departure_start_time: flight.slices[0]["segments"][0]['departing_at'], # hora inicio da viagem
+        departure_end_time: flight.slices[0]["segments"][0]['arriving_at'], # hora fim da viagem
+        departure_class: flight.slices[0]["segments"][0]['passengers'][0]['cabin_class'], # classe da viagem ("first", "business", "premium_economy", or "economy")
+        # em tese cabin_class tem uma p/ cada passageiro. aqui estou pegando só uma p todos eles. Mesma logica para baggage
+        departure_baggage: flight.slices[0]["segments"][0]['passengers'][0]['baggages'][0]['quantity'], #numero de bagagens. Como a class era p ter uma p/ cada
+        departure_airline: flight.slices[0]["segments"][0]["operating_carrier"]["name"], # companhia aérea
+        logo_departure_airline: flight.slices[0]["segments"][0]["operating_carrier"]["logo_symbol_url"], # logo companhia aérea
+        aircraft_departure_airline: flight.slices[0]["segments"][0]['aircraft']['name'], # avião da ida
+        departure_departure: flight.slices[0]["segments"][0]["origin"]['city_name'], # cidade de saída
+        airport_departure_departure: flight.slices[0]['segments'][0]['origin']['name'], # aeroporto da cidade de saída
+        terminal_departure_departure: flight.slices[0]["segments"][0]["origin_terminal"], # terminal do aeroportode saída
+        departure_arrival: flight.slices[0]["segments"][0]["destination"]['city_name'], # cidade de chegada
+        airport_departure_arrival: flight.slices[0]['segments'][0]['destination']['name'], # aeroporto da cidade de chegada
+        terminal_departure_arrival: flight.slices[0]["segments"][0]["destination_terminal"], # terminal do aeroporto de chegada
         # volta
-        return_airline: flight.slices[1]["segments"][0]["operating_carrier"]["name"],
-        return_departure: flight.slices[1]["origin"]["name"],
-        airport_return_departure: flight.slices[1]['segments'][0]["origin"]["name"],
-        return_arrival: flight.slices[1]["destination"]["name"],
-        airport_return_arrival: flight.slices[1]['segments'][0]["destination"]["name"]
+        return_start_time: flight.slices[1]["segments"][0]['departing_at'], # hora inicio da viagem
+        return_end_time: flight.slices[1]["segments"][0]['arriving_at'], # hora fim da viagem
+        return_class: flight.slices[1]["segments"][0]['passengers'][0]['cabin_class'], # classe da viagem ("first", "business", "premium_economy", or "economy")
+        # em tese cabin_class tem uma p/ cada passageiro. aqui estou pegando só uma p todos eles. Mesma logica para baggage
+        return_baggage: flight.slices[1]["segments"][0]['passengers'][0]['baggages'][0]['quantity'], # numero de bagagens. Como a class era p ter uma p/ cada
+        return_airline: flight.slices[1]["segments"][0]["operating_carrier"]["name"], # companhia aérea
+        logo_return_airline: flight.slices[1]["segments"][0]["operating_carrier"]["logo_symbol_url"], # logo companhia aérea
+        aircraft_return_airline: flight.slices[1]["segments"][0]['aircraft']['name'], # avião da volta
+        return_departure: flight.slices[1]["segments"][0]["origin"]['city_name'], # cidade de saída
+        airport_return_departure: flight.slices[1]['segments'][0]['origin']['name'], # aeroporto da cidade de saída
+        terminal_return_departure: flight.slices[1]["segments"][0]["origin_terminal"], # terminal do aeroportode saída
+        return_arrival: flight.slices[1]["segments"][0]["destination"]['city_name'], # cidade de chegada
+        airport_return_arrival: flight.slices[1]['segments'][0]['destination']['name'], # aeroporto da cidade de chegada
+        terminal_return_arrival: flight.slices[1]["segments"][0]["destination_terminal"] # terminal do aeroporto de chegada
       )
     end
   end
@@ -67,10 +86,12 @@ class TripsController < ApplicationController
     @trip.user = current_user
     @hotels = hotels(@trip)
     @flights = search_flights(@trip)
+    # raise
     if @trip.valid? && @hotels && @flights
       @trip.save
       create_hotels
       create_flights
+      raise
       create_bookings
       redirect_to @trip
     elsif @trip.valid?
