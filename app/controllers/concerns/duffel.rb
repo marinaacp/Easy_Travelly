@@ -8,88 +8,24 @@ module Duffel
       access_token: ENV.fetch("DUFFEL_ACCESS_TOKEN")
     )
 
-    # passengers = []
-    # trip.adults.times do
-    #   passengers << { 'type': 'adult' }
-    # end
-
-    # p = {
-    #   slices:
-    #     [
-    #       {
-    #         origin: trip.location,
-    #         destination: trip.destination,
-    #         departure_date: trip.start_date.strftime("%Y-%m-%d")
-    #       },
-    #       {
-    #         origin: trip.destination,
-    #         destination: trip.location,
-    #         departure_date: trip.end_date.strftime("%Y-%m-%d")
-    #       }
-    #     ],
-    #   passengers: passengers,
-    #   cabin_class: "business",
-    #   max_connections: 0
-    # }
-
-    if trip.adults == 1
-      offer_request = client.offer_requests.create(params: {
-        slices:
-          [
-            {
-              origin: trip.location,
-              destination: trip.destination,
-              departure_date: trip.start_date.strftime("%Y-%m-%d")
-            },
-            {
-              origin: trip.destination,
-              destination: trip.location,
-              departure_date: trip.end_date.strftime("%Y-%m-%d")
-            }
-          ],
-        passengers: [{'type': 'adult'}],
-        cabin_class: "business",
-        max_connections: 0
-      })
-    elsif trip.adults == 2
-      offer_request = client.offer_requests.create(params: {
-        slices:
-          [
-            {
-              origin: trip.location,
-              destination: trip.destination,
-              departure_date: trip.start_date.strftime("%Y-%m-%d")
-            },
-            {
-              origin: trip.destination,
-              destination: trip.location,
-              departure_date: trip.end_date.strftime("%Y-%m-%d")
-            }
-          ],
-        passengers: [{'type': 'adult'}, {'type': 'adult'}],
-        cabin_class: "business",
-        max_connections: 0
-      })
-    else
-      offer_request = client.offer_requests.create(params: {
-        slices:
-          [
-            {
-              origin: trip.location,
-              destination: trip.destination,
-              departure_date: trip.start_date.strftime("%Y-%m-%d")
-            },
-            {
-              origin: trip.destination,
-              destination: trip.location,
-              departure_date: trip.end_date.strftime("%Y-%m-%d")
-            }
-          ],
-        passengers: [{'type': 'adult'}, {'type': 'adult'}, {'type': 'adult'}],
-        cabin_class: "business",
-        max_connections: 0
-      })
-    end
+    offer_request = client.offer_requests.create(params: {
+      slices:
+        [
+          {
+            origin: trip.location,
+            destination: trip.destination,
+            departure_date: trip.start_date.strftime("%Y-%m-%d")
+          },
+          {
+            origin: trip.destination,
+            destination: trip.location,
+            departure_date: trip.end_date.strftime("%Y-%m-%d")
+          }
+        ],
+      passengers: Array.new(trip.adults, { "type": "adult" }),
+      cabin_class: "business",
+      max_connections: 0
+    })
 
     # puts "Created offer request: #{offer_request.id}"
     offers = client.offers.all(params: { offer_request_id: offer_request.id })
