@@ -21,6 +21,5 @@ initFlatpickr();
 
 // JS Animations on home page
 import AOS from 'aos';
-
 // ..
 AOS.init();
