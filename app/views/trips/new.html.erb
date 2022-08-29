@@ -1,4 +1,4 @@
- <div data-controller="loading">
+ <div data-controller="loading add">
   <div class="container my-4" data-loading-target= "form">
     <div class="row justify-content-center">
       <div class="col-12 col-sm-4 bg-light p-4 ">
@@ -42,7 +42,13 @@
           <%= f.input :end_date, as: :string,
                                   required: true,
                                   input_html: {class: "datepicker"} %>
-          <%= f.input :adults, label: 'Number of adults', input_html: { min: '1'} %>
+          <div class="input-box">
+            <%= f.input :adults, label: 'Number of adults', value: '1', id: 'number' %>
+            <div class="minus-plus-btn">
+              <button class="plus">+</button>
+              <button class="minus">-</button>
+            </div>
+          </div>
           <%= f.input :children, label: 'Number of children', input_html: { min: '1'} %>
           <%= f.input :rooms, label: 'Number of rooms', input_html: { min: '1'} %>
           <%= f.input :budget, label:'Max budget' %>
