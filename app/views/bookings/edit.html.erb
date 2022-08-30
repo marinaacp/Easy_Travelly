@@ -18,6 +18,7 @@
           </label>
       <% end %>
     </div>
+    <%= link_to "I already have a hotel", edit_hotel_path, class:'btn btn-outline-info' %>
     <hr>
     <div class="cards-hotels my-3">
       <% @booking.trip.flights.each do |flight| %>
