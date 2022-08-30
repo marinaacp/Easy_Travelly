@@ -19,9 +19,9 @@
   <div class="container my-3" >
     <div class="row justify-content-center">
       <div class="col-sm-12 col-lg-4">
-        <div class="card">
+        <div class="card my-4">
           <div class="card-header d-flex">
-            <div class="flex-grow-1 text-info"><%= @trip.name %></div>
+            <div class="flex-grow-1 text-info">Booking infos</div>
               <%= link_to edit_booking_path(@trip.booking), class:'mx-1' do %>
                 <i class="fa-solid fa-square-pen btn-outline-blue fs-4"></i>
               <% end %>
@@ -34,9 +34,9 @@
           <div class="card-body">
             <p><i class="fa-solid fa-hotel fs-3"></i> <%= @trip.booking.hotel.name %> Rating :<%= @trip.booking.hotel.rate %> </p>
             <p> <i class="fa-solid fa-plane-departure fs-3"></i> N#<%= @trip.booking.flight.id %> </p>
-            <p> <i class="fa-solid fa-person fs-3"></i> <%= @trip.adults %> adult(s)</p>
+            <p> <i class="fa-solid fa-person fs-3"></i> <%= @trip.adults %> adult<small>(s)</small></p>
             <hr>
-            <p><i class="fa-solid fa-calendar-day fs-3"></i> <%= @trip.start_date %><i class="fa-solid fa-arrow-right"></i> <%= @trip.end_date  %> </p>
+            <p><i class="fa-solid fa-calendar-day fs-3"></i> <%= @trip.start_date.strftime('%d/%b/%Y') %><i class="fa-solid fa-arrow-right"></i> <%= @trip.end_date.strftime('%d/%b/%Y')  %> </p>
           </div>
         </div>
       </div>
@@ -44,40 +44,40 @@
 
 
 
-      <div class="col-lg-4 col-sm-10">
-        <h3>Budget info <i class="fa-solid fa-money-bill-wheat text-info"></i></h3>
+    <div class="col-lg-4 col-sm-10 my-4">
+      <h3>Budget info <i class="fa-solid fa-money-bill-wheat text-info"></i></h3>
 
-        <table class="table table-striped table-hover">
-        <tbody>
-          <tr>
-            <td>Total Budget</td>
-            <td class="text-end"> <strong><%= @trip.budget.round(2) %> <i class="fa-solid fa-euro-sign"></i></strong></td>
-          </tr>
-          <tr>
-            <td>Hotel</td>
-            <td class="text-end"><i class="fa-solid fa-minus"></i><%= @trip.budgetHotel.round(2) %> <i class="fa-solid fa-euro-sign"></i></i></td>
-          </tr>
-          <tr class="border-bottom border-dark">
-            <td>Flight</td>
-            <td class="text-end"><i class="fa-solid fa-minus"></i><%= @trip.budgetFlight.round(2) %> <i class="fa-solid fa-euro-sign"></i></i></td>
-          </tr>
-          <tr>
-            <td>Budget left</td>
-            <% budget_left = (@trip.budget - @trip.budgetFlight - @trip.budgetHotel).round(2) %>
-            <% days_left = (@trip.end_date - @trip.start_date).to_i %>
-            <td class="text-end"><%= budget_left %> <i class="fa-solid fa-euro-sign"></i></td>
-          </tr>
-          <tr>
-            <td>Budget left (per/day)</td>
-            <td class="text-warning text-end"><i class="fa-solid fa-calendar-plus"></i> <%= (budget_left/days_left).round(2) %> <i class="fa-solid fa-euro-sign"></i> </td>
-          </tr>
-        </tbody>
-        </table>
+      <table class="table table-striped table-hover">
+      <tbody>
+        <tr>
+          <td>Total Budget</td>
+          <td class="text-end"> <strong><%= @trip.budget.round(2) %> <i class="fa-solid fa-euro-sign"></i></strong></td>
+        </tr>
+        <tr>
+          <td>Hotel</td>
+          <td class="text-end"><i class="fa-solid fa-minus"></i><%= @trip.budgetHotel.round(2) %> <i class="fa-solid fa-euro-sign"></i></i></td>
+        </tr>
+        <tr class="border-bottom border-dark">
+          <td>Flight</td>
+          <td class="text-end"><i class="fa-solid fa-minus"></i><%= @trip.budgetFlight.round(2) %> <i class="fa-solid fa-euro-sign"></i></i></td>
+        </tr>
+        <tr>
+          <td>Budget left</td>
+          <% budget_left = (@trip.budget - @trip.budgetFlight - @trip.budgetHotel).round(2) %>
+          <% days_left = (@trip.end_date - @trip.start_date).to_i %>
+          <td class="text-end"><%= budget_left %> <i class="fa-solid fa-euro-sign"></i></td>
+        </tr>
+        <tr>
+          <td>Budget left (per/day)</td>
+          <td class="text-warning text-end"><i class="fa-solid fa-calendar-plus"></i> <%= (budget_left/days_left).round(2) %> <i class="fa-solid fa-euro-sign"></i> </td>
+        </tr>
+      </tbody>
+      </table>
 
-        <%= link_to "Back", :back, class:'btn btn-pink' %>
-      </div>
+      <%= link_to "Back", :back, class:'btn btn-pink' %>
+    </div>
 
-</div>
+  </div>
 
   </div>
 
