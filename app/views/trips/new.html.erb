@@ -42,13 +42,15 @@
           <%= f.input :end_date, as: :string,
                                   required: true,
                                   input_html: {class: "datepicker"} %>
+
           <div class="input-box">
-            <%= f.input :adults, label: 'Number of adults', value: '1', id: 'number' %>
+            <%= f.input :adults, label: 'Number of adults', input_html: { min: '1',  value: '1'}, id: 'numberPlace' %>
             <div class="minus-plus-btn">
-              <button class="plus">+</button>
-              <button class="minus">-</button>
+              <button class="plus" data-add-target= "add">+</button>
+              <button class="minus" data-add-target= "minus">-</button>
             </div>
           </div>
+
           <%= f.input :children, label: 'Number of children', input_html: { min: '1'} %>
           <%= f.input :rooms, label: 'Number of rooms', input_html: { min: '1'} %>
           <%= f.input :budget, label:'Max budget' %>
