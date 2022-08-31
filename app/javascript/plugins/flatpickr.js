@@ -3,7 +3,8 @@ import rangePlugin from "flatpickr/dist/plugins/rangePlugin";
 
 const initFlatpickr = () => {
   flatpickr(".datepicker", {
-    altInput: true
+    // altInput: true,
+    dateFormat: "d-m-Y"
   });
 }
 

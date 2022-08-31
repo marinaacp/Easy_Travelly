@@ -36,60 +36,85 @@
                                     'Rome' => 'ROM',
                                     'São Paulo' => 'SAO',
                                     'Rio de Janeiro' => 'RIO'} %>
-          <%= f.input :start_date, as: :string,
-                                  required: true,
-                                  input_html: {class: "datepicker"} %>
-          <%= f.input :end_date, as: :string,
-                                  required: true,
-                                  input_html: {class: "datepicker"} %>
+          <div class="d-flex flex-direction-row justify-content-between row">
+            <div class="col">
+              <div>
+                <%= f.label 'Start date:' %>
+              </div>
+              <div class="mt-2">
+                <%= f.input :start_date, as: :string,
+                                        label: false,
+                                        required: true,
+                                        input_html: {class: "datepicker"} %>
+              </div>
+            </div>
+
+            <div class="col">
+              <div>
+                <%= f.label 'End date:' %>
+              </div>
+              <div class="mt-2">
+                <%= f.input :end_date, as: :string,
+                                        label: false,
+                                        required: true,
+                                        input_html: {class: "datepicker"} %>
+              </div>
+            </div>
+          </div>
 
           <%= f.input :children, label: 'Number of children', input_html: { min: '1'} %>
 
-          <div class="input-box">
-            <%= f.label 'Number of adults:' %>
-            <div class="d-flex flex-direction-row align-center justify-content-center mt-2">
-              <div class="input-group-prepend" style="height: 2rem;">
-                  <button type="button" class="btn btn-primary btn-sm" id="minus-btn-left"><i class="fa fa-minus"></i></button>
-              </div>
-              <div class="flex-direction-column">
-                <%= f.input :adults, placeholder: '0', label: false, input_html: { id: "qty_input_ten", class: "quantity form-control form-control-sm", min: "1", max: "10", value: "1", type: "number", style: "width: 100px;"}  %>
-              </div>
-              <div class="input-group-prepend" style="height: 2rem;">
-                  <button type="button" class="btn btn-primary btn-sm" id="plus-btn-right"><i class="fa fa-plus"></i></button>
+          <div class="d-flex flex-direction-row justify-content-between row">
+            <div class="input-box col">
+              <%= f.label 'Number of adults:' %>
+              <div class="d-flex flex-direction-row mt-2">
+                <div class="input-group-prepend" style="height: 2rem;">
+                    <button type="button" class="btn btn-primary btn-sm" id="minus-btn-left"><i class="fa fa-minus"></i></button>
+                </div>
+                <div class="w-100">
+                  <%= f.input :adults, placeholder: '0', label: false, input_html: { id: "qty_input_ten", class: "quantity form-control form-control-sm", min: "1", max: "10", value: "1", type: "number" }  %>
+                </div>
+                <div class="input-group-prepend" style="height: 2rem;">
+                    <button type="button" class="btn btn-primary btn-sm" id="plus-btn-right"><i class="fa fa-plus"></i></button>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div class="input-box">
-            <%= f.label 'Number of rooms:' %>
-            <div class="d-flex flex-direction-row align-center justify-content-center mt-2">
-              <div class="input-group-prepend" style="height: 2rem;">
-                  <button type="button" class="btn btn-primary btn-sm" id="minus-btn-left-2"><i class="fa fa-minus"></i></button>
-              </div>
-              <div class="flex-direction-column">
-                <%= f.input :rooms, placeholder: '1', label: false, input_html: { id: "qty_input_ten-2", class: "quantity form-control form-control-sm", min: "1", max: "10", value: "1", type: "number", style: "width: 100px;"}  %>
-              </div>
-              <div class="input-group-prepend" style="height: 2rem;">
-                  <button type="button" class="btn btn-primary btn-sm" id="plus-btn-right-2"><i class="fa fa-plus"></i></button>
-              </div>
-            </div>
-          </div>
-
-          <div class="input-box">
-            <%= f.label 'Max budget:' %>
-            <div class="d-flex flex-direction-row align-center justify-content-center mt-2">
-              <div class="input-group-prepend" style="height: 2rem;">
-                  <button type="button" class="btn btn-primary btn-sm" id="minus-budget-btn-left"><i class="fa fa-minus"></i></button>
-              </div>
-              <div class="flex-direction-column">
-                <%= f.input :rooms, placeholder: '0', label: false, input_html: { id: "qty_input_hundred", class: "quantity form-control form-control-sm", min: "1000", max: "1000000", value: "1000", type: "number", style: "width: 100px;"}  %>
-              </div>
-              <div class="input-group-prepend" style="height: 2rem;">
-                  <button type="button" class="btn btn-primary btn-sm" id="plus-budget-btn-right"><i class="fa fa-plus"></i></button>
+            <div class="input-box col">
+              <%= f.label 'Number of rooms:' %>
+              <div class="d-flex flex-direction-row mt-2">
+                <div class="input-group-prepend" style="height: 2rem;">
+                    <button type="button" class="btn btn-primary btn-sm" id="minus-btn-left-2"><i class="fa fa-minus"></i></button>
+                </div>
+                <div class="w-100">
+                  <%= f.input :rooms, placeholder: '1', label: false, input_html: { id: "qty_input_ten-2", class: "quantity form-control form-control-sm", min: "1", max: "10", value: "1", type: "number" }  %>
+                </div>
+                <div class="input-group-prepend" style="height: 2rem;">
+                    <button type="button" class="btn btn-primary btn-sm" id="plus-btn-right-2"><i class="fa fa-plus"></i></button>
+                </div>
               </div>
             </div>
           </div>
-          <%= f.submit "Send", class: "btn btn-blue" %>
+          <div class="d-flex flex-direction-row justify-content-between row">
+            <div class="input-box col">
+              <%= f.label 'Max budget:' %>
+              <div class="d-flex flex-direction-row mt-2">
+                <div class="input-group-prepend" style="height: 2rem;">
+                    <button type="button" class="btn btn-primary btn-sm" id="minus-budget-btn-left"><i class="fa fa-minus"></i></button>
+                </div>
+                <div class="w-100">
+                  <%= f.input :budget, placeholder: '1000', label: false, input_html: { id: "qty_input_hundred", class: "quantity form-control form-control-sm", min: "1000", max: "1000000", value: "1000", type: "number" }  %>
+                </div>
+                <div class="input-group-prepend" style="height: 2rem;">
+                    <button type="button" class="btn btn-primary btn-sm" id="plus-budget-btn-right"><i class="fa fa-plus"></i></button>
+                </div>
+              </div>
+            </div>
+            <div class="input-box col">
+              <%= f.label 'Currency:' %>
+            </div>
+          </div>
+          <%= f.submit "Send", class: "btn btn-blue mt-4" %>
         <% end %>
       </div>
     </div>
