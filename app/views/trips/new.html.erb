@@ -1,4 +1,5 @@
-<div data-controller="loading">
+
+<div data-controller="loading form">
   <div class="container my-4" data-loading-target= "form">
     <div class="row justify-content-center">
       <div class="col-12 col-sm-4 bg-light p-4 ">
@@ -8,24 +9,86 @@
                         insert_in_list_target: "form",
                         action: "submit->loading#loader"
                       } do |f| %>
-          <%= f.input :name, label:'Trip name' %>
-          <%= f.input :location, label:'From',
+          <%= f.input :name, label:'Trip name', input_html: {class: "form-control form-control-sm box-form-smal" } %>
+          <div class="w-100">
+            <%= f.input :location, label:'From',
                       collection: DestinationAttr::DESTINATION,
                       input_html: { class: "select2 w-100" } %>
-          <%= f.input :destination, label:'To',
+          </div>
+          <div class="w-100">
+            <%= f.input :destination, label:'To',
                       collection: DestinationAttr::DESTINATION,
                       input_html: { class: "select2 w-100" } %>
-          <%= f.input :start_date, as: :string,
-                                  required: true,
-                                  input_html: {class: "datepicker"} %>
-          <%= f.input :end_date, as: :string,
-                                  required: true,
-                                  input_html: {class: "datepicker"} %>
-          <%= f.input :adults, label: 'Number of adults', input_html: { min: '1'} %>
-          <%= f.input :rooms, label: 'Number of rooms', input_html: { min: '1'} %>
-          <%= f.input :budget, label:'Max budget' %>
-          <%= f.input :budgetCurrency, collection: Trip::CURRENCY %>
-          <%= f.submit "Send", class: "btn btn-blue" %>
+          </div>
+
+          <div class="d-flex flex-direction-row justify-content-between row">
+            <div class="col">
+                <%= f.input :start_date, as: :string,
+                                        required: true,
+                                        input_html: {class: "datepicker form-control form-control-sm box-form-smal" } %>
+            </div>
+            <div class="col">
+                <%= f.input :end_date, as: :string,
+                                        required: true,
+                                        input_html: {class: "datepicker form-control form-control-sm box-form-smal" } %>
+            </div>
+          </div>
+
+          <div class="d-flex flex-direction-row justify-content-between row">
+            <div class="input-box col">
+              <%= f.label 'Number of adults:' %>
+              <div class="d-flex flex-direction-row mt-2">
+                <div class="input-group-prepend">
+                    <button type="button" class="btn btn-primary btn-sm" id="minus-btn-left"><i class="fa fa-minus"></i></button>
+                </div>
+                <div class="w-100">
+                  <%= f.input :adults, placeholder: '0', label: false, input_html: { id: "qty_input_ten", class: "quantity form-control form-control-sm", min: "1", max: "10", value: "1", type: "number" }  %>
+                </div>
+                <div class="input-group-prepend">
+                    <button type="button" class="btn btn-primary btn-sm" id="plus-btn-right"><i class="fa fa-plus"></i></button>
+                </div>
+              </div>
+            </div>
+
+            <div class="input-box col">
+              <%= f.label 'Number of rooms:' %>
+              <div class="d-flex flex-direction-row mt-2">
+                <div class="input-group-prepend">
+                    <button type="button" class="btn btn-primary btn-sm" id="minus-btn-left-2"><i class="fa fa-minus"></i></button>
+                </div>
+                <div class="w-100">
+                  <%= f.input :rooms, placeholder: '1', label: false, input_html: { id: "qty_input_ten-2", class: "quantity form-control form-control-sm", min: "1", max: "10", value: "1", type: "number" }  %>
+                </div>
+                <div class="input-group-prepend">
+                    <button type="button" class="btn btn-primary btn-sm" id="plus-btn-right-2"><i class="fa fa-plus"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex flex-direction-row justify-content-between row">
+            <div class="input-box col">
+              <%= f.label 'Max budget:' %>
+              <div class="d-flex flex-direction-row mt-2">
+                <div class="input-group-prepend">
+                    <button type="button" class="btn btn-primary btn-sm" id="minus-budget-btn-left"><i class="fa fa-minus"></i></button>
+                </div>
+                <div class="w-100">
+                  <%= f.input :budget, placeholder: '1000', label: false, input_html: { id: "qty_input_hundred", class: "quantity form-control form-control-sm", min: "1000", max: "1000000", value: "1000", type: "number" }  %>
+                </div>
+                <div class="input-group-prepend">
+                    <button type="button" class="btn btn-primary btn-sm" id="plus-budget-btn-right"><i class="fa fa-plus"></i></button>
+                </div>
+              </div>
+            </div>
+            <div class="input-box col">
+              <%= f.label 'Currency:' %>
+              <div class="mt-2">
+                <%= f.input :budgetCurrency, label: false, input_html: { class: "quantity form-control form-control-sm box-form-smal"}, collection: Trip::CURRENCY %>
+              </div>
+            </div>
+          </div>
+
+          <%= f.submit "Send", class: "btn btn-blue mt-4" %>
         <% end %>
       </div>
     </div>
