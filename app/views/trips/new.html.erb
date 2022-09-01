@@ -10,10 +10,10 @@
                       } do |f| %>
           <%= f.input :name, label:'Trip name' %>
           <%= f.input :location, label:'From',
-                      collection: @destinations,
+                      collection: DestinationAttr::DESTINATION,
                       input_html: { class: "select2 w-100" } %>
           <%= f.input :destination, label:'To',
-                      collection: @destinations,
+                      collection: DestinationAttr::DESTINATION,
                       input_html: { class: "select2 w-100" } %>
           <%= f.input :start_date, as: :string,
                                   required: true,
