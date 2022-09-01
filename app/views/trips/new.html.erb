@@ -12,13 +12,13 @@
           <%= f.input :name, label:'Trip name' %>
           <div class="w-100">
             <%= f.input :location, label:'From',
-                        collection: Destination::DESTINATION,
-                        input_html: { class: "select2 w-100" } %>
+                      collection: @destinations,
+                      input_html: { class: "select2 w-100" } %>
           </div>
           <div class="w-100">
             <%= f.input :destination, label:'To',
-                        collection: Destination::DESTINATION,
-                        input_html: { class: "select2 w-100" } %>
+                      collection: @destinations,
+                      input_html: { class: "select2 w-100" } %>
           </div>
 
           <div class="d-flex flex-direction-row justify-content-between row">

@@ -25,7 +25,8 @@ module Apitude
       'occupancies': [
         {
           "rooms": trip.rooms,
-          "adults": trip.adults
+          "adults": trip.adults,
+          "children": 0
         }
       ],
       "destination": {
