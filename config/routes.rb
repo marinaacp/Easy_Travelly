@@ -5,5 +5,6 @@ Rails.application.routes.draw do
   resources :trips, shallow: true do
     resources :bookings, only: %i[new create destroy update edit show]
     resources :hotels, only: %i[update edit]
+    resources :flights, only: %i[update edit]
   end
 end

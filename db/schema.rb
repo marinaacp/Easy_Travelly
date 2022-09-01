@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_27_170548) do
+ActiveRecord::Schema.define(version: 2022_08_30_193724) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,22 @@ ActiveRecord::Schema.define(version: 2022_08_27_170548) do
     t.index ["flight_id"], name: "index_bookings_on_flight_id"
     t.index ["hotel_id"], name: "index_bookings_on_hotel_id"
     t.index ["trip_id"], name: "index_bookings_on_trip_id"
+  end
+
+  create_table "countries", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "destinations", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.bigint "country_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["country_id"], name: "index_destinations_on_country_id"
   end
 
   create_table "flights", force: :cascade do |t|
@@ -102,6 +118,10 @@ ActiveRecord::Schema.define(version: 2022_08_27_170548) do
     t.string "currency"
     t.string "category"
     t.string "zone_name"
+    t.float "rate"
+    t.integer "reviewCount"
+    t.float "latitude"
+    t.float "longitude"
     t.index ["trip_id"], name: "index_hotels_on_trip_id"
   end
 
@@ -119,7 +139,9 @@ ActiveRecord::Schema.define(version: 2022_08_27_170548) do
     t.bigint "user_id", null: false
     t.string "name"
     t.integer "rooms"
-    t.integer "children"
+    t.float "budgetHotel"
+    t.float "budgetFlight"
+    t.string "budgetCurrency"
     t.index ["user_id"], name: "index_trips_on_user_id"
   end
 
@@ -142,6 +164,7 @@ ActiveRecord::Schema.define(version: 2022_08_27_170548) do
   add_foreign_key "bookings", "flights"
   add_foreign_key "bookings", "hotels"
   add_foreign_key "bookings", "trips"
+  add_foreign_key "destinations", "countries"
   add_foreign_key "flights", "trips"
   add_foreign_key "hotels", "trips"
   add_foreign_key "trips", "users"

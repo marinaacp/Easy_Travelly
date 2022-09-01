@@ -6,7 +6,7 @@ class HotelsController < ApplicationController
 
   def update
     if @hotel.update(hotel_params)
-      redirect_to trip_path(@hotel.trip)
+      redirect_to trip_path
     else
       render :edit
     end
@@ -15,7 +15,7 @@ class HotelsController < ApplicationController
   private
 
   def hotel_params
-    params.permit(:name, :check_in, :check_out, :price, :currency, :category, :zone_name )
+    params.permit(:name, :check_in, :check_out, :price, :currency, :category, :zone_name)
   end
 
   def set_hotel
