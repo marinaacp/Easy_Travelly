@@ -5,7 +5,6 @@ class TripsController < ApplicationController
 
   def new
     @trip = Trip.new
-    @destinations = Destination::DESTINATION
     authorize @trip
   end
 

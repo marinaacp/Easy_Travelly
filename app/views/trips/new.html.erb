@@ -9,15 +9,15 @@
                         insert_in_list_target: "form",
                         action: "submit->loading#loader"
                       } do |f| %>
-          <%= f.input :name, label:'Trip name' %>
+          <%= f.input :name, label:'Trip name', input_html: {class: "form-control form-control-sm box-form-smal" } %>
           <div class="w-100">
             <%= f.input :location, label:'From',
-                      collection: @destinations,
+                      collection: DestinationAttr::DESTINATION,
                       input_html: { class: "select2 w-100" } %>
           </div>
           <div class="w-100">
             <%= f.input :destination, label:'To',
-                      collection: @destinations,
+                      collection: DestinationAttr::DESTINATION,
                       input_html: { class: "select2 w-100" } %>
           </div>
 
@@ -25,12 +25,12 @@
             <div class="col">
                 <%= f.input :start_date, as: :string,
                                         required: true,
-                                        input_html: {class: "datepicker"} %>
+                                        input_html: {class: "datepicker form-control form-control-sm box-form-smal" } %>
             </div>
             <div class="col">
                 <%= f.input :end_date, as: :string,
                                         required: true,
-                                        input_html: {class: "datepicker"} %>
+                                        input_html: {class: "datepicker form-control form-control-sm box-form-smal" } %>
             </div>
           </div>
 
@@ -83,7 +83,7 @@
             <div class="input-box col">
               <%= f.label 'Currency:' %>
               <div class="mt-2">
-                <%= f.input :budgetCurrency, label: false, input_html: {id: "box-budget"}, collection: Trip::CURRENCY %>
+                <%= f.input :budgetCurrency, label: false, input_html: { class: "quantity form-control form-control-sm box-form-smal"}, collection: Trip::CURRENCY %>
               </div>
             </div>
           </div>
