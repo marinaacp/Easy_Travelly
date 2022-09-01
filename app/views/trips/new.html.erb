@@ -1,4 +1,5 @@
- <div data-controller="loading form">
+
+<div data-controller="loading form">
   <div class="container my-4" data-loading-target= "form">
     <div class="row justify-content-center">
       <div class="col-12 col-sm-4 bg-light p-4 ">
@@ -10,59 +11,24 @@
                       } do |f| %>
           <%= f.input :name, label:'Trip name' %>
           <%= f.input :location, label:'From',
-                      placeholder: 'Madri',
-                      collection: { 'Londres' => 'LON',
-                                    'Madri' => 'MAD',
-                                    'Barcelona' => 'BCN',
-                                    'Paris' => 'PAR',
-                                    'Berlin' => 'BER',
-                                    'New York' => 'NYC',
-                                    'Lisbon' => 'LIS',
-                                    'Milan' => 'MIL',
-                                    'Rome' => 'ROM',
-                                    'São Paulo' => 'SAO',
-                                    'Rio de Janeiro' => 'RIO'} %>
+                      collection: Destination::DESTINATION,
+                      input_html: { class: "select2 w-100" } %>
           <%= f.input :destination, label:'To',
-                      placeholder: 'London',
-                      # input_html: { data}
-                      collection: { 'Londres' => 'LON',
-                                    'Madri' => 'MAD',
-                                    'Barcelona' => 'BCN',
-                                    'Paris' => 'PAR',
-                                    'Berlin' => 'BER',
-                                    'New York' => 'NYC',
-                                    'Lisbon' => 'LIS',
-                                    'Milan' => 'MIL',
-                                    'Rome' => 'ROM',
-                                    'São Paulo' => 'SAO',
-                                    'Rio de Janeiro' => 'RIO'} %>
+                      collection: Destination::DESTINATION,
+                      input_html: { class: "select2 w-100" } %>
+
           <div class="d-flex flex-direction-row justify-content-between row">
             <div class="col">
-              <div>
-                <%= f.label 'Start date:' %>
-              </div>
-              <div class="mt-2">
                 <%= f.input :start_date, as: :string,
-                                        label: false,
                                         required: true,
                                         input_html: {class: "datepicker"} %>
-              </div>
             </div>
-
             <div class="col">
-              <div>
-                <%= f.label 'End date:' %>
-              </div>
-              <div class="mt-2">
                 <%= f.input :end_date, as: :string,
-                                        label: false,
                                         required: true,
                                         input_html: {class: "datepicker"} %>
-              </div>
             </div>
           </div>
-
-          <%= f.input :children, label: 'Number of children', input_html: { min: '1'} %>
 
           <div class="d-flex flex-direction-row justify-content-between row">
             <div class="input-box col">
@@ -112,8 +78,12 @@
             </div>
             <div class="input-box col">
               <%= f.label 'Currency:' %>
+              <div class="mt-2">
+                <%= f.input :budgetCurrency, label: false, collection: Trip::CURRENCY %>
+              </div>
             </div>
           </div>
+
           <%= f.submit "Send", class: "btn btn-blue mt-4" %>
         <% end %>
       </div>

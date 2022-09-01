@@ -22,6 +22,10 @@ class TripPolicy < ApplicationPolicy
     owner?
   end
 
+  def update?
+    owner?
+  end
+
   private
 
   def owner?

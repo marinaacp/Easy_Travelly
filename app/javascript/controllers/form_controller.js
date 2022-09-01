@@ -6,6 +6,7 @@ export default class extends Controller {
 
   connect() {
     initFlatpickr();
+    initSelect2();
     $('#plus-btn-right').click(function(){
     	$('#qty_input_ten').val(parseInt($('#qty_input_ten').val()) + 1 );
     });

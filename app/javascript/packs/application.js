@@ -12,9 +12,19 @@ import "bootstrap"
 import "@fortawesome/fontawesome-free/css/all"
 import 'jquery'
 
+
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+// Flatpickr -> datepicker (form calendar)
+import { initFlatpickr } from "../plugins/flatpickr";
+initFlatpickr();
+
+import { initSelect2 } from "../plugins/init_select2";
+document.addEventListener("turbolinks:load", function() {
+  initSelect2();
+});
 
 // JS Animations on home page
 import AOS from 'aos';
