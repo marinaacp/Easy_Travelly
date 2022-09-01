@@ -38,13 +38,13 @@
             <div class="input-box col">
               <%= f.label 'Number of adults:' %>
               <div class="d-flex flex-direction-row mt-2">
-                <div class="input-group-prepend" style="height: 2rem;">
+                <div class="input-group-prepend">
                     <button type="button" class="btn btn-primary btn-sm" id="minus-btn-left"><i class="fa fa-minus"></i></button>
                 </div>
                 <div class="w-100">
                   <%= f.input :adults, placeholder: '0', label: false, input_html: { id: "qty_input_ten", class: "quantity form-control form-control-sm", min: "1", max: "10", value: "1", type: "number" }  %>
                 </div>
-                <div class="input-group-prepend" style="height: 2rem;">
+                <div class="input-group-prepend">
                     <button type="button" class="btn btn-primary btn-sm" id="plus-btn-right"><i class="fa fa-plus"></i></button>
                 </div>
               </div>
@@ -53,13 +53,13 @@
             <div class="input-box col">
               <%= f.label 'Number of rooms:' %>
               <div class="d-flex flex-direction-row mt-2">
-                <div class="input-group-prepend" style="height: 2rem;">
+                <div class="input-group-prepend">
                     <button type="button" class="btn btn-primary btn-sm" id="minus-btn-left-2"><i class="fa fa-minus"></i></button>
                 </div>
                 <div class="w-100">
                   <%= f.input :rooms, placeholder: '1', label: false, input_html: { id: "qty_input_ten-2", class: "quantity form-control form-control-sm", min: "1", max: "10", value: "1", type: "number" }  %>
                 </div>
-                <div class="input-group-prepend" style="height: 2rem;">
+                <div class="input-group-prepend">
                     <button type="button" class="btn btn-primary btn-sm" id="plus-btn-right-2"><i class="fa fa-plus"></i></button>
                 </div>
               </div>
@@ -69,13 +69,13 @@
             <div class="input-box col">
               <%= f.label 'Max budget:' %>
               <div class="d-flex flex-direction-row mt-2">
-                <div class="input-group-prepend" style="height: 2rem;">
+                <div class="input-group-prepend">
                     <button type="button" class="btn btn-primary btn-sm" id="minus-budget-btn-left"><i class="fa fa-minus"></i></button>
                 </div>
                 <div class="w-100">
                   <%= f.input :budget, placeholder: '1000', label: false, input_html: { id: "qty_input_hundred", class: "quantity form-control form-control-sm", min: "1000", max: "1000000", value: "1000", type: "number" }  %>
                 </div>
-                <div class="input-group-prepend" style="height: 2rem;">
+                <div class="input-group-prepend">
                     <button type="button" class="btn btn-primary btn-sm" id="plus-budget-btn-right"><i class="fa fa-plus"></i></button>
                 </div>
               </div>
@@ -83,7 +83,7 @@
             <div class="input-box col">
               <%= f.label 'Currency:' %>
               <div class="mt-2">
-                <%= f.input :budgetCurrency, label: false, collection: Trip::CURRENCY %>
+                <%= f.input :budgetCurrency, label: false, input_html: {id: "box-budget"}, collection: Trip::CURRENCY %>
               </div>
             </div>
           </div>
