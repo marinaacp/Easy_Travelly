@@ -7,10 +7,12 @@
         <%= f.input :name, label:'Trip name' %>
         <%= f.input :location, label:'From',
                     placeholder: 'Madri',
-                    collection: Destination::DESTINATION  %>
+                    collection: Destination::DESTINATION,
+                    input_html: { class: "select2 w-100" }  %>
         <%= f.input :destination, label:'To',
                     placeholder: 'London',
-                    collection: Destination::DESTINATION %>
+                    collection: Destination::DESTINATION,
+                    input_html: { class: "select2 w-100" } %>
         <%= f.input :start_date, as: :string,
                                 required: true,
                                 input_html: { class: "datepicker" } %>

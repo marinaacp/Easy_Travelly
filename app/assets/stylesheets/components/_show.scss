@@ -17,3 +17,13 @@ header .overlay {
   text-shadow: 1px 1px 1px #333;
   background-image: linear-gradient(135deg, #64485C 10%, #d5ada8 100%);
 }
+
+.overlay img {
+  transition-timing-function: linear;
+  transition-timing-function: ease-in;
+  transition-duration: 0.25s;
+
+  &:hover {
+    transform: scale(1.1, 1.1);
+  }
+}

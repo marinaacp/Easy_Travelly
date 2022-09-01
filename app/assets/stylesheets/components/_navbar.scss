@@ -1,9 +1,9 @@
 .navbar-lewagon {
   justify-content: space-between;
   background: $light-gray;
+  color: black !important;
   position: sticky;
   z-index: 999;
-  color: black;
 }
 
 .navbar-lewagon .navbar-collapse {
@@ -19,18 +19,17 @@
 }
 
 .navbar-brand {
-  color: $aqua-blue;
+  color: $dark-pink;
 
   &:hover {
-    opacity: 0.8;
-    color: $aqua-blue;
+    opacity: 0.5;
   }
 }
 
 .brand-name-final {
-  color: $pink;
+  color: $dark-aqua;
 
   &:hover {
-    opacity: 0.9;
+    opacity: 0.5s;
   }
 }

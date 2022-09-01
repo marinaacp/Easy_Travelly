@@ -12,12 +12,7 @@
 }
 
 .container-carousel-home {
-  width: 40vw;
+  width: 350px;
+  height: 100px;
   margin: 1.5rem auto;
-}
-
-@media(max-width: 768px) {
-  .container-carousel-home {
-    width: 70vw;
-  }
 }

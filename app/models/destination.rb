@@ -8,4 +8,6 @@ class Destination < ApplicationRecord
   end
 
   DESTINATION = d.freeze
+
+  validates :code, uniqueness: true
 end

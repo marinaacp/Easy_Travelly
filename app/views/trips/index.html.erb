@@ -5,11 +5,11 @@
     <% else %>
       <% @trips.each do |trip| %>
         <% destination = Trip::DESTINATIONS[trip.destination.to_sym]  %>
-        <% src = "https://source.unsplash.com/300x200/?#{destination}"  %>
+        <% src = "https://source.unsplash.com/500x500/?#{destination}"  %>
 
-        <div class="card-trip mb-3" style="background-image: linear-gradient(to bottom, rgba(245, 246, 252, 0.52), rgba(117, 19, 93, 0.73)), url(<%= src %>); height: 200px; background-size: cover; color: white; border-radius: 0 0 85% 85% / 30%;">
-          <div class="d-flex p-2 bg-light opacity-50">
-            <small class="flex-grow-1 text-secondary"><i class="fa-solid fa-hand-holding-dollar"></i> Budget: <%= trip.budget %></small>
+        <div class="card-trip mb-3" style="background-image: linear-gradient(to bottom, rgba(245, 246, 252, 0.52), rgba(117, 19, 93, 0.73)), url(<%= src %>);">
+          <div class="d-flex p-2 bg-light card-trip-top">
+            <small class="flex-grow-1"><i class="fa-solid fa-hand-holding-dollar"></i> Budget: <%= trip.budget %></small>
             <%= link_to edit_booking_path(trip.booking), class:'mx-1' do %>
               <i class="fa-solid fa-square-pen btn-outline-blue fs-5 opacity-100"></i>
             <% end %>
@@ -20,10 +20,11 @@
             <% end %>
           </div>
 
-          <%=link_to trip, class:"btn-none" do %>
+          <%=link_to trip, class:"btn-white" do %>
             <div class="info p-3">
-              <p class="m-0"><%= trip.name %></p>
-              <p><i class="fa-solid fa-plane-departure"></i><%= trip.location %> to <%= trip.destination %> <i class="fa-solid fa-plane-arrival"></i></p>
+              <p class="m-0 fs-5"><strong><%= trip.name %></strong></p>
+              <p><i class="fa-solid fa-plane-departure"></i> <%= trip.location %> to <%= trip.destination %> <i class="fa-solid fa-plane-arrival"></i></p>
+              <p><i class="fa-solid fa-calendar-day"></i> <%= trip.start_date.strftime('%d/%b/%Y') %><i class="fa-solid fa-arrow-right"></i> <%= trip.end_date.strftime('%d/%b/%Y')  %> </p>
             </div>
           <% end %>
         </div>

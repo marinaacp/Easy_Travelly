@@ -3,18 +3,21 @@
   <hr>
   <%= form_with url: @booking, method: :put do |form| %>
     <div class="cards-hotels my-3">
-      <% @booking.trip.hotels.each do |hotel| %>
+      <% @booking.trip.hotels.each_with_index do |hotel,index| %>
           <% if @booking.hotel.id == hotel.id %>
             <input type="radio" class="btn-check" name="hotels" id="hotel-<%= hotel.id %>" autocomplete="off" value="<%= hotel.id %>" checked>
           <% else %>
             <input type="radio" class="btn-check" name="hotels" id="hotel-<%= hotel.id %>" autocomplete="off" value="<%= hotel.id %>">
           <% end %>
-          <label class="btn btn-outline-info" for="hotel-<%= hotel.id %>">
-              <strong><%= hotel.name %></strong>
-              <br>
-              <%= hotel.category %>
-              <br>
-              <%= hotel.price %> <i class="fa-solid fa-euro-sign"></i>
+          <label class="btn btn-outline-info label-hotels" for="hotel-<%= hotel.id %>">
+            <% search = ['hotel', 'hostel', 'room', 'city', 'bed', 'building', 'hostels', 'travel' ] %>
+            <img src="https://source.unsplash.com/150x150/?<%= search[index] %>" alt="Hotel image" class="rounded-circle">
+            <p class="m-0"><strong><%= hotel.name %></strong></p>
+            <p class="m-0"><small><%= hotel.category %></small></p>
+            <% hotel.rate.round(1).to_i.times do %>
+              <i class="fa-solid fa-star"></i>
+            <% end %>
+            <div class="border-top fs-5"><%= hotel.price %> <i class="fa-solid fa-euro-sign"></i></div>
           </label>
       <% end %>
     </div>
@@ -27,11 +30,10 @@
             <input type="radio" class="btn-check" name="flights" id="flight-<%= flight.id %>" autocomplete="off" value="<%= flight.id %>">
           <% end %>
           <label class="btn btn-outline-secondary" for="flight-<%= flight.id %>">
-              <strong>Flight #<%= flight.id %></strong>
-              <br>
-              <%= flight.departure_airline %>
-              <br>
-              <%= flight.price %> <i class="fa-solid fa-euro-sign"></i>
+            <img src="https://source.unsplash.com/150x150/?airplane" alt="Hotel image" class="rounded-circle">
+            <p class="m-0"><strong>Flight #<%= flight.id %></strong></p>
+            <p class="m-0"><%= flight.departure_airline %></p>
+            <div class="border-top fs-5"><%= flight.price %> <i class="fa-solid fa-euro-sign"></i></div>
           </label>
       <% end %>
     </div>

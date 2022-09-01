@@ -16,7 +16,7 @@ $success: $green;
 $info: $pink;
 $secondary: $middle-gray;
 $danger: $red;
-$warning: $dark-aqua;
+$warning: $darkest-aqua;
 
 // Buttons & inputs' radius
 $border-radius: 2px;
@@ -24,6 +24,6 @@ $border-radius-lg: 2px;
 $border-radius-sm: 2px;
 
 // Override other variables below!
-$nav-link-hover-color: $aqua-blue;
-$navbar-color: $aqua-blue;
+$nav-link-color: rgba(0, 0, 0, 0);
+$navbar-color: rgba(0, 0, 0, 0);
 // $nav-link-color: $

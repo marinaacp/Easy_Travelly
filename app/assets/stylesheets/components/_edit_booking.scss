@@ -1,0 +1,19 @@
+.label-hotels {
+  transition-timing-function: linear;
+  transition-timing-function: ease-in;
+  transition-duration: 0.25s;
+
+  img {
+    transition-timing-function: linear;
+    transition-timing-function: ease-in;
+    transition-duration: 0.35s;
+  }
+
+  &:hover {
+    transform: scale(1.1, 1.1);
+
+    img {
+      transform: scaleX(-1);
+    }
+  }
+}
