@@ -1,6 +1,8 @@
 import { Controller } from "stimulus"
 // Flatpickr -> datepicker (form calendar)
 import { initFlatpickr } from "../plugins/flatpickr";
+// City selector
+import { initSelect2 } from "../plugins/init_select2";
 
 export default class extends Controller {
 

@@ -10,12 +10,16 @@
                         action: "submit->loading#loader"
                       } do |f| %>
           <%= f.input :name, label:'Trip name' %>
-          <%= f.input :location, label:'From',
-                      collection: Destination::DESTINATION,
-                      input_html: { class: "select2 w-100" } %>
-          <%= f.input :destination, label:'To',
-                      collection: Destination::DESTINATION,
-                      input_html: { class: "select2 w-100" } %>
+          <div class="w-100">
+            <%= f.input :location, label:'From',
+                        collection: Destination::DESTINATION,
+                        input_html: { class: "select2 w-100" } %>
+          </div>
+          <div class="w-100">
+            <%= f.input :destination, label:'To',
+                        collection: Destination::DESTINATION,
+                        input_html: { class: "select2 w-100" } %>
+          </div>
 
           <div class="d-flex flex-direction-row justify-content-between row">
             <div class="col">
