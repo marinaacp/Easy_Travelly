@@ -5,6 +5,7 @@ class TripsController < ApplicationController
 
   def new
     @trip = Trip.new
+    @destinations = Destination::DESTINATION
     authorize @trip
   end
 
@@ -143,7 +144,7 @@ class TripsController < ApplicationController
   def trip_params
     params.require(:trip).permit(
       :name, :location, :destination, :start_date, :end_date,
-      :adults, :rooms, :budget, :budget
+      :adults, :rooms, :budget, :budgetCurrency
     )
   end
 

@@ -35,11 +35,11 @@ require 'digest'
 # end
 
 # To fetch all destinations from the API 7 requests have to be made
-#  [1, 1000]
-records = [[1001, 2000], [2001, 3000], [3001, 4000], [4001, 5000], [5001, 6000], [6000, 6761]]
+#  [1, 1000] [1001, 2000], [2001, 3000],
+countrycodes = ['ES', 'BR', 'FR', 'UK', 'PT', 'US', 'DK']
 
-records.each do |record|
-  url = URI("https://api.test.hotelbeds.com/hotel-content-api/1.0/locations/destinations?fields=countryCode, name&language=ENG&from=#{record[0]}&to=#{record[1]}&useSecondaryLanguage=false")
+countrycodes.each do |code|
+  url = URI("https://api.test.hotelbeds.com/hotel-content-api/1.0/locations/destinations?fields=countryCode, name&countryCodes=#{code}&language=ENG&from=1&to=1000&useSecondaryLanguage=false")
 
   https = Net::HTTP.new(url.host, url.port)
   https.use_ssl = true
