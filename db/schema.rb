@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_30_193724) do
+ActiveRecord::Schema.define(version: 2022_08_27_170548) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,23 @@ ActiveRecord::Schema.define(version: 2022_08_30_193724) do
     t.bigint "trip_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "emissions"
+    t.datetime "departure_start_time"
+    t.datetime "departure_end_time"
+    t.string "departure_class"
+    t.integer "departure_baggage"
+    t.string "logo_departure_airline"
+    t.string "aircraft_departure_airline"
+    t.integer "terminal_departure_departure"
+    t.integer "terminal_departure_arrival"
+    t.datetime "return_start_time"
+    t.datetime "return_end_time"
+    t.string "return_class"
+    t.integer "return_baggage"
+    t.string "logo_return_airline"
+    t.string "aircraft_return_airline"
+    t.integer "terminal_return_departure"
+    t.integer "terminal_return_arrival"
     t.index ["trip_id"], name: "index_flights_on_trip_id"
   end
 
