@@ -9,6 +9,10 @@ class BookingsController < ApplicationController
     hotel = Hotel.find(booking_params[:hotels])
     flight = Flight.find(booking_params[:flights])
     if @booking.update(hotel: hotel, flight: flight)
+      @booking.trip.update(
+        budgetHotel: hotel.price * @booking.trip.rooms,
+        budgetFlight: flight.price
+      )
       redirect_to trip_path(@booking.trip)
     else
       render :edit

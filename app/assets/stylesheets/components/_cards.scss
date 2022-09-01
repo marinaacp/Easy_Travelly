@@ -66,10 +66,6 @@
   .card-horizontal-infos {
     grid-template-columns: 1fr 1fr 1fr;
   }
-
-  .trips-cards {
-    grid-template-columns: 1fr 1fr;
-  }
 }
 
 @media(max-width: 768px) {
@@ -91,9 +87,5 @@
     img {
       margin: 0 auto;
     }
-  }
-
-  .trips-cards {
-    grid-template-columns: 1fr;
   }
 }

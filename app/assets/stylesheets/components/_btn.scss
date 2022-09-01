@@ -34,7 +34,7 @@
   text-decoration: none;
 
   &:hover {
-    opacity: 0.7;
+    color: $dark-aqua;
   }
 }
 
@@ -52,4 +52,13 @@
 .btn-none {
   text-decoration: none;
   color: $body-color;
+}
+
+.btn-white {
+  color: white;
+  text-decoration: none;
+
+  &:hover {
+    opacity: 0.7;
+  }
 }
