@@ -1,5 +1,5 @@
 class TripsController < ApplicationController
-  before_action :set_trip, only: %i[show destroy]
+  before_action :set_trip, only: %i[show destroy update]
   include Apitude
   include Duffel
 
@@ -17,6 +17,10 @@ class TripsController < ApplicationController
         zone_name: hotel['zoneName'],
         price: hotel['minRate'],
         currency: hotel['currency'],
+        rate: hotel['reviews'][0]['rate'],
+        reviewCount: hotel['reviews'][0]['reviewCount'],
+        latitude: hotel['latitude'],
+        longitude: hotel['longitude'],
         check_in: @trip.start_date,
         check_out: @trip.end_date
       )
@@ -84,28 +88,41 @@ class TripsController < ApplicationController
   def create
     @trip = Trip.new(trip_params)
     @trip.user = current_user
-    @hotels = hotels(@trip)
-    @flights = search_flights(@trip)
-    if @trip.valid? && @hotels && @flights
-      @trip.save
-      create_hotels
-      create_flights
-      create_bookings
-      redirect_to @trip
-    elsif @trip.valid?
-      # flash[:alert] = 'No result found'
-      @trip.budget_error
-      render :new
+    if @trip.valid?
+      @hotels = hotels(@trip)
+      @flights = search_flights(@trip)
+      if @hotels && @flights
+        @trip.save
+        create_hotels
+        create_flights
+        create_bookings
+        @trip.update(
+          budgetHotel: @trip.rooms * @trip.booking.hotel.price,
+          budgetFlight: @trip.booking.flight.price
+        )
+        redirect_to @trip
+      else
+        @trip.budget_error
+        render :new
+      end
     else
       render :new
     end
     authorize @trip
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
+    respond_to do |format|
+      if @trip.update(trip_update_params)
+        format.html { redirect_to @trip }
+        format.json # Follow the classic Rails flow and look for a update.json view
+      else
+        format.html { render "trips/show" }
+        format.json # Follow the classic Rails flow and look for a update.json view
+      end
+    end
   end
 
   def index
@@ -126,16 +143,23 @@ class TripsController < ApplicationController
   def trip_params
     params.require(:trip).permit(
       :name, :location, :destination, :start_date, :end_date,
-      :adults, :rooms, :children, :budget
+      :adults, :rooms, :budget, :budgetCurrency
     )
+  end
+
+  def trip_update_params
+    params.require(:trip).permit(:name)
   end
 
   def flight_params
     params.require(:trip).permit(
-      :reservation_number, :departure_departure, :airport_departure_departure,
-      :departure_arrival, :airport_departure_arrival, :departure_airline,
-      :return_departure, :airport_return_departure, :return_arrival,
-      :airport_return_arrival, :return_airline, :price, :currency
+      :reservation_number, :price, :currency, :emissions, :departure_start_time, :departure_end_time, :departure_class,
+      :departure_baggage, :departure_airline, :logo_departure_airline, :aircraft_departure_airline,
+      :departure_departure, :airport_departure_departure, :terminal_departure_departure, :departure_arrival,
+      :airport_departure_arrival, :terminal_departure_arrival, :return_start_time, :return_end_time, :return_class,
+      :return_baggage, :return_airline, :logo_return_airline, :aircraft_return_airline, :return_departure,
+      :airport_return_departure, :terminal_return_departure, :return_arrival, :airport_return_arrival,
+      :terminal_return_arrival
     )
   end
 
