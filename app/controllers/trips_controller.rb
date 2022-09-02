@@ -153,10 +153,13 @@ class TripsController < ApplicationController
 
   def flight_params
     params.require(:trip).permit(
-      :reservation_number, :departure_departure, :airport_departure_departure,
-      :departure_arrival, :airport_departure_arrival, :departure_airline,
-      :return_departure, :airport_return_departure, :return_arrival,
-      :airport_return_arrival, :return_airline, :price, :budgetCurrency
+      :reservation_number, :price, :currency, :emissions, :departure_start_time, :departure_end_time, :departure_class,
+      :departure_baggage, :departure_airline, :logo_departure_airline, :aircraft_departure_airline,
+      :departure_departure, :airport_departure_departure, :terminal_departure_departure, :departure_arrival,
+      :airport_departure_arrival, :terminal_departure_arrival, :return_start_time, :return_end_time, :return_class,
+      :return_baggage, :return_airline, :logo_return_airline, :aircraft_return_airline, :return_departure,
+      :airport_return_departure, :terminal_return_departure, :return_arrival, :airport_return_arrival,
+      :terminal_return_arrival
     )
   end
 
