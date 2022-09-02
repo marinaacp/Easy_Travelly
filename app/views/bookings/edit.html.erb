@@ -30,8 +30,10 @@
             <input type="radio" class="btn-check" name="flights" id="flight-<%= flight.id %>" autocomplete="off" value="<%= flight.id %>">
           <% end %>
           <label class="btn btn-outline-secondary card-flight" for="flight-<%= flight.id %>">
-            <p class="m-0"> Reservation code: <%= flight.reservation_number%></p>
-            <p class="m-0"> Flights emissions: <%= flight.emissions%> Kg</p>
+            <div class="my-3">
+              <p class="m-0"> Reservation code: <%= flight.reservation_number%></p>
+              <p class="m-0"> Flights emissions: <%= flight.emissions%> Kg</p>
+            </div>
             <div class="card-flight-info">
               <div class="card-flight-left">
                 <div class="d-flex my-3 lign-items-center" > <%# ida %>
