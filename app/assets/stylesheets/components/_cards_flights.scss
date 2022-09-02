@@ -19,15 +19,15 @@
   }
 }
 
-// .card-flight-info {
-//   display: flex;
-// }
-
+.flight-avatar {
+  display: flex;
+}
 
 .flight-avatar img {
   height: 40px;
   width: 40px;
   object-fit: contain;
+  align-items: center;
   // transition-timing-function: linear;
   // transition-timing-function: ease-in;
   // transition-duration: 0.25s;

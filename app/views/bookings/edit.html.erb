@@ -36,7 +36,7 @@
               <div class="card-flight-left">
                 <div class="d-flex my-3 lign-items-center" > <%# ida %>
                   <div class="flight-avatar">
-                    <%= image_tag(flight.logo_departure_airline)%>
+                    <div class="d-flex align-items-center"><%= image_tag(flight.logo_departure_airline)%></div>
                   </div>
                   <div class="card-flight-text">
                     <p class="m-0"><%= flight.departure_airline %></p>
@@ -47,7 +47,7 @@
                 </div>
                 <div class="d-flex my-3"> <%# volta %>
                   <div class="flight-avatar lign-items-center">
-                    <%= image_tag(flight.logo_return_airline)%>
+                    <div class="d-flex align-items-center"><%= image_tag(flight.logo_return_airline)%></div>
                   </div>
                   <div class="card-flight-text">
                     <p class="m-0"><%= flight.return_airline %></p>
