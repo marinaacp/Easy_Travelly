@@ -10,12 +10,29 @@
   }
 }
 
+.card-flight {
+  transition-timing-function: linear;
+  transition-timing-function: ease-in;
+  transition-duration: 0.25s;
+  &:hover {
+    transform: scale(1.1, 1.1);
+  }
+}
+
+// .card-flight-info {
+//   display: flex;
+//   position: relative;
+// }
+
+
 .flight-avatar img {
   height: 40px;
   width: 40px;
   object-fit: contain;
-}
-
-.card-flight-left {
-
+  // transition-timing-function: linear;
+  // transition-timing-function: ease-in;
+  // transition-duration: 0.25s;
+ &:hover {
+    transform: scale(1.1, 1.1);
+  }
 }

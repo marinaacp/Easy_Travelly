@@ -29,15 +29,16 @@
           <% else %>
             <input type="radio" class="btn-check" name="flights" id="flight-<%= flight.id %>" autocomplete="off" value="<%= flight.id %>">
           <% end %>
-          <label class="btn btn-outline-secondary" for="flight-<%= flight.id %>">
-            <div class="card-flight d-flex justify-content-around align-items-center">
+          <label class="btn btn-outline-secondary card-flight" for="flight-<%= flight.id %>">
+            <p class="m-0"> Reservation code: <%= flight.reservation_number%></p>
+            <p class="m-0"> Flights emissions: <%= flight.emissions%> Kg</p>
+            <div class="card-flight-info">
               <div class="card-flight-left">
                 <div class="d-flex my-3" > <%# ida %>
                   <div class="flight-avatar">
                     <%= image_tag(flight.logo_departure_airline)%>
                   </div>
                   <div>
-                    <p class="m-0"><strong>Flight #<%= flight.id %></strong></p>
                     <p class="m-0"><%= flight.departure_airline %></p>
                   </div>
                 </div>
@@ -46,12 +47,11 @@
                     <%= image_tag(flight.logo_return_airline)%>
                   </div>
                   <div>
-                    <p class="m-0"><strong>Flight #<%= flight.id %></strong></p>
                     <p class="m-0"><%= flight.departure_airline %></p>
                   </div>
                 </div>
               </div>
-              <div class="card-flight-right border-left">
+              <div class="border-top fs-5">
                 <%= flight.price %> <i class="fa-solid fa-euro-sign"></i>
               </div>
             </div>
