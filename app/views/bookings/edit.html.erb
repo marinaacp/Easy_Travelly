@@ -22,7 +22,7 @@
       <% end %>
     </div>
     <hr>
-    <div class="cards-hotels my-3">
+    <div class="cards-flights my-3">
       <% @booking.trip.flights.each do |flight| %>
           <% if @booking.flight.id == flight.id %>
             <input type="radio" class="btn-check" name="flights" id="flight-<%= flight.id %>" autocomplete="off" value="<%= flight.id %>" checked >
@@ -30,10 +30,31 @@
             <input type="radio" class="btn-check" name="flights" id="flight-<%= flight.id %>" autocomplete="off" value="<%= flight.id %>">
           <% end %>
           <label class="btn btn-outline-secondary" for="flight-<%= flight.id %>">
-            <img src="https://source.unsplash.com/150x150/?airplane" alt="Hotel image" class="rounded-circle">
-            <p class="m-0"><strong>Flight #<%= flight.id %></strong></p>
-            <p class="m-0"><%= flight.departure_airline %></p>
-            <div class="border-top fs-5"><%= flight.price %> <i class="fa-solid fa-euro-sign"></i></div>
+            <div class="card-flight d-flex justify-content-around align-items-center">
+              <div class="card-flight-left">
+                <div class="d-flex my-3" > <%# ida %>
+                  <div class="flight-avatar">
+                    <%= image_tag(flight.logo_departure_airline)%>
+                  </div>
+                  <div>
+                    <p class="m-0"><strong>Flight #<%= flight.id %></strong></p>
+                    <p class="m-0"><%= flight.departure_airline %></p>
+                  </div>
+                </div>
+                <div class="d-flex my-3"> <%# volta %>
+                  <div class="flight-avatar">
+                    <%= image_tag(flight.logo_return_airline)%>
+                  </div>
+                  <div>
+                    <p class="m-0"><strong>Flight #<%= flight.id %></strong></p>
+                    <p class="m-0"><%= flight.departure_airline %></p>
+                  </div>
+                </div>
+              </div>
+              <div class="card-flight-right border-left">
+                <%= flight.price %> <i class="fa-solid fa-euro-sign"></i>
+              </div>
+            </div>
           </label>
       <% end %>
     </div>
@@ -43,3 +64,4 @@
 
   <% end %>
 </div>
+ <%# ida %>

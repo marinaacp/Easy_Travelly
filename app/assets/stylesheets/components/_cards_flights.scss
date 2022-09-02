@@ -1,0 +1,21 @@
+.cards-flights {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 32px;
+}
+
+@media(max-width: 992px) {
+  .cards-hotels {
+    grid-template-columns: 1fr;
+  }
+}
+
+.flight-avatar img {
+  height: 40px;
+  width: 40px;
+  object-fit: contain;
+}
+
+.card-flight-left {
+
+}
