@@ -1,12 +1,49 @@
 require "duffel_api"
 require "bigdecimal"
 require "json"
+require "uri"
+require "net/http"
+require "digest"
 
 module Duffel
-  def search_flights(trip)
+  def search_flights(trip, destination_city, departure_city)
     client = DuffelAPI::Client.new(
       access_token: ENV.fetch("DUFFEL_ACCESS_TOKEN")
     )
+
+    # Getting IATA CODE for Destination city
+    # url = URI("https://api.duffel.com/places/suggestions?query=#{destination_city}")
+
+    # https = Net::HTTP.new(url.host, url.port)
+    # https.use_ssl = true
+
+    # request = Net::HTTP::Get.new(url)
+    # # request["Accept-Encoding"] = "gzip"
+    # request["Accept"] = "application/json"
+    # request["Authorization"] = "Bearer #{ENV['DUFFEL_ACCESS_TOKEN']}"
+    # request["Duffel-Version"] = "beta"
+
+    # response = https.request(request)
+    # response = JSON.parse(response.read_body)
+    # destination_iata_code = response['data'][0]['iata_code']
+    ############################################################################
+
+    # Getting IATA CODE for Departure city
+    # url = URI("https://api.duffel.com/places/suggestions?query=#{departure_city}")
+
+    # https = Net::HTTP.new(url.host, url.port)
+    # https.use_ssl = true
+
+    # request = Net::HTTP::Get.new(url)
+    # # request["Accept-Encoding"] = "gzip"
+    # request["Accept"] = "application/json"
+    # request["Authorization"] = "Bearer #{ENV['DUFFEL_ACCESS_TOKEN']}"
+    # request["Duffel-Version"] = "beta"
+
+    # response = https.request(request)
+    # response = JSON.parse(response.read_body)
+    # departure_iata_code = response['data'][0]['iata_code']
+    ############################################################################
 
     offer_request = client.offer_requests.create(params: {
       slices:

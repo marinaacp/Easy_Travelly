@@ -1,6 +1,8 @@
 require "uri"
 require "net/http"
 require "json"
+require "open-uri"
+require "nokogiri"
 
 module Opentrip
   def search_activities(trip, city_name, country_code)
@@ -35,7 +37,7 @@ module Opentrip
       longitude = response['lon']
 
       # Historic places
-      url = URI("https://api.opentripmap.com/0.1/en/places/autosuggest?name=#{city_name}&radius=50000&lon=#{longitude}&lat=#{latitude}&src_geom=wikidata&src_attr=wikidata&kinds=historic&limit=20&apikey=#{ENV['OPENTRIP_KEY']}")
+      url = URI("https://api.opentripmap.com/0.1/en/places/autosuggest?name=#{city_name}&radius=50000&lon=#{longitude}&lat=#{latitude}&kinds=historic&limit=30&apikey=#{ENV['OPENTRIP_KEY']}")
 
       https = Net::HTTP.new(url.host, url.port)
       https.use_ssl = true
@@ -45,6 +47,20 @@ module Opentrip
 
       response = https.request(request)
       response = JSON.parse(response.read_body)
+
+      # # Segunda tentaiva de fetch da API tirando
+      # if response['features'].empty?
+      #   url = URI("https://api.opentripmap.com/0.1/en/places/autosuggest?name=#{city_name}&radius=50000&lon=#{longitude}&lat=#{latitude}&kinds=historic&limit=20&apikey=#{ENV['OPENTRIP_KEY']}")
+
+      #   https = Net::HTTP.new(url.host, url.port)
+      #   https.use_ssl = true
+
+      #   request = Net::HTTP::Get.new(url)
+      #   request["Accept"] = "application/json"
+
+      #   response = https.request(request)
+      #   response = JSON.parse(response.read_body)
+      # end
 
       response['features'].each do |feature|
         xid = feature['properties']['xid']
@@ -66,6 +82,7 @@ module Opentrip
           )
         end
       end
+
       # Cultural
       url = URI("https://api.opentripmap.com/0.1/en/places/autosuggest?name=#{city_name}&radius=50000&lon=#{longitude}&lat=#{latitude}&src_geom=wikidata&src_attr=wikidata&kinds=cultural&limit=20&apikey=#{ENV['OPENTRIP_KEY']}")
 
@@ -125,7 +142,8 @@ module Opentrip
           if response['preview'].present?
             image_url = response['preview']['source']
           else
-            image_url = "https://source.unsplash.com/500x500/?#{food.sample}"
+            url = "https://source.unsplash.com/500x500/?#{food.sample}"
+            image_url = Nokogiri::HTML.parse(Net::HTTP.get(URI.parse(url))).children.children.children[1].attributes['href'].value
           end
           Activity.create(
             kind: 'foods',
