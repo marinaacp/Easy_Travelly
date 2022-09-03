@@ -1,14 +1,20 @@
 class HotelsController < ApplicationController
-  before_action :set_hotel, only: %i[edit update]
+  before_action :set_hotel, only: %i[new create]
 
-  def edit
+  def new
+    @hotel = Hotel.new
+    authorize @hotel
   end
 
-  def update
-    if @hotel.update(hotel_params)
+  def create
+    @hotel = Hotel.create(hotel_params)
+    @hotel.user = current_user
+    if @hotel.valid?
+      authorize @hotel
+      @hotel.save
       redirect_to trip_path
     else
-      render :edit
+      render :new
     end
   end
 
@@ -16,10 +22,5 @@ class HotelsController < ApplicationController
 
   def hotel_params
     params.permit(:name, :check_in, :check_out, :price, :currency, :category, :zone_name)
-  end
-
-  def set_hotel
-    @hotel = Hotel.find(params[:id])
-    authorize @hotel
   end
 end

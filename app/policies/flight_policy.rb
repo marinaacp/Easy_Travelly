@@ -6,11 +6,11 @@ class FlightPolicy < ApplicationPolicy
     end
   end
 
-  def edit?
+  def new?
     owner?
   end
 
-  def update?
+  def create?
     owner?
   end
 
