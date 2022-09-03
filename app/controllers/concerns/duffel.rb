@@ -23,7 +23,7 @@ module Duffel
           }
         ],
       passengers: Array.new(trip.adults, { "type": "adult" }),
-      cabin_class: "business",
+      cabin_class: "economy",
       max_connections: 0
     })
 
@@ -32,7 +32,7 @@ module Duffel
 
     # puts "Got #{offers.count} offers"
 
-    selected_offers = offers.first(6)
+    selected_offers = offers.first(8)
 
     # puts "Selected offer #{selected_offer.id} to book"
 

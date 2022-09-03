@@ -7,34 +7,33 @@
                         insert_in_list_target: "form"
                         } do |f| %>
         <%= f.input :name, label:'Hotel name' %>
-        <%= f.input :check_in, as: :string,
-                                      required: true,
-                                      input_html: {class: "datepicker form-control form-control-sm box-form-smal" } %>
-        <%= f.input :check_out, as: :string,
-                                      required: true,
-                                      input_html: {class: "datepicker form-control form-control-sm box-form-smal" } %>
-
         <div class="d-flex flex-direction-row justify-content-between">
           <div class="input-box col">
             <%= f.label 'Price in euros:' %>
             <div class="d-flex flex-direction-row mt-2">
               <div class="input-group-prepend">
-                <button type="button" class="btn btn-primary btn-sm" id="minus-btn-left-3"><i class="fa fa-minus"></i></button>
+                <button type="button" class="btn btn-primary" id="minus-btn-left-3"><i class="fa fa-minus"></i></button>
               </div>
-              <div class="w-100">
+            <div class="w-100 d-flex">
+              <div class="input-group-prepend">
+                  <span class="input-group-text box-money">€</span>
+                </div>
                 <%= f.input :price, placeholder: '10', label: false,
-                            input_html: {
-                              id: "qty_input_ten",
-                              class: "quantity form-control form-control-sm",
-                              min: "10",
-                              max: "1000000",
-                              value: "10",
-                              type: "number"
-                              } %>
+                                          input_html: {
+                                            id: "qty_input_ten",
+                                            class: "quantity form-control form-control",
+                                            min: "10",
+                                            max: "1000000",
+                                            value: "10",
+                                            type: "number"
+                                            } %>
+                <div class="input-group-append">
+                  <span class="input-group-text box-money">.00</span>
+                </div>
               </div>
               <div class="input-group-prepend">
                   <button type="button"
-                          class="btn btn-primary btn-sm"
+                          class="btn btn-primary"
                           id="plus-btn-right-3"><i class="fa fa-plus"></i></button>
               </div>
             </div>

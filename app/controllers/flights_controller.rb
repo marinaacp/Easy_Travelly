@@ -1,18 +1,18 @@
 class FlightsController < ApplicationController
-  before_action :set_flight, only: %i[new create]
-
   def new
-    authorize @flight
     @flight = Flight.new
+    @trip = Trip.find(params[:trip_id])
+    @flight.trip = @trip
+    authorize @flight
   end
 
   def create
+    @trip = Trip.find(params[:trip_id])
     @flight = Flight.create(flight_params)
-    @flight.user = current_user
     if @flight.valid?
       authorize @flight
       @flight.save
-      redirect_to trip_path
+      redirect_to edit_booking_path(@trip.booking)
     else
       render :new
     end

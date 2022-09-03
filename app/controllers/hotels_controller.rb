@@ -1,6 +1,4 @@
 class HotelsController < ApplicationController
-  # before_action :set_hotel, only: %i[new create]
-
   def new
     @hotel = Hotel.new
     @trip = Trip.find(params[:trip_id])
@@ -9,9 +7,13 @@ class HotelsController < ApplicationController
   end
 
   def create
-    @hotel = Hotel.create(hotel_params)
     @trip = Trip.find(params[:trip_id])
-    @hotel.trip = @trip
+    @hotel = Hotel.create(hotel_params)
+    @hotel.update(
+      trip: @trip,
+      check_in: @trip.start_date,
+      check_out: @trip.end_date
+    )
     if @hotel.valid?
       authorize @hotel
       @hotel.save
@@ -24,6 +26,6 @@ class HotelsController < ApplicationController
   private
 
   def hotel_params
-    params.require(:hotel).permit(:name, :check_in, :check_out, :price, :currency, :category, :zone_name)
+    params.require(:hotel).permit(:name, :price)
   end
 end
