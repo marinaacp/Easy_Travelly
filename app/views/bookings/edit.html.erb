@@ -20,7 +20,7 @@
             <div class="border-top fs-5"><%= hotel.price %> <i class="fa-solid fa-euro-sign"></i></div>
           </label>
       <% end %>
-      <%= link_to "I already have a hotel", new_trip_hotel_path(params[:id]), class:'btn btn-outline-info' %>
+      <%= link_to "I already have a hotel", new_trip_hotel_path(@booking.trip.id), class:'btn btn-outline-info' %>
     </div>
     <hr>
     <div class="cards-flights my-3">

@@ -1,8 +1,10 @@
 class HotelsController < ApplicationController
-  before_action :set_hotel, only: %i[new create]
+  # before_action :set_hotel, only: %i[new create]
 
   def new
     @hotel = Hotel.new
+    @trip = Trip.find(params[:trip_id])
+    @hotel.trip = @trip
     authorize @hotel
   end
 
