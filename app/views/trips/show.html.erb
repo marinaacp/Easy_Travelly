@@ -78,15 +78,17 @@
 
       <div class="col-12">
         <h3 class="text-center">Hotel <i class="fa-solid fa-bell-concierge text-info"></i></h3>
-        <div class="d-flex justify-content-center align-self-center my-2">
+        <div class="d-flex justify-content-center align-self-center my-4 overlay">
           <img src="https://source.unsplash.com/150x150/?hotel" alt="Hotel image" class="rounded-circle">
           <div class="p-2 mx-2">
             <h4><%= @trip.booking.hotel.name %> </h4>
+            <% if @trip.booking.hotel.rate %>
             <p><% @trip.booking.hotel.rate.round(1).to_i.times do %>
               <i class="fa-solid fa-star text-info"></i>
             <% end %>
             <small>(<%= @trip.booking.hotel.reviewCount %></small>)</p>
             <p class="my-0">Hotel Category: <%= @trip.booking.hotel.category %></p>
+            <% end %>
           </div>
         </div>
       </div>
@@ -94,19 +96,65 @@
       <hr>
 
       <div class="col-12 text-center my-2">
-        <h3 class="text-center">Flight <i class="fa-solid fa-ticket text-info"></i></h3>
+        <h3 class="text-center">Flight <i class="fa-solid fa-ticket text-primary"></i></h3>
         <p>Flight details</p>
       </div>
       <hr>
 
       <div class="col-12 text-center my-2">
-        <h3 class="text-center">Activities <i class="fa-regular fa-compass text-info"></i></h3>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quasi, quam sunt, non ullam quo modi odio eveniet tenetur eos libero cupiditate vero dicta dolor, recusandae incidunt qui? Eligendi, vero nobis?</p>
-        <p>Add activities?</p>
+        <h3 class="text-center">Activities in <%= Destination.find_by_code(@trip.destination).name %> <i class="fa-regular fa-compass text-info"></i></h3>
+        <% if @trip.activities.present? %>
+          <h4>Cultural</h4>
+          <div class="trips-cards">
+            <% @trip.activities.where(kind: 'cultural').first(6).each do |cultural_activity| %>
+            <a href="<%= cultural_activity.link %>" target="_blank" class="decoration-none">
+              <div class="card-trip mb-3" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.8),rgba(0,0,0,0.1)), url(<%= cultural_activity.image %>);">
+                <p class="info p-3"><%= cultural_activity.name  %></p>
+
+                <!-- <img src=<%= cultural_activity.image%> class="rounded-circle" alt="Cultural activity image" style="width:200px; height:200px;"> -->
+              </div>
+            </a>
+            <% end %>
+          </div>
+
+          <h4>Historic</h4>
+          <div class="trips-cards">
+            <% @trip.activities.where(kind:'historic').first(6).each do |historic_activity| %>
+            <a href="<%= historic_activity.link %>" target="_blank" class="decoration-none">
+              <div class="card-trip mb-3" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.8),rgba(0,0,0,0.1)), url(<%= historic_activity.image %>);">
+                <p class="info p-3"><%= historic_activity.name  %></p>
+              <!-- <img src=<%= historic_activity.image%> class="rounded-circle" alt="historic activity image" style="width:200px; height:200px;"> -->
+              </div>
+            </a>
+            <% end %>
+          </div>
+
+          <h4>Foods</h4>
+          <% if @trip.activities.where(kind: 'foods').present? %>
+            <div class="trips-cards">
+              <% @trip.activities.where(kind: 'foods').first(6).each do |food_activity| %>
+              <a href="<%= food_activity.link %>" target="_blank" class="decoration-none">
+                <div class="card-trip mb-3" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.8),rgba(0,0,0,0.1)), url(<%= food_activity.image %>);">
+                <p class="info p-3"><%= food_activity.name  %></p>
+                <!-- <img src=<%= food_activity.image%> class="rounded-circle" alt="Cultural activity image" style="width:200px; height:200px;"> -->
+                </div>
+              </a>
+              <% end %>
+            </div>
+          <% else %>
+          <p>Sorry no food activities found <i class="fa-regular fa-face-sad-tear text-info"></i></p>
+          <% end %>
+        <% else %>
+          <p>Sorry no activities found <i class="fa-regular fa-face-sad-tear text-info"></i></p>
+        <% end %>
+
+
       </div>
 
     </div>
 
   </div>
+
+
 
 </div>

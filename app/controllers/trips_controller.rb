@@ -2,6 +2,7 @@ class TripsController < ApplicationController
   before_action :set_trip, only: %i[show destroy update]
   include Apitude
   include Duffel
+  include Opentrip
 
   def new
     @trip = Trip.new
@@ -77,6 +78,12 @@ class TripsController < ApplicationController
     )
   end
 
+  def create_activities
+    city_name = DestinationAttr.find_by_city_code(@trip.destination).city_name
+    country_code = DestinationAttr.find_by_city_code(@trip.destination).country_code
+    @activities = search_activities(@trip, city_name, country_code)
+  end
+
   # def currency_usd
   #   # Money.ca_dollar(100).exchange_to("USD")  # => Money.from_cents(80, "USD")
   #   if Booking.hotel[:currency] == 'EUR'
@@ -96,6 +103,7 @@ class TripsController < ApplicationController
         create_hotels
         create_flights
         create_bookings
+        create_activities
         @trip.update(
           budgetHotel: @trip.rooms * @trip.booking.hotel.price,
           budgetFlight: @trip.booking.flight.price

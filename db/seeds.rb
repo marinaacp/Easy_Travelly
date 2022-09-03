@@ -62,11 +62,17 @@ require 'digest'
 #   end
 # end
 
+# Destination.all.each do |destination|
+#   DestinationAttr.create(
+#     city_name: destination.name,
+#     country_name: destination.country.name,
+#     city_code: destination.code
+#   )
+# end
 
-Destination.all.each do |destination|
-  DestinationAttr.create(
-    city_name: destination.name,
-    country_name: destination.country.name,
-    city_code: destination.code
+# Updating DestinationAttr
+DestinationAttr.all.each do |destination|
+  destination.update(
+    country_code: Country.find_by_name(destination.country_name).code
   )
 end

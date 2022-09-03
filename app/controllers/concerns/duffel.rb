@@ -46,6 +46,5 @@ module Duffel
     return priced_offers
 
     # puts "The final price for offer #{priced_offer.id} is #{priced_offer.total_amount} " \ "#{priced_offer.total_currency}"
-
   end
 end
