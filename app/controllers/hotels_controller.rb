@@ -10,11 +10,12 @@ class HotelsController < ApplicationController
 
   def create
     @hotel = Hotel.create(hotel_params)
-    @hotel.user = current_user
+    @trip = Trip.find(params[:trip_id])
+    @hotel.trip = @trip
     if @hotel.valid?
       authorize @hotel
       @hotel.save
-      redirect_to trip_path
+      redirect_to edit_booking_path(@trip.booking)
     else
       render :new
     end
@@ -23,6 +24,6 @@ class HotelsController < ApplicationController
   private
 
   def hotel_params
-    params.permit(:name, :check_in, :check_out, :price, :currency, :category, :zone_name)
+    params.require(:hotel).permit(:name, :check_in, :check_out, :price, :currency, :category, :zone_name)
   end
 end
