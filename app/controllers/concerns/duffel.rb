@@ -23,7 +23,7 @@ module Duffel
           }
         ],
       passengers: Array.new(trip.adults, { "type": "adult" }),
-      cabin_class: "business",
+      cabin_class: "economy",
       max_connections: 0
     })
 

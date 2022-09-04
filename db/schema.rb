@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_01_222857) do
+ActiveRecord::Schema.define(version: 2022_09_04_212031) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -101,17 +101,11 @@ ActiveRecord::Schema.define(version: 2022_09_01_222857) do
     t.string "departure_class"
     t.integer "departure_baggage"
     t.string "logo_departure_airline"
-    t.string "aircraft_departure_airline"
-    t.integer "terminal_departure_departure"
-    t.integer "terminal_departure_arrival"
     t.datetime "return_start_time"
     t.datetime "return_end_time"
     t.string "return_class"
     t.integer "return_baggage"
     t.string "logo_return_airline"
-    t.string "aircraft_return_airline"
-    t.integer "terminal_return_departure"
-    t.integer "terminal_return_arrival"
     t.index ["trip_id"], name: "index_flights_on_trip_id"
   end
 
@@ -150,6 +144,7 @@ ActiveRecord::Schema.define(version: 2022_09_01_222857) do
     t.float "budgetHotel"
     t.float "budgetFlight"
     t.string "budgetCurrency"
+    t.string "flight_class"
     t.index ["user_id"], name: "index_trips_on_user_id"
   end
 
