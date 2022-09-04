@@ -1,7 +1,11 @@
+require "open-uri"
+require "nokogiri"
+
 class TripsController < ApplicationController
   before_action :set_trip, only: %i[show destroy update]
   include Apitude
   include Duffel
+  include Opentrip
 
   def new
     @trip = Trip.new
@@ -10,6 +14,10 @@ class TripsController < ApplicationController
 
   def create_hotels
     @hotels.each do |hotel|
+      hotel_sample = %w[hotel hotels bed beds hostel room building]
+      url = "https://source.unsplash.com/200x200/?#{hotel_sample.sample}"
+      img_url = Nokogiri::HTML.parse(Net::HTTP.get(URI.parse(url))).children.children.children[1].attributes['href'].value
+
       Hotel.create(
         trip: @trip,
         name: hotel['name'],
@@ -22,7 +30,8 @@ class TripsController < ApplicationController
         latitude: hotel['latitude'],
         longitude: hotel['longitude'],
         check_in: @trip.start_date,
-        check_out: @trip.end_date
+        check_out: @trip.end_date,
+        image_url: img_url
       )
     end
   end
@@ -77,6 +86,12 @@ class TripsController < ApplicationController
     )
   end
 
+  def create_activities
+    # @city_name = DestinationAttr.find_by_city_code(@trip.destination).city_name
+    @destination_country_code = DestinationAttr.find_by_city_code(@trip.destination).country_code
+    @activities = search_activities(@trip, @destination_city, @destination_country_code)
+  end
+
   # def currency_usd
   #   # Money.ca_dollar(100).exchange_to("USD")  # => Money.from_cents(80, "USD")
   #   if Booking.hotel[:currency] == 'EUR'
@@ -90,16 +105,25 @@ class TripsController < ApplicationController
     @trip.user = current_user
     if @trip.valid?
       @hotels = hotels(@trip)
-      @flights = search_flights(@trip)
+      @destination_city = DestinationAttr.find_by_city_code(@trip.destination).city_name
+      @departure_city = DestinationAttr.find_by_city_code(@trip.location).city_name
+      @flights = search_flights(@trip, @destination_city, @departure_city)
       if @hotels && @flights
         @trip.save
         create_hotels
         create_flights
         create_bookings
+        create_activities
+
+        url = "https://source.unsplash.com/200x200/?#{@destination_city}"
+        img_url = Nokogiri::HTML.parse(Net::HTTP.get(URI.parse(url))).children.children.children[1].attributes['href'].value
+
         @trip.update(
           budgetHotel: @trip.rooms * @trip.booking.hotel.price,
-          budgetFlight: @trip.booking.flight.price
+          budgetFlight: @trip.booking.flight.price,
+          image_url: img_url || url
         )
+
         redirect_to @trip
       else
         @trip.budget_error
@@ -131,6 +155,7 @@ class TripsController < ApplicationController
   end
 
   def show
+    @city = Destination.find_by_code(@trip.destination).name
   end
 
   def destroy

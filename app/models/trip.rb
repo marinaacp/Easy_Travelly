@@ -12,6 +12,7 @@ class Trip < ApplicationRecord
   has_one :booking, dependent: :destroy
   has_many :hotels, dependent: :destroy
   has_many :flights, dependent: :destroy
+  has_many :activities, dependent: :destroy
 
   validates :start_date, :location, :destination, :end_date, :adults, :rooms, :budget, presence: true
 
