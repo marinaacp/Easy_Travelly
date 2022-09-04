@@ -1,5 +1,4 @@
 class DestinationAttr < ApplicationRecord
-
   d = {}
   DestinationAttr.all.each do |destination|
     destination_complete = "#{destination.city_name}, #{destination.country_name}"

@@ -1,7 +1,7 @@
 require "uri"
 require "json"
 require "net/http"
-require 'digest'
+require "digest"
 
 module Apitude
   def list_hotels(trip)
