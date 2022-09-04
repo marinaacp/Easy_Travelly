@@ -10,7 +10,8 @@ import "channels"
 import "controllers"
 import "bootstrap"
 import "@fortawesome/fontawesome-free/css/all"
-import "jquery"
+import 'jquery'
+
 
 Rails.start()
 Turbolinks.start()
