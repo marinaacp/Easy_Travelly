@@ -12,50 +12,50 @@ module Duffel
     )
 
     # Getting IATA CODE for Destination city
-    # url = URI("https://api.duffel.com/places/suggestions?query=#{destination_city}")
+    url = URI("https://api.duffel.com/places/suggestions?query=#{destination_city.split("-")[0]}")
 
-    # https = Net::HTTP.new(url.host, url.port)
-    # https.use_ssl = true
+    https = Net::HTTP.new(url.host, url.port)
+    https.use_ssl = true
 
-    # request = Net::HTTP::Get.new(url)
-    # # request["Accept-Encoding"] = "gzip"
-    # request["Accept"] = "application/json"
-    # request["Authorization"] = "Bearer #{ENV['DUFFEL_ACCESS_TOKEN']}"
-    # request["Duffel-Version"] = "beta"
+    request = Net::HTTP::Get.new(url)
+    # request["Accept-Encoding"] = "gzip"
+    request["Accept"] = "application/json"
+    request["Authorization"] = "Bearer #{ENV['DUFFEL_ACCESS_TOKEN']}"
+    request["Duffel-Version"] = "beta"
 
-    # response = https.request(request)
-    # response = JSON.parse(response.read_body)
-    # destination_iata_code = response['data'][0]['iata_code']
+    response = https.request(request)
+    response = JSON.parse(response.read_body)
+    destination_iata_code = response['data'][0]['iata_code']
     ############################################################################
 
     # Getting IATA CODE for Departure city
-    # url = URI("https://api.duffel.com/places/suggestions?query=#{departure_city}")
+    url = URI("https://api.duffel.com/places/suggestions?query=#{departure_city.split("-")[0]}")
 
-    # https = Net::HTTP.new(url.host, url.port)
-    # https.use_ssl = true
+    https = Net::HTTP.new(url.host, url.port)
+    https.use_ssl = true
 
-    # request = Net::HTTP::Get.new(url)
-    # # request["Accept-Encoding"] = "gzip"
-    # request["Accept"] = "application/json"
-    # request["Authorization"] = "Bearer #{ENV['DUFFEL_ACCESS_TOKEN']}"
-    # request["Duffel-Version"] = "beta"
+    request = Net::HTTP::Get.new(url)
+    # request["Accept-Encoding"] = "gzip"
+    request["Accept"] = "application/json"
+    request["Authorization"] = "Bearer #{ENV['DUFFEL_ACCESS_TOKEN']}"
+    request["Duffel-Version"] = "beta"
 
-    # response = https.request(request)
-    # response = JSON.parse(response.read_body)
-    # departure_iata_code = response['data'][0]['iata_code']
+    response = https.request(request)
+    response = JSON.parse(response.read_body)
+    departure_iata_code = response['data'][0]['iata_code']
     ############################################################################
 
     offer_request = client.offer_requests.create(params: {
       slices:
         [
           {
-            origin: trip.location,
-            destination: trip.destination,
+            origin: departure_iata_code,
+            destination: destination_iata_code,
             departure_date: trip.start_date.strftime("%Y-%m-%d")
           },
           {
-            origin: trip.destination,
-            destination: trip.location,
+            origin: destination_iata_code,
+            destination: departure_iata_code,
             departure_date: trip.end_date.strftime("%Y-%m-%d")
           }
         ],
