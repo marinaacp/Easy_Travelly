@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_03_203108) do
+ActiveRecord::Schema.define(version: 2022_09_04_212031) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,17 @@ ActiveRecord::Schema.define(version: 2022_09_03_203108) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "activities", force: :cascade do |t|
+    t.string "kind"
+    t.string "name"
+    t.string "link"
+    t.string "image"
+    t.bigint "trip_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["trip_id"], name: "index_activities_on_trip_id"
+  end
+
   create_table "bookings", force: :cascade do |t|
     t.bigint "trip_id", null: false
     t.bigint "hotel_id", null: false
@@ -67,6 +78,7 @@ ActiveRecord::Schema.define(version: 2022_09_03_203108) do
     t.string "city_code"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "country_code"
   end
 
   create_table "destinations", force: :cascade do |t|
@@ -101,17 +113,11 @@ ActiveRecord::Schema.define(version: 2022_09_03_203108) do
     t.string "departure_class"
     t.integer "departure_baggage"
     t.string "logo_departure_airline"
-    t.string "aircraft_departure_airline"
-    t.integer "terminal_departure_departure"
-    t.integer "terminal_departure_arrival"
     t.datetime "return_start_time"
     t.datetime "return_end_time"
     t.string "return_class"
     t.integer "return_baggage"
     t.string "logo_return_airline"
-    t.string "aircraft_return_airline"
-    t.integer "terminal_return_departure"
-    t.integer "terminal_return_arrival"
     t.index ["trip_id"], name: "index_flights_on_trip_id"
   end
 
@@ -130,6 +136,7 @@ ActiveRecord::Schema.define(version: 2022_09_03_203108) do
     t.integer "reviewCount"
     t.float "latitude"
     t.float "longitude"
+    t.string "image_url"
     t.index ["trip_id"], name: "index_hotels_on_trip_id"
   end
 
@@ -150,6 +157,7 @@ ActiveRecord::Schema.define(version: 2022_09_03_203108) do
     t.float "budgetHotel"
     t.float "budgetFlight"
     t.string "budgetCurrency"
+    t.string "image_url"
     t.index ["user_id"], name: "index_trips_on_user_id"
   end
 
@@ -169,6 +177,7 @@ ActiveRecord::Schema.define(version: 2022_09_03_203108) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "activities", "trips"
   add_foreign_key "bookings", "flights"
   add_foreign_key "bookings", "hotels"
   add_foreign_key "bookings", "trips"
