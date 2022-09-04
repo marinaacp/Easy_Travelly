@@ -38,6 +38,7 @@ class TripsController < ApplicationController
         # ida
         departure_start_time: flight.slices[0]["segments"][0]['departing_at'], # hora inicio da viagem
         departure_end_time: flight.slices[0]["segments"][0]['arriving_at'], # hora fim da viagem
+        departure_class: flight.slices[0]["segments"][0]['passengers'][0]['cabin_class'], # classe da viagem ("first", "business", "premium_economy", or "economy")
         # em tese cabin_class tem uma p/ cada passageiro. aqui estou pegando só uma p todos eles. Mesma logica para baggage
         departure_baggage: flight.slices[0]["segments"][0]['passengers'][0]['baggages'][0]['quantity'], #numero de bagagens. Como a class era p ter uma p/ cada
         departure_airline: flight.slices[0]["segments"][0]["operating_carrier"]["name"], # companhia aérea
@@ -52,6 +53,7 @@ class TripsController < ApplicationController
         # volta. Basta mudar de slice
         return_start_time: flight.slices[1]["segments"][0]['departing_at'], # hora inicio da viagem
         return_end_time: flight.slices[1]["segments"][0]['arriving_at'], # hora fim da viagem
+        return_class: flight.slices[1]["segments"][0]['passengers'][0]['cabin_class'], # classe da viagem ("first", "business", "premium_economy", or "economy")
         # em tese cabin_class tem uma p/ cada passageiro. aqui estou pegando só uma p todos eles. Mesma logica para baggage
         return_baggage: flight.slices[1]["segments"][0]['passengers'][0]['baggages'][0]['quantity'], # numero de bagagens. Como a class era p ter uma p/ cada
         return_airline: flight.slices[1]["segments"][0]["operating_carrier"]["name"], # companhia aérea

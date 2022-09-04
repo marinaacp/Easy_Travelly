@@ -37,6 +37,7 @@
               <i class="fa-solid fa-star text-info"></i>
             <% end %> </p>
             <p> <i class="fa-solid fa-plane-departure fs-4"></i> N#<%= @trip.booking.flight.id %> </p>
+            <p> <i class="fa-solid fa-plane-departure fs-4"></i> N#<%= @trip.booking.flight.departure_class %> </p>
             <p> <i class="fa-solid fa-person fs-4"></i> <%= @trip.adults %> adult<small>(s)</small></p>
             <hr>
             <p><i class="fa-solid fa-calendar-day fs-4"></i> <%= @trip.start_date.strftime('%d/%b/%Y') %><i class="fa-solid fa-arrow-right"></i> <%= @trip.end_date.strftime('%d/%b/%Y')  %> </p>
