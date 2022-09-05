@@ -9,7 +9,7 @@
           <%= f.submit "Update name", class: "btn btn-blue mb-3" %>
         </div>
       <% end %>
-      <img src="<%= @trip.image_url %>" alt="Trip image" class="rounded-circle">
+      <img src="https://source.unsplash.com/200x200/?<%= @city %>" alt="Trip image" class="rounded-circle">
     </div>
   </header>
 
@@ -22,7 +22,7 @@
           <%= link_to edit_booking_path(@trip.booking), class:'mx-1' do %>
             <i class="fa-solid fa-square-pen btn-outline-blue fs-4"></i>
           <% end %>
-          <%= link_to trip_path(@trip),
+          <%= link_to trip_path(@trip.booking),
                                 method: :delete,
                                 data: { confirm: "Are you sure?" } do %>
             <i class="fa-solid fa-trash btn-outline-pink fs-4"></i>
@@ -104,64 +104,129 @@
 
       <div class="col-12 text-center my-2">
         <h3 class="text-center">Flight <i class="fa-solid fa-ticket text-primary"></i></h3>
-        <p>Flight details</p>
+          <% if @trip.booking.flight.emissions.present? %>
+            <label class="btn btn-outline-secondary card-flight" for="flight-<%= @trip.booking.flight.id %>">
+              <div class="my-3">
+                <p class="m-0"><i class="fa-solid fa-seedling text-info"></i> Flights emissions: <%= @trip.booking.flight.emissions%> Kg</p>
+              </div>
+              <div class="card-flight-info">
+                <div class="card-flight-left">
+                  <div class="d-flex my-3 lign-items-center" > <%# ida %>
+                    <div class="flight-avatar">
+                      <div class="d-flex align-items-center"><%= image_tag(@trip.booking.flight.logo_departure_airline)%></div>
+                    </div>
+                    <div class="card-flight-text">
+                      <p class="m-0"><%= @trip.booking.flight.departure_airline %></p>
+                      <p class="m-0"><i class="fa-regular fa-clock"></i> <%= @trip.booking.flight.departure_start_time.to_formatted_s(:short) %> <i class="fa-solid fa-arrow-right"></i> <%= @trip.booking.flight.departure_end_time.to_formatted_s(:short) %></p>
+                      <p class="m-0"><i class="fa-solid fa-plane-departure"></i> <%= @trip.booking.flight.airport_departure_departure %></p>
+                      <p class="m-0"><i class="fa-solid fa-plane-arrival"></i> <%= @trip.booking.flight.airport_departure_arrival %></p>
+                    </div>
+                  </div>
+                  <div class="d-flex my-3"> <%# volta %>
+                    <div class="flight-avatar lign-items-center">
+                      <div class="d-flex align-items-center"><%= image_tag(@trip.booking.flight.logo_return_airline)%></div>
+                    </div>
+                    <div class="card-flight-text">
+                      <p class="m-0"><%= @trip.booking.flight.return_airline %></p>
+                      <p class="m-0"><i class="fa-regular fa-clock"></i> <%= @trip.booking.flight.return_start_time.to_formatted_s(:short) %> <i class="fa-solid fa-arrow-right"></i> <%= @trip.booking.flight.return_end_time.to_formatted_s(:short) %></p>
+                      <p class="m-0"><i class="fa-solid fa-plane-departure"></i> <%= @trip.booking.flight.airport_return_departure %></p>
+                      <p class="m-0"><i class="fa-solid fa-plane-arrival"></i> <%= @trip.booking.flight.airport_return_arrival %></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="border-top fs-5">
+                  <%= @trip.booking.flight.price %> <i class="fa-solid fa-euro-sign"></i>
+                </div>
+              </div>
+            </label>
+          <% else %>
+            <label class="btn btn-outline-secondary card-flight" for="flight-<%= @trip.booking.flight.id %>">
+              <div class="my-3">
+                <p class="m-0"><i class="fa-solid fa-key text-info"></i>This is the flight you created!</p>
+              </div>
+              <div class="card-flight-info">
+                <div class="card-flight-left">
+                  <div class="d-flex my-3 lign-items-center" > <%# ida %>
+                    <div class="flight-avatar">
+                      <div class="d-flex align-items-center"><i class="fa-solid fa-plane text-info"></i></div>
+                    </div>
+                    <div class="card-flight-text">
+                      <p class="m-0"><%= @trip.booking.flight.departure_airline %></p>
+                      <p class="m-0"><i class="fa-regular fa-clock"></i> <%= @trip.booking.flight.departure_start_time.to_formatted_s(:short) %> <i class="fa-solid fa-arrow-right"></i> <%= @trip.booking.flight.departure_end_time.to_formatted_s(:short) %></p>
+                      <p class="m-0"><i class="fa-solid fa-plane-departure"></i> <%= @trip.booking.flight.airport_departure_departure %></p>
+                      <p class="m-0"><i class="fa-solid fa-plane-arrival"></i> <%= @trip.booking.flight.airport_departure_arrival %></p>
+                    </div>
+                  </div>
+                  <div class="d-flex my-3"> <%# volta %>
+                    <div class="flight-avatar lign-items-center">
+                      <div class="d-flex align-items-center"><i class="fa-solid fa-plane text-info"></i></div>
+                    </div>
+                    <div class="card-flight-text">
+                      <p class="m-0"><%= @trip.booking.flight.return_airline %></p>
+                      <p class="m-0"><i class="fa-regular fa-clock"></i> <%= @trip.booking.flight.return_start_time.to_formatted_s(:short) %> <i class="fa-solid fa-arrow-right"></i> <%= @trip.booking.flight.return_end_time.to_formatted_s(:short) %></p>
+                      <p class="m-0"><i class="fa-solid fa-plane-departure"></i> <%= @trip.booking.flight.airport_return_departure %></p>
+                      <p class="m-0"><i class="fa-solid fa-plane-arrival"></i> <%= @trip.booking.flight.airport_return_arrival %></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="border-top fs-5">
+                  <%= @trip.booking.flight.price %> <i class="fa-solid fa-euro-sign"></i>
+                </div>
+              </div>
+            </label>
+          <% end %>
       </div>
       <hr>
 
       <div class="col-12 text-center my-2">
-        <h3 class="text-center">Activities in <%= Destination.find_by_code(@trip.destination).name %> <i class="fa-regular fa-compass text-info"></i></h3>
-        <% if @trip.activities.present? %>
-          <% if @trip.activities.where(kind: 'cultural').present? %>
-          <h4>Cultural</h4>
-            <div class="trips-cards">
-              <% @trip.activities.where(kind: 'cultural').first(6).each do |cultural_activity| %>
-              <a href="<%= cultural_activity.link %>" target="_blank" class="decoration-none">
-                <div class="card-trip mb-3" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.8),rgba(0,0,0,0.1)), url(<%= cultural_activity.image %>);">
-                  <p class="info p-3"><%= cultural_activity.name  %></p>
+      <h3 class="text-center">Activities <i class="fa-regular fa-compass text-info"></i></h3>
+      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quasi, quam sunt, non ullam quo modi odio eveniet tenetur eos libero cupiditate vero dicta dolor, recusandae incidunt qui? Eligendi, vero nobis?</p>
+      <p>Add activities?</p>
+      <h3 class="text-center">Activities in <%= Destination.find_by_code(@trip.destination).name %> <i class="fa-regular fa-compass text-info"></i></h3>
+      <% if @trip.activities.present? %>
+        <h4>Cultural</h4>
+        <div class="trips-cards">
+          <% @trip.activities.where(kind: 'cultural').first(6).each do |cultural_activity| %>
+          <a href="<%= cultural_activity.link %>" target="_blank" class="decoration-none">
+            <div class="card-trip mb-3" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.8),rgba(0,0,0,0.1)), url(<%= cultural_activity.image %>);">
+              <p class="info p-3"><%= cultural_activity.name  %></p>
 
-                  <!-- <img src=<%= cultural_activity.image%> class="rounded-circle" alt="Cultural activity image" style="width:200px; height:200px;"> -->
-                </div>
-              </a>
-              <% end %>
+              <!-- <img src=<%= cultural_activity.image%> class="rounded-circle" alt="Cultural activity image" style="width:200px; height:200px;"> -->
             </div>
-          <% else %>
-            <p>Sorry no cultural activities found <i class="fa-regular fa-face-sad-tear text-info"></i></p>
+          </a>
           <% end %>
+        </div>
 
-          <h4>Historic</h4>
-          <% if @trip.activities.where(kind: 'historic').present? %>
-            <div class="trips-cards">
-              <% @trip.activities.where(kind:'historic').first(6).each do |historic_activity| %>
-              <a href="<%= historic_activity.link %>" target="_blank" class="decoration-none">
-                <div class="card-trip mb-3" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.8),rgba(0,0,0,0.1)), url(<%= historic_activity.image %>);">
-                  <p class="info p-3"><%= historic_activity.name  %></p>
-                <!-- <img src=<%= historic_activity.image%> class="rounded-circle" alt="historic activity image" style="width:200px; height:200px;"> -->
-                </div>
-              </a>
-              <% end %>
+        <h4>Historic</h4>
+        <div class="trips-cards">
+          <% @trip.activities.where(kind:'historic').first(6).each do |historic_activity| %>
+          <a href="<%= historic_activity.link %>" target="_blank" class="decoration-none">
+            <div class="card-trip mb-3" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.8),rgba(0,0,0,0.1)), url(<%= historic_activity.image %>);">
+              <p class="info p-3"><%= historic_activity.name  %></p>
+            <!-- <img src=<%= historic_activity.image%> class="rounded-circle" alt="historic activity image" style="width:200px; height:200px;"> -->
             </div>
-          <% else %>
-            <p>Sorry no historic activities found <i class="fa-regular fa-face-sad-tear text-info"></i></p>
+          </a>
           <% end %>
+        </div>
 
-          <h4>Foods</h4>
-          <% if @trip.activities.where(kind: 'foods').present? %>
-            <div class="trips-cards">
-              <% @trip.activities.where(kind: 'foods').first(6).each do |food_activity| %>
-              <a href="<%= food_activity.link %>" target="_blank" class="decoration-none">
-                <div class="card-trip mb-3" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.8),rgba(0,0,0,0.1)), url(<%= food_activity.image %>);">
-                <p class="info p-3"><%= food_activity.name  %></p>
-                <!-- <img src=<%= food_activity.image%> class="rounded-circle" alt="Cultural activity image" style="width:200px; height:200px;"> -->
-                </div>
-              </a>
-              <% end %>
-            </div>
-          <% else %>
-          <p>Sorry no food activities found <i class="fa-regular fa-face-sad-tear text-info"></i></p>
-          <% end %>
+        <h4>Foods</h4>
+        <% if @trip.activities.where(kind: 'foods').present? %>
+          <div class="trips-cards">
+            <% @trip.activities.where(kind: 'foods').first(6).each do |food_activity| %>
+            <a href="<%= food_activity.link %>" target="_blank" class="decoration-none">
+              <div class="card-trip mb-3" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.8),rgba(0,0,0,0.1)), url(<%= food_activity.image %>);">
+              <p class="info p-3"><%= food_activity.name  %></p>
+              <!-- <img src=<%= food_activity.image%> class="rounded-circle" alt="Cultural activity image" style="width:200px; height:200px;"> -->
+              </div>
+            </a>
+            <% end %>
+          </div>
         <% else %>
-          <p>Sorry no activities found <i class="fa-regular fa-face-sad-tear text-info"></i></p>
+        <p>Sorry no food activities found <i class="fa-regular fa-face-sad-tear text-info"></i></p>
         <% end %>
+      <% else %>
+        <p>Sorry no activities found <i class="fa-regular fa-face-sad-tear text-info"></i></p>
+      <% end %>
 
 
       </div>
