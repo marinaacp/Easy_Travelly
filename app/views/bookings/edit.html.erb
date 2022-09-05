@@ -9,17 +9,9 @@
         <% else %>
           <input type="radio" class="btn-check" name="hotels" id="hotel-<%= hotel.id %>" autocomplete="off" value="<%= hotel.id %>">
         <% end %>
-        <label class="btn btn-outline-info label-hotels" for="hotel-<%= hotel.id %>">
+         <label class="btn btn-outline-info label-hotels" for="hotel-<%= hotel.id %>">
           <%# <% search = ['hotel', 'hostel', 'room', 'city', 'bed', 'building', 'hostels', 'travel' ] %>
-          <img src="<%= hotel.image_url %>" alt="Hotel image" class="rounded-circle">
-          <p class="m-0"><strong><%= hotel.name %></strong></p>
-          <p class="m-0"><small><%= hotel.category %></small></p>
-          <% hotel.rate.round(1).to_i.times do %>
-            <i class="fa-solid fa-star"></i>
-          <% end %>
-          <label class="btn btn-outline-info label-hotels" for="hotel-<%= hotel.id %>">
-            <% search = ['hotel', 'hostel', 'room', 'city', 'bed', 'building', 'hostels', 'travel' ] %>
-            <img src="https://source.unsplash.com/150x150/?<%= search[index] %>" alt="Hotel image" class="rounded-circle">
+            <img src="<%= hotel.image_url %>" alt="Hotel image" class="rounded-circle">
             <p class="m-0"><strong><%= hotel.name %></strong></p>
              <% if hotel.category.present? && hotel.rate.present? %>
               <p class="m-0"><small><%= hotel.category %></small></p>

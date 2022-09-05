@@ -31,11 +31,14 @@
 
           <div class="card-body">
             <p><i class="fa-solid fa-hotel fs-4"></i> <%= @trip.booking.hotel.name %>
-            <% @trip.booking.hotel.rate.round(1).to_i.times do %>
-              <i class="fa-solid fa-star text-info"></i>
-            <% end %> </p>
+            <% if @trip.booking.hotel.rate %>
+              <% @trip.booking.hotel.rate.round(1).to_i.times do %>
+                <i class="fa-solid fa-star text-info"> </i>
+              <% end %> </p>
+            <% else %>
+              <p><i class="fa-solid fa-key fs-4"></i> This is the hotel you created!</p>
+            <% end %>
             <p> <i class="fa-solid fa-plane-departure fs-4"></i> N#<%= @trip.booking.flight.id %> </p>
-            <p> <i class="fa-solid fa-plane-departure fs-4"></i> N#<%= @trip.booking.flight.departure_class %> </p>
             <p> <i class="fa-solid fa-person fs-4"></i> <%= @trip.adults %> adult<small>(s)</small></p>
             <hr>
             <p><i class="fa-solid fa-calendar-day fs-4"></i> <%= @trip.start_date.strftime('%d/%b/%Y') %><i class="fa-solid fa-arrow-right"></i> <%= @trip.end_date.strftime('%d/%b/%Y')  %> </p>
@@ -84,11 +87,14 @@
           <div class="p-2 mx-2">
             <h4><%= @trip.booking.hotel.name %> </h4>
             <% if @trip.booking.hotel.rate %>
-            <p><% @trip.booking.hotel.rate.round(1).to_i.times do %>
-              <i class="fa-solid fa-star text-info"></i>
-            <% end %>
-            <small>(<%= @trip.booking.hotel.reviewCount %></small>)</p>
-            <p class="my-0">Hotel Category: <%= @trip.booking.hotel.category %></p>
+              <p><% @trip.booking.hotel.rate.round(1).to_i.times do %>
+                <i class="fa-solid fa-star text-info"></i>
+              <% end %>
+              <small>(<%= @trip.booking.hotel.reviewCount %></small>)</p>
+              <p class="my-0">Hotel Category: <%= @trip.booking.hotel.category %></p>
+            <% else %>
+              <p>This is the hotel you created!</p>
+              <i class="fa-solid fa-key text-info"></i>
             <% end %>
           </div>
         </div>
