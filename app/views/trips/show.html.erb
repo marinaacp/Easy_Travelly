@@ -192,7 +192,7 @@
         <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quasi, quam sunt, non ullam quo modi odio eveniet tenetur eos libero cupiditate vero dicta dolor, recusandae incidunt qui? Eligendi, vero nobis?</p>
         <p>Add activities?</p>
         <h3 class="text-center">Activities in <%= Destination.find_by_code(@trip.destination).name %> <i class="fa-regular fa-compass text-info"></i></h3>
-        <% if @trip.activities.present? %>
+        <% if @trip.activities.nil? %>
           <h4>Cultural</h4>
           <div class="trips-cards">
             <% @trip.activities.where(kind: 'cultural').first(6).each do |cultural_activity| %>
