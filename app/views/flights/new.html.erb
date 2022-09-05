@@ -1,0 +1,12 @@
+<div class="container my-4">
+  <div class="row justify-content-center">
+    <div class="col-12 col-sm-4 bg-light p-4 ">
+      <h1>Describe your flight</h1>
+      <hr>
+      <%= simple_form_for @flight do |f| %>
+        <%= f.input :reservation_number, label:'Flight reservation number' %>
+        <%= f.submit "Send", class: "btn btn-blue" %>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -93,14 +93,10 @@ ActiveRecord::Schema.define(version: 2022_09_05_163504) do
 
   create_table "flights", force: :cascade do |t|
     t.string "reservation_number"
-    t.date "departure_departure"
     t.string "airport_departure_departure"
-    t.date "departure_arrival"
     t.string "airport_departure_arrival"
     t.string "departure_airline"
-    t.date "return_departure"
     t.string "airport_return_departure"
-    t.date "return_arrival"
     t.string "airport_return_arrival"
     t.string "return_airline"
     t.float "price"
@@ -119,6 +115,10 @@ ActiveRecord::Schema.define(version: 2022_09_05_163504) do
     t.string "return_class"
     t.integer "return_baggage"
     t.string "logo_return_airline"
+    t.string "departure_departure"
+    t.string "departure_arrival"
+    t.string "return_departure"
+    t.string "return_arrival"
     t.index ["trip_id"], name: "index_flights_on_trip_id"
   end
 

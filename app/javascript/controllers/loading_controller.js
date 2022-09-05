@@ -13,3 +13,4 @@ export default class extends Controller {
     this.circlesTarget.classList.toggle("d-none");
   }
 }
+

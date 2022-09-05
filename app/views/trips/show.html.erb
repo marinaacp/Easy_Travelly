@@ -9,7 +9,7 @@
           <%= f.submit "Update name", class: "btn btn-blue mb-3" %>
         </div>
       <% end %>
-      <img src="<%= @trip.image_url %>" alt="Trip image" class="rounded-circle">
+      <img src="https://source.unsplash.com/200x200/?<%= @city %>" alt="Trip image" class="rounded-circle">
     </div>
   </header>
 
@@ -22,7 +22,7 @@
           <%= link_to edit_booking_path(@trip.booking), class:'mx-1' do %>
             <i class="fa-solid fa-square-pen btn-outline-blue fs-4"></i>
           <% end %>
-          <%= link_to trip_path(@trip),
+          <%= link_to trip_path(@trip.booking),
                                 method: :delete,
                                 data: { confirm: "Are you sure?" } do %>
             <i class="fa-solid fa-trash btn-outline-pink fs-4"></i>
@@ -31,11 +31,15 @@
 
           <div class="card-body">
             <p><i class="fa-solid fa-hotel fs-4"></i> <%= @trip.booking.hotel.name %>
-            <% @trip.booking.hotel.rate.round(1).to_i.times do %>
-              <i class="fa-solid fa-star text-info"></i>
-            <% end %> </p>
-            <p> <i class="fa-solid fa-plane-departure fs-4"></i> N#<%= @trip.booking.flight.id %> </p>
-            <p> <i class="fa-solid fa-plane-departure fs-4"></i> N#<%= @trip.booking.flight.departure_class %> </p>
+            <% if @trip.booking.hotel.rate %>
+              <% @trip.booking.hotel.rate.round(1).to_i.times do %>
+                <i class="fa-solid fa-star text-info"> </i>
+              <% end %> </p>
+            <% else %>
+              <p><i class="fa-solid fa-key fs-4"></i> This is the hotel you created!</p>
+            <% end %>
+            <%= @trip.booking.flight.departure_departure %>
+            <p> <i class="fa-solid fa-plane-departure fs-4"></i> <%= @trip.booking.flight.departure_departure %> / <%= @trip.booking.flight.departure_arrival %></p>
             <p> <i class="fa-solid fa-person fs-4"></i> <%= @trip.adults %> adult<small>(s)</small></p>
             <hr>
             <p><i class="fa-solid fa-calendar-day fs-4"></i> <%= @trip.start_date.strftime('%d/%b/%Y') %><i class="fa-solid fa-arrow-right"></i> <%= @trip.end_date.strftime('%d/%b/%Y')  %> </p>
@@ -84,11 +88,14 @@
           <div class="p-2 mx-2">
             <h4><%= @trip.booking.hotel.name %> </h4>
             <% if @trip.booking.hotel.rate %>
-            <p><% @trip.booking.hotel.rate.round(1).to_i.times do %>
-              <i class="fa-solid fa-star text-info"></i>
-            <% end %>
-            <small>(<%= @trip.booking.hotel.reviewCount %></small>)</p>
-            <p class="my-0">Hotel Category: <%= @trip.booking.hotel.category %></p>
+              <p><% @trip.booking.hotel.rate.round(1).to_i.times do %>
+                <i class="fa-solid fa-star text-info"></i>
+              <% end %>
+              <small>(<%= @trip.booking.hotel.reviewCount %></small>)</p>
+              <p class="my-0">Hotel Category: <%= @trip.booking.hotel.category %></p>
+            <% else %>
+              <p>This is the hotel you created!</p>
+              <i class="fa-solid fa-key text-info"></i>
             <% end %>
           </div>
         </div>
@@ -98,11 +105,92 @@
 
       <div class="col-12 text-center my-2">
         <h3 class="text-center">Flight <i class="fa-solid fa-ticket text-primary"></i></h3>
-        <p>Flight details</p>
+          <% if @trip.booking.flight.emissions.present? %>
+            <div>
+              <p class="m-0"><i class="fa-solid fa-seedling text-info"></i> Flights emissions: <%= @trip.booking.flight.emissions%> Kg</p>
+            </div>
+            <div class="card-flight-info">
+              <div class="d-flex align-items-center flex-column">
+                <div class="d-flex my-1 lign-items-center" > <%# ida %>
+                  <div class="flight-avatar">
+                    <div class="d-flex align-items-center"><%= image_tag(@trip.booking.flight.logo_departure_airline)%></div>
+                  </div>
+                  <div class="card-flight-text">
+                    <h4 class="m-0"><%= @trip.booking.flight.departure_airline %></h4>
+                    <p class="m-0"><%= (@trip.booking.flight.departure_class).capitalize %> class</p>
+                    <p class="m-0"><i class="fa-regular fa-clock"></i> <%= @trip.booking.flight.departure_start_time.to_formatted_s(:short) %> <i class="fa-solid fa-arrow-right"></i> <%= @trip.booking.flight.departure_end_time.to_formatted_s(:short) %></p>
+                    <p class="m-0"><i class="fa-solid fa-plane-departure"></i> <%= @trip.booking.flight.airport_departure_departure %></p>
+                    <p class="m-0"><i class="fa-solid fa-plane-arrival"></i> <%= @trip.booking.flight.airport_departure_arrival %></p>
+                    <p class="m-0"><i class="fa-solid fa-suitcase-rolling"></i></i> <%= @trip.booking.flight.departure_baggage %> bag(s) for each of the travelers</p>
+                  </div>
+                </div>
+                <div class= "mx-3 arrow">
+                  <%# codigo no cards_flights %>
+                  <i class="fa-solid fa-arrow-down"></i>
+                </div>
+                <div class="d-flex my-1"> <%# volta %>
+                  <div class="flight-avatar align-items-center">
+                    <div class="d-flex align-items-center"><%= image_tag(@trip.booking.flight.logo_return_airline)%></div>
+                  </div>
+                  <div class="card-flight-text">
+                    <h4 class="m-0"><%= @trip.booking.flight.return_airline %></h4>
+                    <p class="m-0"><%= (@trip.booking.flight.return_class).capitalize %> class</p>
+                    <p class="m-0"><i class="fa-regular fa-clock"></i> <%= @trip.booking.flight.return_start_time.to_formatted_s(:short) %> <i class="fa-solid fa-arrow-right"></i> <%= @trip.booking.flight.return_end_time.to_formatted_s(:short) %></p>
+                    <p class="m-0"><i class="fa-solid fa-plane-departure"></i> <%= @trip.booking.flight.airport_return_departure %></p>
+                    <p class="m-0"><i class="fa-solid fa-plane-arrival"></i> <%= @trip.booking.flight.airport_return_arrival %></p>
+                    <p class="m-0"><i class="fa-solid fa-suitcase-rolling"></i></i> <%= @trip.booking.flight.return_baggage %> bag(s) for each of the travelers</p>
+                  </div>
+                </div>
+              </div>
+              <p class="m-0">Reservation code: <small class="text-info"><%= @trip.booking.flight.reservation_number %></small></p>
+            </div>
+          <% else %>
+            <label class="btn btn-outline-secondary card-flight" for="flight-<%= @trip.booking.flight.id %>">
+              <div class="my-3">
+                <p class="m-0"><i class="fa-solid fa-key text-info"></i>This is the flight you created!</p>
+              </div>
+              <div class="card-flight-info">
+                <div class="card-flight-left">
+                  <div class="d-flex my-3 lign-items-center" > <%# ida %>
+                    <div class="flight-avatar">
+                      <div class="d-flex align-items-center"><i class="fa-solid fa-plane text-info"></i></div>
+                    </div>
+                    <div class="card-flight-text">
+                      <p class="m-0"><%= @trip.booking.flight.departure_airline %></p>
+                      <p class="m-0"><i class="fa-regular fa-clock"></i> <%= @trip.booking.flight.departure_start_time.to_formatted_s(:short) %> <i class="fa-solid fa-arrow-right"></i> <%= @trip.booking.flight.departure_end_time.to_formatted_s(:short) %></p>
+                      <p class="m-0"><i class="fa-solid fa-plane-departure"></i> <%= @trip.booking.flight.airport_departure_departure %></p>
+                      <p class="m-0"><i class="fa-solid fa-plane-arrival"></i> <%= @trip.booking.flight.airport_departure_arrival %></p>
+                    </div>
+                  </div>
+                  <div class= "mx-3 arrow">
+                    <%# codigo no cards_flights %>
+                    <i class="fa-solid fa-arrow-down"></i>
+                  </div>
+                  <div class="d-flex my-3"> <%# volta %>
+                    <div class="flight-avatar lign-items-center">
+                      <div class="d-flex align-items-center"><i class="fa-solid fa-plane text-info"></i></div>
+                    </div>
+                    <div class="card-flight-text">
+                      <p class="m-0"><%= @trip.booking.flight.return_airline %></p>
+                      <p class="m-0"><i class="fa-regular fa-clock"></i> <%= @trip.booking.flight.return_start_time.to_formatted_s(:short) %> <i class="fa-solid fa-arrow-right"></i> <%= @trip.booking.flight.return_end_time.to_formatted_s(:short) %></p>
+                      <p class="m-0"><i class="fa-solid fa-plane-departure"></i> <%= @trip.booking.flight.airport_return_departure %></p>
+                      <p class="m-0"><i class="fa-solid fa-plane-arrival"></i> <%= @trip.booking.flight.airport_return_arrival %></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="border-top fs-5">
+                  <%= @trip.booking.flight.price %> <i class="fa-solid fa-euro-sign"></i>
+                </div>
+              </div>
+            </label>
+          <% end %>
       </div>
       <hr>
 
       <div class="col-12 text-center my-2">
+        <h3 class="text-center">Activities <i class="fa-regular fa-compass text-info"></i></h3>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quasi, quam sunt, non ullam quo modi odio eveniet tenetur eos libero cupiditate vero dicta dolor, recusandae incidunt qui? Eligendi, vero nobis?</p>
+        <p>Add activities?</p>
         <h3 class="text-center">Activities in <%= Destination.find_by_code(@trip.destination).name %> <i class="fa-regular fa-compass text-info"></i></h3>
         <% if @trip.activities.present? %>
           <% cultural = @trip.activities.where("kinds @> ?", '{cultural}') %>
@@ -165,14 +253,8 @@
         <% else %>
           <p>Sorry no activities found <i class="fa-regular fa-face-sad-tear text-info"></i></p>
         <% end %>
-
-
       </div>
 
     </div>
-
   </div>
-
-
-
 </div>

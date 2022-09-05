@@ -60,7 +60,7 @@ module Duffel
           }
         ],
       passengers: Array.new(trip.adults, { "type": "adult" }),
-      cabin_class: "economy",
+      cabin_class: "business",
       max_connections: 0
     })
 

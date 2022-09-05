@@ -2,6 +2,8 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 32px;
+  position:relative;
+  padding-bottom: 80px;
 }
 
 @media(max-width: 992px) {
@@ -45,4 +47,9 @@
 
 .card_info {
   margin-top: 20px;
+}
+
+.arrow {
+  font-size: 50px;
+  color: $pink;
 }
