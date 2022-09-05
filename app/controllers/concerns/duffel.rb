@@ -76,7 +76,7 @@ module Duffel
     priced_offers = []
 
     selected_offers.each do |selected_offer|
-      priced_offer = client.offers.get(selected_offer.id, params: { return_available_services: true })
+      priced_offer = client.offers.get(selected_offer.id)
       priced_offers << priced_offer
     end
 
