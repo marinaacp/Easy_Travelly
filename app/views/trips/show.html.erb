@@ -106,13 +106,12 @@
       <div class="col-12 text-center my-2">
         <h3 class="text-center">Flight <i class="fa-solid fa-ticket text-primary"></i></h3>
           <% if @trip.booking.flight.emissions.present? %>
-            <div class="my-3">
-              <p class="m-0">Reservation code: <%= @trip.booking.flight.reservation_number %></p>
+            <div>
               <p class="m-0"><i class="fa-solid fa-seedling text-info"></i> Flights emissions: <%= @trip.booking.flight.emissions%> Kg</p>
             </div>
             <div class="card-flight-info">
               <div class="d-flex align-items-center flex-column">
-                <div class="d-flex my-3 lign-items-center" > <%# ida %>
+                <div class="d-flex my-1 lign-items-center" > <%# ida %>
                   <div class="flight-avatar">
                     <div class="d-flex align-items-center"><%= image_tag(@trip.booking.flight.logo_departure_airline)%></div>
                   </div>
@@ -122,15 +121,15 @@
                     <p class="m-0"><i class="fa-regular fa-clock"></i> <%= @trip.booking.flight.departure_start_time.to_formatted_s(:short) %> <i class="fa-solid fa-arrow-right"></i> <%= @trip.booking.flight.departure_end_time.to_formatted_s(:short) %></p>
                     <p class="m-0"><i class="fa-solid fa-plane-departure"></i> <%= @trip.booking.flight.airport_departure_departure %></p>
                     <p class="m-0"><i class="fa-solid fa-plane-arrival"></i> <%= @trip.booking.flight.airport_departure_arrival %></p>
-                    <p class="m-0"><i class="fa-solid fa-suitcase-rolling"></i></i> <%= @trip.booking.flight.departure_baggage %> bags for each of the travelers</p>
+                    <p class="m-0"><i class="fa-solid fa-suitcase-rolling"></i></i> <%= @trip.booking.flight.departure_baggage %> bag(s) for each of the travelers</p>
                   </div>
                 </div>
                 <div class= "mx-3 arrow">
                   <%# codigo no cards_flights %>
                   <i class="fa-solid fa-arrow-down"></i>
                 </div>
-                <div class="d-flex my-3"> <%# volta %>
-                  <div class="flight-avatar lign-items-center">
+                <div class="d-flex my-1"> <%# volta %>
+                  <div class="flight-avatar align-items-center">
                     <div class="d-flex align-items-center"><%= image_tag(@trip.booking.flight.logo_return_airline)%></div>
                   </div>
                   <div class="card-flight-text">
@@ -139,10 +138,11 @@
                     <p class="m-0"><i class="fa-regular fa-clock"></i> <%= @trip.booking.flight.return_start_time.to_formatted_s(:short) %> <i class="fa-solid fa-arrow-right"></i> <%= @trip.booking.flight.return_end_time.to_formatted_s(:short) %></p>
                     <p class="m-0"><i class="fa-solid fa-plane-departure"></i> <%= @trip.booking.flight.airport_return_departure %></p>
                     <p class="m-0"><i class="fa-solid fa-plane-arrival"></i> <%= @trip.booking.flight.airport_return_arrival %></p>
-                    <p class="m-0"><i class="fa-solid fa-suitcase-rolling"></i></i> <%= @trip.booking.flight.return_baggage %> bags for each of the travelers</p>
+                    <p class="m-0"><i class="fa-solid fa-suitcase-rolling"></i></i> <%= @trip.booking.flight.return_baggage %> bag(s) for each of the travelers</p>
                   </div>
                 </div>
               </div>
+              <p class="m-0">Reservation code: <small class="text-info"><%= @trip.booking.flight.reservation_number %></small></p>
             </div>
           <% else %>
             <label class="btn btn-outline-secondary card-flight" for="flight-<%= @trip.booking.flight.id %>">
