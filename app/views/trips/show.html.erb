@@ -9,7 +9,7 @@
           <%= f.submit "Update name", class: "btn btn-blue mb-3" %>
         </div>
       <% end %>
-      <img src="https://source.unsplash.com/200x200/?<%= @city %>" alt="Trip image" class="rounded-circle">
+      <img src="<%= @trip.image_url %>" alt="Trip image" class="rounded-circle">
     </div>
   </header>
 
@@ -188,15 +188,12 @@
       <hr>
 
       <div class="col-12 text-center my-2">
-        <h3 class="text-center">Activities <i class="fa-regular fa-compass text-info"></i></h3>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quasi, quam sunt, non ullam quo modi odio eveniet tenetur eos libero cupiditate vero dicta dolor, recusandae incidunt qui? Eligendi, vero nobis?</p>
-        <p>Add activities?</p>
         <h3 class="text-center">Activities in <%= Destination.find_by_code(@trip.destination).name %> <i class="fa-regular fa-compass text-info"></i></h3>
         <% if @trip.activities.present? %>
           <% cultural = @trip.activities.where("kinds @> ?", '{cultural}') %>
           <% if cultural.present? %>
-          <h4>Cultural</h4>
-            <div class="trips-cards">
+          <h4 class="border-bottom border-info mt-3">Cultural</h4>
+            <div class="trips-cards mt-2">
               <% cultural.first(6).each do |cultural_activity| %>
               <a href="<%= cultural_activity.link %>" target="_blank" class="decoration-none">
                 <div class="card-trip mb-3" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.8),rgba(0,0,0,0.1)), url(<%= cultural_activity.image %>);">
@@ -212,10 +209,10 @@
             <p>Sorry no cultural activities found <i class="fa-regular fa-face-sad-tear text-info"></i></p>
           <% end %>
 
-          <h4>Historic</h4>
+          <h4 class="border-bottom border-info mt-3">Historic</h4>
           <% historic = @trip.activities.where("kinds @> ?", '{historic}') %>
           <% if historic.present? %>
-            <div class="trips-cards">
+            <div class="trips-cards mt-2">
               <% historic.first(6).each do |historic_activity| %>
               <a href="<%= historic_activity.link %>" target="_blank" class="decoration-none">
                 <div class="card-trip mb-3" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.8),rgba(0,0,0,0.1)), url(<%= historic_activity.image %>);">
@@ -231,11 +228,10 @@
             <p>Sorry no historic activities found <i class="fa-regular fa-face-sad-tear text-info"></i></p>
           <% end %>
 
-          <h4>Foods</h4>
+          <h4 class="border-bottom border-info mt-3">Foods</h4>
           <% foods = @trip.activities.where("kinds @> ?", '{foods}') %>
           <% if foods.present? %>
-            <div class="trips-cards">
-
+            <div class="trips-cards mt-2">
               <% foods.first(6).each do |food_activity| %>
               <a href="<%= food_activity.link %>" target="_blank" class="decoration-none">
                 <div class="card-trip mb-3" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.8),rgba(0,0,0,0.1)), url(<%= food_activity.image %>);">
