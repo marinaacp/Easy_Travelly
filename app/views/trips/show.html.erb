@@ -105,15 +105,17 @@
       <div class="col-12 text-center my-2">
         <h3 class="text-center">Activities in <%= Destination.find_by_code(@trip.destination).name %> <i class="fa-regular fa-compass text-info"></i></h3>
         <% if @trip.activities.present? %>
-          <% if @trip.activities.where(kind: 'cultural').present? %>
+          <% cultural = @trip.activities.where("kinds @> ?", '{cultural}') %>
+          <% if cultural.present? %>
           <h4>Cultural</h4>
             <div class="trips-cards">
-              <% @trip.activities.where(kind: 'cultural').first(6).each do |cultural_activity| %>
+              <% cultural.first(6).each do |cultural_activity| %>
               <a href="<%= cultural_activity.link %>" target="_blank" class="decoration-none">
                 <div class="card-trip mb-3" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.8),rgba(0,0,0,0.1)), url(<%= cultural_activity.image %>);">
                   <p class="info p-3"><%= cultural_activity.name  %></p>
-
-                  <!-- <img src=<%= cultural_activity.image%> class="rounded-circle" alt="Cultural activity image" style="width:200px; height:200px;"> -->
+                  <% cultural_activity.rating.to_i.times do %>
+                    <i class="fa-solid fa-star text-info"></i>
+                  <% end %> </p>
                 </div>
               </a>
               <% end %>
@@ -123,13 +125,16 @@
           <% end %>
 
           <h4>Historic</h4>
-          <% if @trip.activities.where(kind: 'historic').present? %>
+          <% historic = @trip.activities.where("kinds @> ?", '{historic}') %>
+          <% if historic.present? %>
             <div class="trips-cards">
-              <% @trip.activities.where(kind:'historic').first(6).each do |historic_activity| %>
+              <% historic.first(6).each do |historic_activity| %>
               <a href="<%= historic_activity.link %>" target="_blank" class="decoration-none">
                 <div class="card-trip mb-3" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.8),rgba(0,0,0,0.1)), url(<%= historic_activity.image %>);">
                   <p class="info p-3"><%= historic_activity.name  %></p>
-                <!-- <img src=<%= historic_activity.image%> class="rounded-circle" alt="historic activity image" style="width:200px; height:200px;"> -->
+                  <% historic_activity.rating.to_i.times do %>
+                    <i class="fa-solid fa-star text-info"></i>
+                  <% end %> </p>
                 </div>
               </a>
               <% end %>
@@ -139,13 +144,17 @@
           <% end %>
 
           <h4>Foods</h4>
-          <% if @trip.activities.where(kind: 'foods').present? %>
+          <% foods = @trip.activities.where("kinds @> ?", '{foods}') %>
+          <% if foods.present? %>
             <div class="trips-cards">
-              <% @trip.activities.where(kind: 'foods').first(6).each do |food_activity| %>
+
+              <% foods.first(6).each do |food_activity| %>
               <a href="<%= food_activity.link %>" target="_blank" class="decoration-none">
                 <div class="card-trip mb-3" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.8),rgba(0,0,0,0.1)), url(<%= food_activity.image %>);">
                 <p class="info p-3"><%= food_activity.name  %></p>
-                <!-- <img src=<%= food_activity.image%> class="rounded-circle" alt="Cultural activity image" style="width:200px; height:200px;"> -->
+                <% food_activity.rating.to_i.times do %>
+                  <i class="fa-solid fa-star text-info"></i>
+                <% end %> </p>
                 </div>
               </a>
               <% end %>

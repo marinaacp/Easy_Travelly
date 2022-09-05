@@ -14,7 +14,7 @@ class TripsController < ApplicationController
 
   def create_hotels
     @hotels.each do |hotel|
-      hotel_sample = %w[hotel hotels bed beds hostel room building]
+      hotel_sample = %w[hotel hotels bed beds hostel room building pillow cozy travel]
       url = "https://source.unsplash.com/200x200/?#{hotel_sample.sample}"
       img_url = Nokogiri::HTML.parse(Net::HTTP.get(URI.parse(url))).children.children.children[1].attributes['href'].value
 
@@ -38,18 +38,35 @@ class TripsController < ApplicationController
 
   def create_flights
     @flights.each do |flight|
+      # Checa se existe bagagem
+      # Numero de bagagens. Como a class era p ter uma p/ cada
+      if flight.slices[0]["segments"][0]['passengers'][0]['baggages'].empty?
+        departure_baggage = 0
+      else
+        departure_baggage = flight.slices[0]["segments"][0]['passengers'][0]['baggages'][0]['quantity']
+      end
+
+      if flight.slices[1]["segments"][0]['passengers'][0]['baggages'].empty?
+        return_baggage = 0
+      else
+        return_baggage = flight.slices[1]["segments"][0]['passengers'][0]['baggages'][0]['quantity']
+      end
+
       Flight.create(
         trip: @trip,
-        reservation_number: flight.id, # numero da reserva
-        price: flight.total_amount, # valor total com .tax_amount
+        reservation_number: flight.id, # Numero da reserva
+        price: flight.total_amount, # Valor total com .tax_amount
         currency: flight.total_currency, # moeda do valor total (tax_amount tem sua própria currency. Em geral é a mesma)
         emissions: flight.total_emissions_kg, # total emissão ida e volta
         # ida
         departure_start_time: flight.slices[0]["segments"][0]['departing_at'], # hora inicio da viagem
         departure_end_time: flight.slices[0]["segments"][0]['arriving_at'], # hora fim da viagem
-        departure_class: flight.slices[0]["segments"][0]['passengers'][0]['cabin_class'], # classe da viagem ("first", "business", "premium_economy", or "economy")
-        # em tese cabin_class tem uma p/ cada passageiro. aqui estou pegando só uma p todos eles. Mesma logica para baggage
-        departure_baggage: flight.slices[0]["segments"][0]['passengers'][0]['baggages'][0]['quantity'], #numero de bagagens. Como a class era p ter uma p/ cada
+        # classe da viagem ("first", "business", "premium_economy", or "economy")
+        departure_class: flight.slices[0]["segments"][0]['passengers'][0]['cabin_class'],
+        # Em tese cabin_class tem uma p/ cada passageiro. aqui estou pegando só uma p todos eles.
+        # Mesma logica para baggage
+        departure_baggage: departure_baggage,
+
         departure_airline: flight.slices[0]["segments"][0]["operating_carrier"]["name"], # companhia aérea
         logo_departure_airline: flight.slices[0]["segments"][0]["operating_carrier"]["logo_symbol_url"], # logo companhia aérea
         # aircraft_departure_airline: flight.slices[0]["segments"][0]['aircraft']['name'], # avião da ida
@@ -64,7 +81,7 @@ class TripsController < ApplicationController
         return_end_time: flight.slices[1]["segments"][0]['arriving_at'], # hora fim da viagem
         return_class: flight.slices[1]["segments"][0]['passengers'][0]['cabin_class'], # classe da viagem ("first", "business", "premium_economy", or "economy")
         # em tese cabin_class tem uma p/ cada passageiro. aqui estou pegando só uma p todos eles. Mesma logica para baggage
-        return_baggage: flight.slices[1]["segments"][0]['passengers'][0]['baggages'][0]['quantity'], # numero de bagagens. Como a class era p ter uma p/ cada
+        return_baggage: return_baggage, # numero de bagagens. Como a class era p ter uma p/ cada
         return_airline: flight.slices[1]["segments"][0]["operating_carrier"]["name"], # companhia aérea
         logo_return_airline: flight.slices[1]["segments"][0]["operating_carrier"]["logo_symbol_url"], # logo companhia aérea
         # aircraft_return_airline: flight.slices[1]["segments"][0]['aircraft']['name'], # avião da volta
@@ -72,7 +89,7 @@ class TripsController < ApplicationController
         airport_return_departure: flight.slices[1]['segments'][0]['origin']['name'], # aeroporto da cidade de saída
         # terminal_return_departure: flight.slices[1]["segments"][0]["origin_terminal"], # terminal do aeroportode saída
         return_arrival: flight.slices[1]["segments"][0]["destination"]['city_name'], # cidade de chegada
-        airport_return_arrival: flight.slices[1]['segments'][0]['destination']['name'], # aeroporto da cidade de chegada
+        airport_return_arrival: flight.slices[1]['segments'][0]['destination']['name'] # aeroporto da cidade de chegada
         # terminal_return_arrival: flight.slices[1]["segments"][0]["destination_terminal"] # terminal do aeroporto de chegada
       )
     end
@@ -110,21 +127,23 @@ class TripsController < ApplicationController
       @flights = search_flights(@trip, @destination_city, @departure_city)
       if @hotels && @flights
         @trip.save
-        create_hotels
-        create_flights
-        create_bookings
-        create_activities
+        if create_hotels && create_flights && create_bookings && create_activities
 
-        url = "https://source.unsplash.com/200x200/?#{@destination_city}"
-        img_url = Nokogiri::HTML.parse(Net::HTTP.get(URI.parse(url))).children.children.children[1].attributes['href'].value
+          url = "https://source.unsplash.com/200x200/?#{@destination_city}"
+          img_url = Nokogiri::HTML.parse(Net::HTTP.get(URI.parse(url))).children.children.children[1].attributes['href'].value
 
-        @trip.update(
-          budgetHotel: @trip.rooms * @trip.booking.hotel.price,
-          budgetFlight: @trip.booking.flight.price,
-          image_url: img_url || url
-        )
+          @trip.update(
+            budgetHotel: @trip.rooms * @trip.booking.hotel.price,
+            budgetFlight: @trip.booking.flight.price,
+            image_url: img_url || url
+          )
 
-        redirect_to @trip
+          redirect_to @trip
+        else
+          @trip.destroy
+          @trip = Trip.new
+          render :new
+        end
       else
         @trip.budget_error
         render :new
