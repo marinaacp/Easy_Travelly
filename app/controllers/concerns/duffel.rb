@@ -12,7 +12,7 @@ module Duffel
     )
 
     # Getting IATA CODE for Destination city
-    url = URI("https://api.duffel.com/places/suggestions?query=#{destination_city.split("-")[0]}")
+    url = URI("https://api.duffel.com/places/suggestions?query=#{destination_city.split('-')[0]}")
 
     https = Net::HTTP.new(url.host, url.port)
     https.use_ssl = true
@@ -29,7 +29,7 @@ module Duffel
     ############################################################################
 
     # Getting IATA CODE for Departure city
-    url = URI("https://api.duffel.com/places/suggestions?query=#{departure_city.split("-")[0]}")
+    url = URI("https://api.duffel.com/places/suggestions?query=#{departure_city.split('-')[0]}")
 
     https = Net::HTTP.new(url.host, url.port)
     https.use_ssl = true
