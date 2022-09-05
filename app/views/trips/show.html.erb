@@ -36,9 +36,9 @@
                 <i class="fa-solid fa-star text-info"> </i>
               <% end %> </p>
             <% else %>
-              <p><i class="fa-solid fa-key fs-4"></i> This is the hotel you created!</p>
+              </p><small><p><i class="fa-solid fa-key"></i> This is the hotel you created!</p></small>
             <% end %>
-            <%= @trip.booking.flight.departure_departure %>
+            <%# <%= @trip.booking.flight.departure_departure %>
             <p> <i class="fa-solid fa-plane-departure fs-4"></i> <%= @trip.booking.flight.departure_departure %> / <%= @trip.booking.flight.departure_arrival %></p>
             <p> <i class="fa-solid fa-person fs-4"></i> <%= @trip.adults %> adult<small>(s)</small></p>
             <hr>

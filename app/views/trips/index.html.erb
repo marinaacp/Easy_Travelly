@@ -10,7 +10,7 @@
 
         <div class="card-trip mb-3" style="background-image: linear-gradient(to bottom, rgba(245, 246, 252, 0.52), rgba(117, 19, 93, 0.73)), url(<%= trip.image_url %>);">
           <div class="d-flex p-2 bg-light card-trip-top">
-            <small class="flex-grow-1"><i class="fa-solid fa-hand-holding-dollar"></i> Budget: <%= trip.budget %> <%= trip.id  %> </small>
+            <small class="flex-grow-1"><i class="fa-solid fa-hand-holding-dollar"></i> Budget: <%= trip.budget %> <i class="fa-solid fa-euro-sign"></i></small>
             <%= link_to edit_booking_path(trip.booking), class:'mx-1' do %>
               <i class="fa-solid fa-square-pen btn-outline-blue fs-5 opacity-100"></i>
             <% end %>

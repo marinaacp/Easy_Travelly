@@ -36,8 +36,8 @@ module Opentrip
       latitude = response['lat']
       longitude = response['lon']
 
-      # Get 70 activities (Historic | Cultural); Only rates above 2 (scale 1 to 3)
-      url = URI("https://api.opentripmap.com/0.1/en/places/radius?lon=#{longitude}&lat=#{latitude}&radius=10000&kinds=cultural%2Chistoric&rate=2&limit=70&apikey=#{ENV['OPENTRIP_KEY']}")
+      # Get 30 activities (Historic | Cultural); Only rates above 2 (scale 1 to 3)
+      url = URI("https://api.opentripmap.com/0.1/en/places/radius?lon=#{longitude}&lat=#{latitude}&radius=10000&kinds=cultural%2Chistoric&rate=2&limit=30&apikey=#{ENV['OPENTRIP_KEY']}")
 
       https = Net::HTTP.new(url.host, url.port)
       https.use_ssl = true
@@ -77,8 +77,8 @@ module Opentrip
         end
       end
 
-      # Get 20 places for FOODS
-      url = URI("https://api.opentripmap.com/0.1/en/places/radius?lon=#{longitude}&lat=#{latitude}&radius=10000&kinds=foods&limit=20&apikey=#{ENV['OPENTRIP_KEY']}")
+      # Get 8 places for FOODS
+      url = URI("https://api.opentripmap.com/0.1/en/places/radius?lon=#{longitude}&lat=#{latitude}&radius=10000&kinds=foods&limit=8&apikey=#{ENV['OPENTRIP_KEY']}")
 
       https = Net::HTTP.new(url.host, url.port)
       https.use_ssl = true

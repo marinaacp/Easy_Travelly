@@ -25,7 +25,11 @@ module Duffel
 
     response = https.request(request)
     response = JSON.parse(response.read_body)
-    destination_iata_code = response['data'][0]['iata_code']
+    if response['data'].empty?
+      destination_iata_code = trip.destination
+    else
+      destination_iata_code = response['data'][0]['iata_code']
+    end
     ############################################################################
 
     # Getting IATA CODE for Departure city
@@ -42,7 +46,11 @@ module Duffel
 
     response = https.request(request)
     response = JSON.parse(response.read_body)
-    departure_iata_code = response['data'][0]['iata_code']
+    if response['data'].empty?
+      departure_iata_code = trip.location
+    else
+      departure_iata_code = response['data'][0]['iata_code']
+    end
     ############################################################################
 
     offer_request = client.offer_requests.create(params: {
@@ -60,7 +68,7 @@ module Duffel
           }
         ],
       passengers: Array.new(trip.adults, { "type": "adult" }),
-      cabin_class: "business",
+      cabin_class: "economy",
       max_connections: 0
     })
 
