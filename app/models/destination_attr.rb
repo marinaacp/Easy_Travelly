@@ -5,5 +5,6 @@ class DestinationAttr < ApplicationRecord
     d[destination_complete] = destination.city_code
   end
 
-  DESTINATION = d.freeze
+  DESTINATION = d
+  # (.freeze)
 end
