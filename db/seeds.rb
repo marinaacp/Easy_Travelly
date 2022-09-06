@@ -28,10 +28,10 @@ require 'digest'
 
 # To fetch all destinations from the API 7 requests have to be made
 # Fetching only the contries bellow:
-countrycodes = ['ES', 'BR', 'FR', 'UK', 'PT', 'AR', 'IT', 'DE']
+countrycodes = ['US', 'ES', 'BR', 'FR', 'UK', 'PT', 'AR', 'IT', 'DE']
 
 countrycodes.each do |code|
-  url = URI("https://api.test.hotelbeds.com/hotel-content-api/1.0/locations/destinations?fields=countryCode, name&countryCodes=#{code}&language=ENG&from=1001&to=1797&useSecondaryLanguage=false")
+  url = URI("https://api.test.hotelbeds.com/hotel-content-api/1.0/locations/destinations?fields=countryCode, name&countryCodes=#{code}&language=ENG&from=1&to=1000&useSecondaryLanguage=false")
 
   https = Net::HTTP.new(url.host, url.port)
   https.use_ssl = true
@@ -39,7 +39,7 @@ countrycodes.each do |code|
   request["Api-key"] = ENV['API_KEY']
   string = ENV['API_KEY'] + ENV['API_SECRET'] + Time.now.to_i.to_s
   hash = Digest::SHA256.hexdigest(string)
-  request["X-Signature"] = hash
+  request["X-Signature"] = hash 
   request["Accept"] = "application/json"
   response = https.request(request)
   response = JSON.parse(response.read_body)
