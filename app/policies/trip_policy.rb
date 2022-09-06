@@ -2,7 +2,7 @@ class TripPolicy < ApplicationPolicy
   class Scope < Scope
     # NOTE: Be explicit about which records you allow access to!
     def resolve
-      scope.where(user: user)
+      scope.where(user: user).where.not(booking: nil).order(:id)
     end
   end
 
@@ -19,6 +19,10 @@ class TripPolicy < ApplicationPolicy
   end
 
   def destroy?
+    owner?
+  end
+
+  def update?
     owner?
   end
 

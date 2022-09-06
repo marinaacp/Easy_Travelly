@@ -1,7 +1,9 @@
 .cards-hotels {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-gap: 16px;
+  grid-gap: 32px;
+  position:relative;
+  padding-bottom: 80px;
 }
 
 @media(max-width: 992px) {

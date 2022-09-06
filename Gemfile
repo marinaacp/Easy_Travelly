@@ -82,3 +82,5 @@ gem 'devise'
 gem 'autoprefixer-rails', '10.2.5'
 gem "font-awesome-sass", "~> 6.1"
 gem 'simple_form', github: 'heartcombo/simple_form'
+
+gem "select2-rails"

@@ -20,6 +20,30 @@
   }
 }
 
+.btn-pink-backwards {
+  background-color: transparent;
+  color: $pink;
+  border: 1px solid $pink;
+
+  &:hover {
+    background-color: $pink;
+    color: black;
+    border: 1px solid $pink;
+  }
+}
+
+.btn-gray {
+  background-color: transparent;
+  color: $middle-gray;
+  border: 1px solid $middle-gray;
+
+  &:hover {
+    background-color: $middle-gray;
+    color: black;
+    border: 1px solid $middle-gray;
+  }
+}
+
 .btn-outline-pink {
   color: $pink;
   text-decoration: none;
@@ -34,7 +58,7 @@
   text-decoration: none;
 
   &:hover {
-    opacity: 0.7;
+    color: $dark-aqua;
   }
 }
 
@@ -52,4 +76,29 @@
 .btn-none {
   text-decoration: none;
   color: $body-color;
+}
+
+
+.input-box {
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+}
+
+.btn-white {
+  color: white;
+  text-decoration: none;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.btn-corner {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
 }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_19_112528) do
+ActiveRecord::Schema.define(version: 2022_09_05_163504) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,18 @@ ActiveRecord::Schema.define(version: 2022_08_19_112528) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "activities", force: :cascade do |t|
+    t.string "name"
+    t.string "link"
+    t.string "image"
+    t.bigint "trip_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.text "kinds", array: true
+    t.string "rating"
+    t.index ["trip_id"], name: "index_activities_on_trip_id"
+  end
+
   create_table "bookings", force: :cascade do |t|
     t.bigint "trip_id", null: false
     t.bigint "hotel_id", null: false
@@ -54,16 +66,37 @@ ActiveRecord::Schema.define(version: 2022_08_19_112528) do
     t.index ["trip_id"], name: "index_bookings_on_trip_id"
   end
 
+  create_table "countries", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "destination_attrs", force: :cascade do |t|
+    t.string "city_name"
+    t.string "country_name"
+    t.string "city_code"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "country_code"
+  end
+
+  create_table "destinations", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.bigint "country_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["country_id"], name: "index_destinations_on_country_id"
+  end
+
   create_table "flights", force: :cascade do |t|
     t.string "reservation_number"
-    t.date "departure_departure"
     t.string "airport_departure_departure"
-    t.date "departure_arrival"
     t.string "airport_departure_arrival"
     t.string "departure_airline"
-    t.date "return_departure"
     t.string "airport_return_departure"
-    t.date "return_arrival"
     t.string "airport_return_arrival"
     t.string "return_airline"
     t.float "price"
@@ -71,6 +104,21 @@ ActiveRecord::Schema.define(version: 2022_08_19_112528) do
     t.bigint "trip_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "emissions"
+    t.datetime "departure_start_time"
+    t.datetime "departure_end_time"
+    t.string "departure_class"
+    t.integer "departure_baggage"
+    t.string "logo_departure_airline"
+    t.datetime "return_start_time"
+    t.datetime "return_end_time"
+    t.string "return_class"
+    t.integer "return_baggage"
+    t.string "logo_return_airline"
+    t.string "departure_departure"
+    t.string "departure_arrival"
+    t.string "return_departure"
+    t.string "return_arrival"
     t.index ["trip_id"], name: "index_flights_on_trip_id"
   end
 
@@ -85,6 +133,11 @@ ActiveRecord::Schema.define(version: 2022_08_19_112528) do
     t.string "currency"
     t.string "category"
     t.string "zone_name"
+    t.float "rate"
+    t.integer "reviewCount"
+    t.float "latitude"
+    t.float "longitude"
+    t.string "image_url"
     t.index ["trip_id"], name: "index_hotels_on_trip_id"
   end
 
@@ -102,7 +155,10 @@ ActiveRecord::Schema.define(version: 2022_08_19_112528) do
     t.bigint "user_id", null: false
     t.string "name"
     t.integer "rooms"
-    t.integer "children"
+    t.float "budgetHotel"
+    t.float "budgetFlight"
+    t.string "budgetCurrency"
+    t.string "image_url"
     t.index ["user_id"], name: "index_trips_on_user_id"
   end
 
@@ -122,9 +178,11 @@ ActiveRecord::Schema.define(version: 2022_08_19_112528) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "activities", "trips"
   add_foreign_key "bookings", "flights"
   add_foreign_key "bookings", "hotels"
   add_foreign_key "bookings", "trips"
+  add_foreign_key "destinations", "countries"
   add_foreign_key "flights", "trips"
   add_foreign_key "hotels", "trips"
   add_foreign_key "trips", "users"

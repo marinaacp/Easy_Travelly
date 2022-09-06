@@ -1,7 +1,7 @@
 require "uri"
 require "json"
 require "net/http"
-require 'digest'
+require "digest"
 
 module Apitude
   def list_hotels(trip)
@@ -26,19 +26,27 @@ module Apitude
         {
           "rooms": trip.rooms,
           "adults": trip.adults,
-          "children": trip.children
+          "children": 0
         }
       ],
       "destination": {
         "code": trip.destination
       },
       "filter": {
-        "maxRate": trip.budget * trip.photel / 100
-      }
+        "maxRate": trip.budget * trip.photel / 100,
+        "maxHotels": 8
+      },
+      "reviews": [
+        {
+            "type": "TRIPADVISOR",
+            "maxRate": 5,
+            "minRate": 1,
+            "minReviewCount": 3
+        }
+      ]
     })
 
     response = https.request(request)
-
     response = JSON.parse(response.read_body)
 
     if response['error']
@@ -47,8 +55,6 @@ module Apitude
     end
 
     response = response['hotels']['hotels']
-    return response[0..7] if response.count >= 8
-
     return response
   end
 end
