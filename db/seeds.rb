@@ -76,7 +76,7 @@ cities.each_with_index do |city, index|
   DestinationAttr.create(
           city_name: city,
           country_name: countries[index],
-          city_code: cities_code[index],
+          city_code: cities_codes[index],
           country_code: countries_codes[index]
         )
 end
