@@ -188,7 +188,7 @@
       <hr>
 
       <div class="col-12 text-center my-2">
-        <h3 class="text-center">Activities in <%= Destination.find_by_code(@trip.destination).name %> <i class="fa-regular fa-compass text-info"></i></h3>
+        <h3 class="text-center">Activities in <%= @city %> <i class="fa-regular fa-compass text-info"></i></h3>
         <% if @trip.activities.present? %>
           <% cultural = @trip.activities.where("kinds @> ?", '{cultural}') %>
           <% if cultural.present? %>

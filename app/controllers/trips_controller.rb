@@ -174,7 +174,7 @@ class TripsController < ApplicationController
   end
 
   def show
-    @city = Destination.find_by_code(@trip.destination).name
+    @city = DestinationAttr.find_by_city_code(@trip.destination).city_name
   end
 
   def destroy

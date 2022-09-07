@@ -1,0 +1,7 @@
+# config/meta.yml
+
+meta_product_name: "EasyTravelly"
+meta_title: "EasyTravelly - Travel without worries"
+meta_description: "EasyTravelly is a solution to optimize your travel planning and help people to get the most out of there trips!"
+meta_image: "woman_in_paris.jpg" # should exist in `app/assets/images/`
+twitter_account: "@product_twitter_account"   # required for Twitter Cards
