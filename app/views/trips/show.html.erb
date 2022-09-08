@@ -55,25 +55,27 @@
           <tbody>
             <tr>
               <td>Total Budget</td>
-              <td class="text-end"> <strong><%= @trip.budget.round(2) %> <i class="fa-solid fa-euro-sign"></i></strong></td>
+              <td class="text-end"> <strong><%= @trip.budget.round(2) %> <i class="fa-solid fa-<%=@trip.budgetCurrency%>-sign"></i></strong></td>
             </tr>
             <tr>
               <td>Hotel</td>
-              <td class="text-end"><i class="fa-solid fa-minus"></i><%= @trip.budgetHotel.round(2) %> <i class="fa-solid fa-euro-sign"></i></i></td>
+
+              <td class="text-end"><i class="fa-solid fa-minus"></i><%= @trip.budgetHotel.round(2) %> <i class="fa-solid fa-<%=@trip.budgetCurrency%>-sign"></i></td>
             </tr>
             <tr class="border-bottom border-dark">
               <td>Flight</td>
-              <td class="text-end"><i class="fa-solid fa-minus"></i><%= @trip.budgetFlight.round(2) %> <i class="fa-solid fa-euro-sign"></i></i></td>
+
+              <td class="text-end"><i class="fa-solid fa-minus"></i><%= @trip.budgetFlight.round(2) %> <i class="fa-solid fa-<%=@trip.budgetCurrency%>-sign"></i></td>
             </tr>
             <tr>
               <td>Budget left</td>
               <% budget_left = (@trip.budget - @trip.budgetFlight - @trip.budgetHotel).round(2) %>
               <% days_left = (@trip.end_date - @trip.start_date).to_i %>
-              <td class="text-end"><%= budget_left %> <i class="fa-solid fa-euro-sign"></i></td>
+              <td class="text-end"><%= budget_left %> <i class="fa-solid fa-<%=@trip.budgetCurrency%>-sign"></i></td>
             </tr>
             <tr>
               <td class="text-warning">Budget left (per/day)</td>
-              <td class="text-warning text-end"><i class="fa-solid fa-calendar-plus"></i> <%= (budget_left/days_left).round(2) %> <i class="fa-solid fa-euro-sign"></i> </td>
+              <td class="text-warning text-end"><i class="fa-solid fa-calendar-plus"></i> <%= (budget_left/days_left).round(2) %> <i class="fa-solid fa-<%=@trip.budgetCurrency%>-sign"></i> </td>
             </tr>
           </tbody>
         </table>

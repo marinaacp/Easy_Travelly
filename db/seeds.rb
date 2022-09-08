@@ -67,7 +67,7 @@ end
 ###############################################################################
 
 # Populating some Destinations
-cities = ['New York City - NYC', 'Los Angeles', 'Boston' , 'Rio de Janeiro', 'Belo Horizonte', 'Sao Paulo', 'Curitiba', 'Brasilia', 'Porto Alegre', 'Fortaleza' , 'Manaus', 'Paris', 'Barcelona', 'Madrid', 'London']
+cities = ['New York City - NYC', 'Los Angeles', 'Boston', 'Rio de Janeiro', 'Belo Horizonte', 'Sao Paulo', 'Curitiba', 'Brasilia', 'Porto Alegre', 'Fortaleza' , 'Manaus', 'Paris', 'Barcelona', 'Madrid', 'London']
 cities_codes = %w[NYC LAX BOS RIO BHZ SAO CUR BSB POO FTZ MNA PAR BCN MAD LON]
 countries = ["United States", "United States", "United States", "Brazil", "Brazil", "Brazil", "Brazil", "Brazil", "Brazil", "Brazil", "Brazil", "France", "Spain", "Spain", "United Kingdom"]
 countries_codes = %w[US US US BR BR BR BR BR BR BR BR FR ES ES UK]

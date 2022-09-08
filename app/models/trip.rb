@@ -1,7 +1,10 @@
 class Trip < ApplicationRecord
   include Apitude
 
-  CURRENCY = %w[EUR USD].freeze
+  CURRENCY = {
+    'Euro(€)': 'euro',
+    'U.S. Dollar(USD)': 'dollar',
+    'Brazilian Real(R$)': 'brazilian-real'}
   DESTINATIONS = {
     MAD: 'Madri',
     PAR: 'Paris',
@@ -20,6 +23,10 @@ class Trip < ApplicationRecord
 
   def budget_error
     errors.add(:budget, message: 'must be higher')
+  end
+
+  def generic_error
+    errors.add(:name, message: 'Trip not created')
   end
 
   def end_date_after_start_date

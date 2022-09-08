@@ -142,6 +142,7 @@ class TripsController < ApplicationController
         else
           @trip.destroy
           @trip = Trip.new
+          @trip.generic_error
           render :new
         end
       else
