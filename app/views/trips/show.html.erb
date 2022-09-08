@@ -42,7 +42,8 @@
             <p> <i class="fa-solid fa-plane-departure fs-4"></i> <%= @trip.booking.flight.departure_departure %> / <%= @trip.booking.flight.departure_arrival %></p>
             <p> <i class="fa-solid fa-person fs-4"></i> <%= @trip.adults %> adult<small>(s)</small></p>
             <hr>
-            <p><i class="fa-solid fa-calendar-day fs-4"></i> <%= @trip.start_date.strftime('%d/%b/%Y') %><i class="fa-solid fa-arrow-right"></i> <%= @trip.end_date.strftime('%d/%b/%Y')  %> </p>
+            <p class="mb-0"><i class="fa-solid fa-calendar-day fs-4"></i> <%= @trip.start_date.strftime('%d/%b/%Y') %><i class="fa-solid fa-arrow-right"></i> <%= @trip.end_date.strftime('%d/%b/%Y') %></p>
+            <small><p class="m-0"><%= (@trip.end_date - @trip.start_date).to_i %> day(s)</p></small>
           </div>
         </div>
         <%= link_to "Back", :back, class:'btn btn-pink mb-3' %>
@@ -55,23 +56,24 @@
           <tbody>
             <tr>
               <td>Total Budget</td>
-              <td class="text-end"> <strong><%= @trip.budget.round(2) %> <i class="fa-solid fa-<%=@trip.budgetCurrency%>-sign"></i></strong></td>
+              <% total_budget = Trip::EXCHANGE[@trip.budgetCurrency.to_sym] * @trip.budget %>
+              <td class="text-end"> <strong><%= total_budget.round(2) %> <i class="fa-solid fa-<%=@trip.budgetCurrency%>-sign"></i></strong></td>
             </tr>
             <tr>
               <td>Hotel</td>
-
-              <td class="text-end"><i class="fa-solid fa-minus"></i><%= @trip.budgetHotel.round(2) %> <i class="fa-solid fa-<%=@trip.budgetCurrency%>-sign"></i></td>
+              <% hotel_budget = Trip::EXCHANGE[@trip.budgetCurrency.to_sym] * @trip.budgetHotel %>
+              <td class="text-end"><i class="fa-solid fa-minus"></i><%= hotel_budget.round(2) %> <i class="fa-solid fa-<%=@trip.budgetCurrency%>-sign"></i></td>
             </tr>
             <tr class="border-bottom border-dark">
               <td>Flight</td>
-
-              <td class="text-end"><i class="fa-solid fa-minus"></i><%= @trip.budgetFlight.round(2) %> <i class="fa-solid fa-<%=@trip.budgetCurrency%>-sign"></i></td>
+              <% flight_budget = @trip.budgetFlight %>
+              <td class="text-end"><i class="fa-solid fa-minus"></i><%= flight_budget.round(2) %> <i class="fa-solid fa-<%=@trip.budgetCurrency%>-sign"></i></td>
             </tr>
             <tr>
               <td>Budget left</td>
-              <% budget_left = (@trip.budget - @trip.budgetFlight - @trip.budgetHotel).round(2) %>
+              <% budget_left = ((@trip.budget - @trip.budgetHotel) * Trip::EXCHANGE[@trip.budgetCurrency.to_sym] - @trip.budgetFlight) %>
               <% days_left = (@trip.end_date - @trip.start_date).to_i %>
-              <td class="text-end"><%= budget_left %> <i class="fa-solid fa-<%=@trip.budgetCurrency%>-sign"></i></td>
+              <td class="text-end"><%= budget_left.round(2) %> <i class="fa-solid fa-<%=@trip.budgetCurrency%>-sign"></i></td>
             </tr>
             <tr>
               <td class="text-warning">Budget left (per/day)</td>

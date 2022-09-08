@@ -1,5 +1,5 @@
 <div class="container my-5">
-  <h3> Edit <em><%= @booking.trip.name %></em></h3>
+  <h3> Edit <em class="text-info"><%= @booking.trip.name %></em> | <i class="fa-solid fa-calendar-day fs-4"></i> <%= @booking.trip.start_date.strftime('%d/%b/%Y') %><i class="fa-solid fa-arrow-right"></i> <%= @booking.trip.end_date.strftime('%d/%b/%Y') %> </h3>
   <hr>
   <%= form_with url: @booking, method: :put do |form| %>
     <div class="cards-hotels my-3">
@@ -22,7 +22,7 @@
               <p class="m-0"><small>This is the hotel you created!</small></p>
               <i class="fa-solid fa-key text-info"></i>
             <% end %>
-            <div class="border-top fs-5"><%= hotel.price %> <i class="fa-solid fa-euro-sign"></i></div>
+            <div class="border-top fs-5"><%= (Trip::EXCHANGE[hotel.trip.budgetCurrency.to_sym] * hotel.price).round(2) %> <i class="fa-solid fa-<%=@booking.trip.budgetCurrency%>-sign"></i></div>
           </label>
       <% end %>
       <div class="btn-corner">
@@ -69,7 +69,7 @@
                   </div>
                 </div>
                 <div class="border-top fs-5">
-                  <%= flight.price %> <i class="fa-solid fa-euro-sign"></i>
+                  <%= (flight.price).round(2) %> <i class="fa-solid fa-<%=@booking.trip.budgetCurrency%>-sign"></i>
                 </div>
               </div>
             </label>
@@ -104,7 +104,7 @@
                   </div>
                 </div>
                 <div class="border-top fs-5">
-                  <%= flight.price %> <i class="fa-solid fa-euro-sign"></i>
+                  <%= flight.price %> <i class="fa-solid fa-<%=@booking.trip.budgetCurrency%>-sign"></i>
                 </div>
               </div>
             </label>

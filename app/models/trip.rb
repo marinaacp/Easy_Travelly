@@ -2,13 +2,14 @@ class Trip < ApplicationRecord
   include Apitude
 
   CURRENCY = {
-    'Euro(€)': 'euro',
-    'U.S. Dollar(USD)': 'dollar',
-    'Brazilian Real(R$)': 'brazilian-real'}
-  DESTINATIONS = {
-    MAD: 'Madri',
-    PAR: 'Paris',
-    LON: 'London'
+    'Euro (€)': 'euro',
+    'U.S. Dollar (USD)': 'dollar',
+    'Brazilian Real (R$)': 'brazilian-real'
+  }
+  EXCHANGE = {
+    euro: 1,
+    dollar: 1,
+    'brazilian-real': 5.22
   }
 
   belongs_to :user

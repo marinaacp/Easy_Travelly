@@ -109,14 +109,6 @@ class TripsController < ApplicationController
     @activities = search_activities(@trip, @destination_city, @destination_country_code)
   end
 
-  # def currency_usd
-  #   # Money.ca_dollar(100).exchange_to("USD")  # => Money.from_cents(80, "USD")
-  #   if Booking.hotel[:currency] == 'EUR'
-  #     Money.euro(Booking.hotel[:price]).exchange_to("USD")
-  #     Booking.hotel[:currency] = "USD"
-  #   end
-  # end
-
   def create
     @trip = Trip.new(trip_params)
     @trip.user = current_user
