@@ -90,7 +90,8 @@ countries = ["Italy", "Italy", 'Portugal', 'Switzerland', 'Switzerland', 'Greece
 countries_codes = %w[IT IT PT CH CH GR BE IE DK NL AT HU]
 
 cities.each_with_index do |city, index|
-  DestinationAttr.create(
+  puts "creating #{city}"
+  DestinationAttr.create!(
           city_name: city,
           country_name: countries[index],
           city_code: cities_codes[index],
