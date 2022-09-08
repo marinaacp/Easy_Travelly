@@ -36,7 +36,7 @@
 
           <div class="d-flex flex-direction-row justify-content-between row">
             <div class="input-box col">
-              <%= f.label 'Number of adults:' %>
+              <%= f.label 'Number of adults' %>
               <div class="d-flex flex-direction-row mt-2">
                 <div class="input-group-prepend">
                     <button type="button" class="btn btn-primary btn-sm" id="minus-btn-left"><i class="fa fa-minus"></i></button>
@@ -51,7 +51,7 @@
             </div>
 
             <div class="input-box col">
-              <%= f.label 'Number of rooms:' %>
+              <%= f.label 'Number of rooms' %>
               <div class="d-flex flex-direction-row mt-2">
                 <div class="input-group-prepend">
                     <button type="button" class="btn btn-primary btn-sm" id="minus-btn-left-2"><i class="fa fa-minus"></i></button>
@@ -68,27 +68,29 @@
 
           <div class="d-flex flex-direction-row justify-content-between row">
             <div class="input-box col">
-              <%= f.label 'Max budget in euros:' %>
+              <%= f.label 'Max budget' %>
               <div class="d-flex flex-direction-row mt-2">
                 <div class="input-group-prepend">
                     <button type="button" class="btn btn-primary" id="minus-budget-btn-left"><i class="fa fa-minus"></i></button>
                 </div>
                 <div class="w-100 d-flex">
                   <div class="input-group-prepend">
-                      <span class="input-group-text box-money">€</span>
+                      <%# <span class="input-group-text box-money">€</span> %>
                     </div>
-                    <%= f.input :budget, placeholder: '1000', label: false,
-                              input_html: {
-                                id: "qty_input_hundred",
-                                class: "quantity form-control form-control",
-                                min: "1000",
-                                max: "1000000",
-                                value: "1000",
-                                type: "number"
-                                } %>
-                    <div class="input-group-append">
+                    <div class="w-100">
+                      <%= f.input :budget, placeholder: '1000', label: false,
+                                input_html: {
+                                  id: "qty_input_hundred",
+                                  class: "quantity form-control form-control w-100",
+                                  min: "1000",
+                                  max: "1000000",
+                                  value: "1000",
+                                  type: "number"
+                                  } %>
+                    </div>
+                    <%# <div class="input-group-append">
                       <span class="input-group-text box-money">.00</span>
-                    </div>
+                    </div> %>
                   </div>
                 <div class="input-group-prepend">
                     <button type="button"
@@ -98,6 +100,9 @@
               </div>
             </div>
           </div>
+
+          <%= f.input :budgetCurrency, placeholder: '€', collection: Trip::CURRENCY  %>
+
 
           <%= f.submit "Send", class: "btn btn-blue mt-4" %>
         <% end %>
