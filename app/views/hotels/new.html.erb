@@ -9,27 +9,29 @@
         <%= f.input :name, label:'Hotel name' %>
         <div class="d-flex flex-direction-row justify-content-between">
           <div class="input-box col">
-            <%= f.label 'Total price in euros:' %>
+            <%= f.label 'Total price:' %>
             <div class="d-flex flex-direction-row mt-2">
               <div class="input-group-prepend">
                 <button type="button" class="btn btn-primary" id="minus-btn-left-3"><i class="fa fa-minus"></i></button>
               </div>
             <div class="w-100 d-flex">
               <div class="input-group-prepend">
-                  <span class="input-group-text box-money">€</span>
+                  <%# <span class="input-group-text box-money">€</span> %>
                 </div>
-                <%= f.input :price, placeholder: '10', label: false,
-                                          input_html: {
-                                            id: "qty_input_ten",
-                                            class: "quantity form-control form-control",
-                                            min: "10",
-                                            max: "1000000",
-                                            value: "10",
-                                            type: "number"
-                                            } %>
-                <div class="input-group-append">
+                <div class="w-100">
+                  <%= f.input :price, placeholder: '10', label: false,
+                                            input_html: {
+                                              id: "qty_input_ten",
+                                              class: "quantity form-control form-control",
+                                              min: "10",
+                                              max: "1000000",
+                                              value: "10",
+                                              type: "number"
+                                              } %>
+                </div>
+                <%# <div class="input-group-append">
                   <span class="input-group-text box-money">.00</span>
-                </div>
+                </div> %>
               </div>
               <div class="input-group-prepend">
                   <button type="button"
