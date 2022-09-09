@@ -36,8 +36,8 @@ module Opentrip
       latitude = response['lat']
       longitude = response['lon']
 
-      # Get 30 activities (Historic | Cultural); Only rates above 2 (scale 1 to 3)
-      url = URI("https://api.opentripmap.com/0.1/en/places/radius?lon=#{longitude}&lat=#{latitude}&radius=10000&kinds=cultural%2Chistoric&rate=2&limit=30&apikey=#{ENV['OPENTRIP_KEY']}")
+      # Get 12 activities (Historic | Cultural); Only rates above 2 (scale 1 to 3)
+      url = URI("https://api.opentripmap.com/0.1/en/places/radius?lon=#{longitude}&lat=#{latitude}&radius=10000&kinds=cultural%2Chistoric&rate=2&limit=12&apikey=#{ENV['OPENTRIP_KEY']}")
 
       https = Net::HTTP.new(url.host, url.port)
       https.use_ssl = true
@@ -59,11 +59,11 @@ module Opentrip
         response = https.request(request)
         response = JSON.parse(response.read_body)
         if response['preview'].present? || response['url'].present?
-          food = %w[restaurant food chef kitchen cafe pub bar restaurants eat drink]
+          random = %w[travel building museum travellers city]
           if response['preview'].present?
             image_url = response['preview']['source']
           else
-            url = "https://source.unsplash.com/500x500/?#{food.sample}"
+            url = "https://source.unsplash.com/500x500/?#{random.sample}"
             image_url = Nokogiri::HTML.parse(Net::HTTP.get(URI.parse(url))).children.children.children[1].attributes['href'].value
           end
           Activity.create(
