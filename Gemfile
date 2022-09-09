@@ -83,4 +83,9 @@ gem 'autoprefixer-rails', '10.2.5'
 gem "font-awesome-sass", "~> 6.1"
 gem 'simple_form', github: 'heartcombo/simple_form'
 
+# Frontend select input in forms
 gem "select2-rails"
+
+# Background jobs
+gem 'sidekiq'
+gem 'sidekiq-failures', '~> 1.0'

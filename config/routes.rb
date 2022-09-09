@@ -7,4 +7,10 @@ Rails.application.routes.draw do
     resources :hotels, only: %i[new create]
     resources :flights, only: %i[new create]
   end
+
+  # Sidekiq Web UI, only for admins.
+  require "sidekiq/web"
+  authenticate :user, ->(user) { user.admin? } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
 end
