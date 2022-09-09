@@ -13,9 +13,9 @@ class TripsController < ApplicationController
   end
 
   def create_hotels
-    @hotels.each do |hotel|
-      hotel_sample = %w[hotel hotels bed beds hostel room building pillow cozy travel]
-      url = "https://source.unsplash.com/200x200/?#{hotel_sample.sample}"
+    @hotels.each_with_index do |hotel, index|
+      hotel_sample = %w[hotel bed hotels hostel room building pillow cozy]
+      url = "https://source.unsplash.com/200x200/?#{hotel_sample[index]}"
       img_url = Nokogiri::HTML.parse(Net::HTTP.get(URI.parse(url))).children.children.children[1].attributes['href'].value
 
       Hotel.create(
@@ -111,6 +111,8 @@ class TripsController < ApplicationController
 
   def create
     @trip = Trip.new(trip_params)
+    # Adjustes the budget to euro
+    @trip.budget = @trip.budget / 5.22 if @trip.budgetCurrency == 'brazilian-real'
     @trip.user = current_user
     if @trip.valid?
       @hotels = hotels(@trip)
