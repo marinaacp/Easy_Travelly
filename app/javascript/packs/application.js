@@ -12,13 +12,7 @@ import "bootstrap"
 import "@fortawesome/fontawesome-free/css/all"
 import 'jquery'
 
-
 import { createClient } from '@supabase/supabase-js'
-
-const supabaseUrl = 'https://yatjcrlwedlymsfwwaiz.supabase.co'
-const supabaseKey = process.env.SUPABASE_KEY
-const supabase = createClient(supabaseUrl, supabaseKey)
-
 
 Rails.start()
 Turbolinks.start()
@@ -37,3 +31,7 @@ document.addEventListener("turbolinks:load", function() {
 import AOS from 'aos';
 // ..
 AOS.init();
+
+const supabaseUrl = 'https://yatjcrlwedlymsfwwaiz.supabase.co'
+const supabaseKey = process.env.SUPABASE_KEY
+const supabase = createClient(supabaseUrl, supabaseKey)
